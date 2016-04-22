@@ -1,6 +1,8 @@
 #ifndef ENTITY2D_H_INCLUDED
 #define ENTITY2D_H_INCLUDED
 
+#include <iostream>
+
 class Entity2D
 {
 public :
@@ -11,10 +13,15 @@ public :
     double getR() const {return _r;}
 
     void move(double x, double y);
+    void updatePosition();
 
 protected:
     double _x, _y, _r;
     double _lastX, _lastY;
+    double _ax, _ay;
+    double _dt;
+
+    bool _static;
 };
 
 #endif // ENTITY2D_H_INCLUDED

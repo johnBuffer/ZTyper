@@ -1,6 +1,7 @@
 #include "PhyManager.h"
 
 #include <cmath>
+#include <iostream>
 
 PhyManager::PhyManager()
 {
@@ -10,9 +11,10 @@ PhyManager::PhyManager()
 // manage entities collisions
 void PhyManager::update()
 {
-    double coeff = 1.0;
+    double coeff = 0.3;
 
     int entitiesCount = _entities.size();
+
     for (int i(0); i<entitiesCount; ++i)
     {
         Entity2D* entity1 = _entities[i];
@@ -46,9 +48,14 @@ void PhyManager::update()
             }
         }
     }
+
+    for (Entity2D* &e : _entities)
+    {
+        e->updatePosition();
+    }
 }
 
-void PhyManager::addEntity(Entity2D* &entity)
+void PhyManager::addEntity(Entity2D* entity)
 {
     _entities.push_back(entity);
 }

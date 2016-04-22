@@ -13,16 +13,28 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="C:/lib/SFML-2.3.2/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="C:\lib\SFML-2.3.2\lib\libsfml-graphics.a" />
+					<Add library="C:\lib\SFML-2.3.2\lib\libsfml-window.a" />
+					<Add library="C:\lib\SFML-2.3.2\lib\libsfml-system.a" />
+					<Add directory="C:/lib/SFML-2.3.2/lib" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Entity2D.cpp" />
+		<Unit filename="Entity2D.h" />
+		<Unit filename="GameEngine.h" />
+		<Unit filename="PhyManager.cpp" />
+		<Unit filename="PhyManager.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="phyUtils.cpp" />
+		<Unit filename="phyUtils.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

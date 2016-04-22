@@ -1,11 +1,18 @@
 # depslib dependency file v1.0
-1461362827 source:c:\users\jean\documents\github\ztyper\main.cpp
+1461367196 source:c:\users\jean\documents\github\ztyper\entity2d.cpp
+	"Entity2D.h"
+
+1461366655 c:\users\jean\documents\github\ztyper\entity2d.h
+	<iostream>
+
+1461367200 source:c:\users\jean\documents\github\ztyper\main.cpp
 	<cmath>
 	<stdlib.h>
 	<ctime>
 	<iostream>
 	<SFML/Graphics.hpp>
 	"PhyManager.h"
+	"GameEngine.h"
 
 1429780453 c:\lib\sfml-2.3.2\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -385,18 +392,33 @@
 	<string>
 	<vector>
 
-1461362415 source:c:\users\jean\documents\github\ztyper\entity2d.cpp
-	"Entity2D.h"
-
-1461362402 c:\users\jean\documents\github\ztyper\entity2d.h
-
-1461362598 source:c:\users\jean\documents\github\ztyper\phymanager.cpp
-	"PhyManager.h"
-
-1461362598 c:\users\jean\documents\github\ztyper\phymanager.h
+1461365055 c:\users\jean\documents\github\ztyper\phymanager.h
 	<vector>
 	"Entity2D.h"
 
 1461362801 source:c:\users\jean\documents\github\ztyper\phyutils.cpp
 	<cmath>
+
+1461366331 source:c:\users\jean\documents\github\ztyper\gameengine.cpp
+	"GameEngine.h"
+	<iostream>
+
+1461364978 c:\users\jean\documents\github\ztyper\gameengine.h
+	<SFML/Graphics.hpp>
+	"PhyManager.h"
+	"Zombie.h"
+
+1461367336 source:c:\users\jean\documents\github\ztyper\phymanager.cpp
+	"PhyManager.h"
+	<cmath>
+	<iostream>
+
+1461367314 source:c:\users\jean\documents\github\ztyper\zombie.cpp
+	"Zombie.h"
+	<cmath>
+
+1461366622 c:\users\jean\documents\github\ztyper\zombie.h
+	"Entity2D.h"
+	<string>
+	<iostream>
 

@@ -5,15 +5,22 @@
 #include <SFML/Graphics.hpp>
 
 #include "PhyManager.h"
+#include "GameEngine.h"
 
 int main()
 {
-    int w_window = 750;
-    int h_window = 500;
+    int windowWidth = 750;
+    int windowHeight = 500;
+
     sf::ContextSettings settings;
     settings.antialiasingLevel = 4;
-    sf::RenderWindow window(sf::VideoMode(w_window, h_window), "UnitedEngine", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "ZTyper", sf::Style::Default, settings);
     window.setVerticalSyncEnabled(true);
+
+    GameEngine gameEngine;
+
+    for (int i(0); i<100; i++)
+        gameEngine.addZombie(rand()%windowWidth, rand()%50, 20);
 
     while (window.isOpen())
     {
@@ -32,8 +39,11 @@ int main()
 			}
         }
 
+        gameEngine.update();
 
         window.clear();
+
+        gameEngine.draw(&window);
 
         window.display();
 

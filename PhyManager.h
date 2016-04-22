@@ -11,7 +11,7 @@ public:
 
     void update();
 
-    void addEntity(Entity2D* &entity);
+    void addEntity(Entity2D* entity);
 
 private:
     double _dt;
