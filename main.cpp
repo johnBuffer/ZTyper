@@ -4,9 +4,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "U_2DCollisionManager.h"
-#include "U_2DOperators.h"
-
 int main()
 {
     int w_window = 750;
@@ -28,8 +25,13 @@ int main()
 				case sf::Event::KeyPressed:
 				{
 					if (event.key.code == sf::Keyboard::Escape) window.close();
+                    break;
+				}
+				default:
+                    break;
+			}
+        }
 
-				}break;
 
         window.clear();
 
