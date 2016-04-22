@@ -1,0 +1,9 @@
+#ifndef GAMEENGINE_H_INCLUDED
+#define GAMEENGINE_H_INCLUDED
+
+class GameEngine
+{
+
+};
+
+#endif // GAMEENGINE_H_INCLUDED

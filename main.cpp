@@ -4,6 +4,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+#include "PhyManager.h"
+
 int main()
 {
     int w_window = 750;
@@ -15,8 +17,6 @@ int main()
 
     while (window.isOpen())
     {
-        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-
         sf::Event event;
         while (window.pollEvent(event))
         {
