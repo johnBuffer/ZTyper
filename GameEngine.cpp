@@ -6,6 +6,8 @@
 GameEngine::GameEngine()
 {
     _phyManager = PhyManager();
+    _waves = 0;
+    _waveDelay = rand()%2;
 
     loadDico("dico.txt");
 }
@@ -29,6 +31,16 @@ void GameEngine::loadDico(std::string filename)
 
 void GameEngine::update()
 {
+    if (_waveClock.getElapsedTime().asSeconds() >= _waveDelay)
+    {
+        _waves++;
+        int strength = 1;
+        addZombie(strength, rand()%750, -strength*2, _players[0]);
+        _waveDelay = rand()%2+1;
+
+        _waveClock.restart();
+    }
+
     _wordZombiesMap.clear();
 
     auto zombies = _gameWorld.getZombies();
