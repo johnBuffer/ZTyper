@@ -23,6 +23,7 @@ void GameEngine::loadDico(std::string filename)
     while (std::getline(file, str))
     {
         _dico.push_back(str);
+        _wordLengthMap[str.size()].push_back(str);
     }
 }
 
@@ -51,8 +52,8 @@ void GameEngine::update()
 
 void GameEngine::addZombie(int strength, double x, double y, Entity2D* target)
 {
-    int n_words = _dico.size();
-    std::string word = _dico[rand()%n_words];
+    int n_words = _wordLengthMap[strength].size();
+    std::string word = _wordLengthMap[strength][rand()%n_words];
     Zombie* newZombie = new Zombie(word, x, y, 7*word.size());
     newZombie->setTarget(target);
 
@@ -81,6 +82,10 @@ void GameEngine::shoot(char c)
             Bullet* newBullet = new Bullet(_players[0]->getX(), _players[0]->getY(), _players[0]->getTarget());
             _gameWorld.addBullet(newBullet);
             _players[0]->getTarget()->move(0, -5);
+        }
+        else
+        {
+            _gameWorld.shotMissed();
         }
     }
     else if (validChar(c))

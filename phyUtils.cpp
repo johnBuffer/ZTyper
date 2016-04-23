@@ -1,4 +1,17 @@
 #include <cmath>
+#include <sstream>
+
+
+std::string numberToString(double d)
+{
+    std::string s;
+    std::ostringstream sstr;
+
+    sstr << d;
+    s = sstr.str();
+
+    return s;
+}
 
 double dist2(double x1, double y1, double x2, double y2)
 {

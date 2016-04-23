@@ -8,9 +8,10 @@ class Bullet : public Entity2D
 public:
     Bullet(double x, double y, Entity2D* target);
 
-    void update();
-
     bool isTargetReached() const {return _targetReached;}
+    double getVx() const {return _vx;}
+    double getVy() const {return _vy;}
+    void update();
 
 private:
     double _vx, _vy, _speed;

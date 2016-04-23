@@ -1,7 +1,4 @@
 à
-à
-à
-abandonner
 abandonner
 abandonne
 abandonnes
@@ -1074,8 +1071,6 @@ augmenté
 augmentée
 augmentés
 augmentées
-aujourd'hui
-aujourd'hui
 auprès
 auprès
 auquel
@@ -1425,7 +1420,6 @@ ce
 ce
 cet
 cette
-c'
 ces
 ceci
 ceci
@@ -2509,7 +2503,6 @@ davantage
 davantage
 de
 de
-d'
 début
 début
 décembre
@@ -5071,9 +5064,7 @@ jardin
 jardins
 je
 je
-j'
 me
-m'
 moi
 jeter
 jeter
@@ -5225,7 +5216,7 @@ jus
 jus
 jusque
 jusque
-jusqu'
+jusqu
 juste
 juste
 justes
@@ -5329,7 +5320,7 @@ larges
 le
 le
 la
-l'
+l
 les
 lent
 lent
@@ -5594,7 +5585,7 @@ lors
 lors
 lorsque
 lorsque
-lorsqu'
+lorsqu
 lourd
 lourd
 lourde
@@ -6141,7 +6132,7 @@ naturelle
 naturelles
 ne
 ne
-n'
+n
 nécessaire
 nécessaire
 nécessaires
@@ -8075,7 +8066,7 @@ quatre
 quatre
 que
 que
-qu'
+qu
 quel
 quel
 quelle
@@ -8084,7 +8075,7 @@ quelles
 quelque
 quelque
 quelques
-quelqu'
+quelqu
 question
 question
 questions
@@ -9505,7 +9496,7 @@ scientifique
 scientifiques
 se
 se
-s'
+s
 sec
 secs
 sèche
@@ -10634,7 +10625,7 @@ tu
 toi
 tu
 te
-t'
+t
 tuer
 tuer
 tue

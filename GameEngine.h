@@ -28,6 +28,8 @@ private:
     std::vector<Player*> _players;
     std::map<char, std::list<Zombie*> > _wordZombiesMap;
 
+    std::map<int, std::vector<std::string> > _wordLengthMap;
+
     std::vector<std::string> _dico;
 };
 

@@ -4,13 +4,14 @@ Bullet::Bullet(double x, double y, Entity2D* target) :
     Entity2D(x, y, 2),
     _targetReached(false)
 {
-    _vx = target->getX()-_x;
-    _vy = target->getY()-_y;
+    _vx = target->getX()+rand()%20-10-_x;
+    _vy = target->getY()+rand()%20-10-_y;
+
     _distToTarget = sqrt(_vx*_vx+_vy*_vy);
     _vx /= _distToTarget;
     _vy /= _distToTarget;
 
-    _speed = 50;
+    _speed = 25;
     _distFromOrigin = 0;
 }
 

@@ -3,6 +3,8 @@
 
 #include "Entity2D.h"
 
+#include <SFML/Graphics.hpp>
+
 class Explosion : public Entity2D
 {
 public:
@@ -13,6 +15,8 @@ public:
 
     double getXp(int i) const {return _xp[i];}
     double getYp(int i) const {return _yp[i];}
+
+    void draw(sf::RenderTarget* renderer);
 
     bool getStatus() const {return _status;}
 
