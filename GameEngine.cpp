@@ -30,8 +30,6 @@ void GameEngine::update()
 {
     _wordZombiesMap.clear();
 
-    _gameWorld.update();
-
     auto zombies = _gameWorld.getZombies();
     for (Zombie* &zomb : zombies)
     {
@@ -45,6 +43,8 @@ void GameEngine::update()
             _wordZombiesMap[zomb->getWord()[0]].push_back(zomb);
         }
     }
+
+    _gameWorld.update();
 
     _phyManager.update();
 }
