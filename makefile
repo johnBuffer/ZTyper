@@ -1,4 +1,5 @@
-all: 
+all: main.o PhyManager.o phyUtils.o Bullet.o Entity2D.o Explosion.o GameEngine.o Player.o Zombie.o GameWorld.o
+	g++ ./obj/main.o ./obj/PhyManager.o ./obj/phyUtils.o ./obj/Bullet.o ./obj/Entity2D.o ./obj/Explosion.o ./obj/GameEngine.o ./obj/Player.o ./obj/Zombie.o ./obj/GameWorld.o -o ./bin/ZTyper -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio 
 
 main.o: main.cpp
 	g++ -Wall -O2 -std=c++11 -c ./main.cpp -o ./obj/main.o
@@ -27,8 +28,26 @@ Player.o: Player.cpp
 Zombie.o: Zombie.cpp
 	g++ -Wall -O2 -std=c++11 -c ./Zombie.cpp -o ./obj/Zombie.o
 
-all: main.o PhyManager.o phyUtils.o Bullet.o Entity2D.o Explosion.o GameEngine.o Player.o Zombie.o
-	g++ ./obj/main.o ./obj/PhyManager.o ./obj/phyUtils.o ./obj/Bullet.o ./obj/Entity2D.o ./obj/Explosion.o ./obj/GameEngine.o ./obj/Player.o ./obj/Zombie.o -o ./bin/ZTyper -lsfml-graphics -lsfml-window -lsfml-system
+GameWorld.o: GameWorld.cpp
+	g++ -Wall -O2 -std=c++11 -c ./GameWorld.cpp -o ./obj/GameWorld.o
+
+res: mainres.o ResourceManager.o Resource.o Sprite.o 
+	g++ ./obj/mainres.o ./obj/ResourceManager.o ./obj/Resource.o ./obj/Sprite.o -o ./bin/mainres -lsfml-graphics -lsfml-window -lsfml-system
+
+mainres.o: main.cpp
+	g++ -Wall -O2 -std=c++11 -c ./mainres.cpp -o ./obj/mainres.o
+
+ResourceManager.o: ResourceManager.cpp
+	g++ -Wall -O2 -std=c++11 -c ./ResourceManager.cpp -o ./obj/ResourceManager.o
+
+json.o: jsoncpp.cpp
+	g++ -Wall -O2 -std=c++11 -c ./jsoncpp.cpp -o ./obj/json.o
+
+Resource.o: Resource.cpp
+	g++ -Wall -O2 -std=c++11 -c ./Resource.cpp -o ./obj/Resource.o
+
+Sprite.o: Sprite.cpp
+	g++ -Wall -O2 -std=c++11 -c ./Sprite.cpp -o ./obj/Sprite.o
 
 clean:
 	rm ./obj/*.o
