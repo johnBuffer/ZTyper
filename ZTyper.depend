@@ -1,14 +1,14 @@
 # depslib dependency file v1.0
-1461410727 source:c:\users\jean\documents\github\ztyper\entity2d.cpp
+1461429993 source:c:\users\jean\documents\github\ztyper\entity2d.cpp
 	"Entity2D.h"
 	<cmath>
 
-1461413688 c:\users\jean\documents\github\ztyper\entity2d.h
+1461429993 c:\users\jean\documents\github\ztyper\entity2d.h
 	<iostream>
 	<cmath>
 	<cstdlib>
 
-1461417071 source:c:\users\jean\documents\github\ztyper\main.cpp
+1461439178 source:c:\users\jean\documents\github\ztyper\main.cpp
 	<cmath>
 	<stdlib.h>
 	<ctime>
@@ -395,58 +395,174 @@
 	<string>
 	<vector>
 
-1461410727 c:\users\jean\documents\github\ztyper\phymanager.h
+1461429993 c:\users\jean\documents\github\ztyper\phymanager.h
 	<vector>
 	"Entity2D.h"
 
-1461410727 source:c:\users\jean\documents\github\ztyper\phyutils.cpp
+1461434190 source:c:\users\jean\documents\github\ztyper\phyutils.cpp
 	<cmath>
+	<sstream>
 
-1461427242 source:c:\users\jean\documents\github\ztyper\gameengine.cpp
+1461438237 source:c:\users\jean\documents\github\ztyper\gameengine.cpp
 	"GameEngine.h"
 	<iostream>
 	<fstream>
 
-1461417599 c:\users\jean\documents\github\ztyper\gameengine.h
+1461438084 c:\users\jean\documents\github\ztyper\gameengine.h
+	"GameWorld.h"
+	<map>
+
+1461429993 source:c:\users\jean\documents\github\ztyper\phymanager.cpp
+	"PhyManager.h"
+	<cmath>
+	<iostream>
+
+1461435635 source:c:\users\jean\documents\github\ztyper\zombie.cpp
+	"Zombie.h"
+
+1461429993 c:\users\jean\documents\github\ztyper\zombie.h
+	"Entity2D.h"
+	<string>
+	<iostream>
+
+1461435980 c:\users\jean\documents\github\ztyper\player.h
+	"Entity2D.h"
+	"Zombie.h"
+
+1461436308 source:c:\users\jean\documents\github\ztyper\player.cpp
+	"Player.h"
+	<cmath>
+
+1461433554 source:c:\users\jean\documents\github\ztyper\bullet.cpp
+	"Bullet.h"
+
+1461432972 c:\users\jean\documents\github\ztyper\bullet.h
+	"Entity2D.h"
+
+1461439089 source:c:\users\jean\documents\github\ztyper\explosion.cpp
+	"Explosion.h"
+
+1461438718 c:\users\jean\documents\github\ztyper\explosion.h
+	"Entity2D.h"
 	<SFML/Graphics.hpp>
+
+1461437564 c:\users\jean\documents\github\ztyper\gameworld.h
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
 	<list>
 	"PhyManager.h"
 	"Zombie.h"
 	"Player.h"
 	"Bullet.h"
 	"Explosion.h"
-	<map>
+	"phyUtils.h"
 
-1461410727 source:c:\users\jean\documents\github\ztyper\phymanager.cpp
-	"PhyManager.h"
-	<cmath>
+1461439016 source:c:\users\jean\documents\github\ztyper\gameworld.cpp
+	"GameWorld.h"
 	<iostream>
 
-1461417011 source:c:\users\jean\documents\github\ztyper\zombie.cpp
-	"Zombie.h"
+1429780453 c:\lib\sfml-2.3.2\include\sfml\audio.hpp
+	<SFML/System.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/Audio/Listener.hpp>
+	<SFML/Audio/Music.hpp>
+	<SFML/Audio/OutputSoundFile.hpp>
+	<SFML/Audio/Sound.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundBufferRecorder.hpp>
+	<SFML/Audio/SoundFileFactory.hpp>
+	<SFML/Audio/SoundFileReader.hpp>
+	<SFML/Audio/SoundFileWriter.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/Audio/SoundStream.hpp>
 
-1461416954 c:\users\jean\documents\github\ztyper\zombie.h
-	"Entity2D.h"
+1429780453 c:\lib\sfml-2.3.2\include\sfml\audio\inputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
 	<string>
-	<iostream>
 
-1461427148 c:\users\jean\documents\github\ztyper\player.h
-	"Entity2D.h"
-	"Zombie.h"
+1429780453 c:\lib\sfml-2.3.2\include\sfml\audio\export.hpp
+	<SFML/Config.hpp>
 
-1461427118 source:c:\users\jean\documents\github\ztyper\player.cpp
-	"Player.h"
-	<cmath>
+1429780453 c:\lib\sfml-2.3.2\include\sfml\audio\listener.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/Vector3.hpp>
 
-1461415364 source:c:\users\jean\documents\github\ztyper\bullet.cpp
-	"Bullet.h"
+1436034025 c:\lib\sfml-2.3.2\include\sfml\audio\music.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundStream.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
 
-1461411693 c:\users\jean\documents\github\ztyper\bullet.h
-	"Entity2D.h"
+1429780453 c:\lib\sfml-2.3.2\include\sfml\audio\soundstream.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Mutex.hpp>
+	<cstdlib>
 
-1461426505 source:c:\users\jean\documents\github\ztyper\explosion.cpp
-	"Explosion.h"
+1429780453 c:\lib\sfml-2.3.2\include\sfml\audio\soundsource.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Vector3.hpp>
 
-1461414656 c:\users\jean\documents\github\ztyper\explosion.h
-	"Entity2D.h"
+1429780453 c:\lib\sfml-2.3.2\include\sfml\audio\alresource.hpp
+	<SFML/Audio/Export.hpp>
+
+1429780453 c:\lib\sfml-2.3.2\include\sfml\audio\outputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<string>
+
+1429780453 c:\lib\sfml-2.3.2\include\sfml\audio\sound.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Time.hpp>
+	<cstdlib>
+
+1429780453 c:\lib\sfml-2.3.2\include\sfml\audio\soundbuffer.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+	<set>
+
+1429780453 c:\lib\sfml-2.3.2\include\sfml\audio\soundbufferrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<vector>
+
+1436034025 c:\lib\sfml-2.3.2\include\sfml\audio\soundrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<vector>
+	<string>
+
+1429780453 c:\lib\sfml-2.3.2\include\sfml\audio\soundfilefactory.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+	<vector>
+	<SFML/Audio/SoundFileFactory.inl>
+
+1429780453 c:\lib\sfml-2.3.2\include\sfml\audio\soundfilefactory.inl
+
+1429780453 c:\lib\sfml-2.3.2\include\sfml\audio\soundfilereader.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+
+1429780453 c:\lib\sfml-2.3.2\include\sfml\audio\soundfilewriter.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+
+1461434178 c:\users\jean\documents\github\ztyper\phyutils.h
 

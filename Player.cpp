@@ -7,7 +7,12 @@ Player::Player(double x, double y) :
     _target(NULL),
     _angle(-3.14159/2.0)
 {
-
+    _score = 0;
+    _combo = 0;
+    _accuracy = 0;
+    _hit = 0;
+    _total = 0;
+    _recoil = 0;
 }
 
 bool Player::shoot(char c)
@@ -22,17 +27,24 @@ bool Player::shoot(char c)
     {
         _combo++;
         _score++;
+        _hit++;
+        _recoil = 20;
     }
     else
     {
         _combo = 0;
     }
+    _total++;
+
+    _accuracy = (_hit+1)/(_total+1.0);
 
     return hit;
 }
 
 void Player::update()
 {
+    _recoil += -_recoil/10.0;
+
     if (!_target)
         return;
 
