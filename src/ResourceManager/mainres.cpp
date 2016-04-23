@@ -1,7 +1,7 @@
 #include <stdlib.h>
-#include "json/json.h"
-#include "ResourceManager.h"
-#include "Sprite.h"
+#include "../../json/json.h"
+#include "../../includes/ResourceManager/ResourceManager.h"
+#include "../../includes/ResourceManager/Sprite.h"
 
 
 int main()

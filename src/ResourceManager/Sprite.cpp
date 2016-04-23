@@ -1,4 +1,4 @@
-#include "Sprite.h"
+#include "../../includes/ResourceManager/Sprite.h"
 
 #include <iostream>
 

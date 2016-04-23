@@ -1,4 +1,4 @@
-#include "Zombie.h"
+#include "../../includes/GameEngine/Zombie.h"
 
 Zombie::Zombie(std::string word, double x, double y, double r) :
     Entity2D(x, y, r),

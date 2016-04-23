@@ -1,4 +1,4 @@
-#include "GameEngine.h"
+#include "../../includes/GameEngine/GameEngine.h"
 
 #include <iostream>
 #include <fstream>
@@ -9,7 +9,7 @@ GameEngine::GameEngine()
     _waves = 0;
     _waveDelay = rand()%2;
 
-    loadDico("dico.txt");
+    loadDico("resources/texts/dico.txt");
 }
 
 void GameEngine::loadDico(std::string filename)

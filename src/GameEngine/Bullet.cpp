@@ -1,4 +1,4 @@
-#include "Bullet.h"
+#include "../../includes/GameEngine/Bullet.h"
 
 Bullet::Bullet(double x, double y, Entity2D* target) :
     Entity2D(x, y, 2),

@@ -4,8 +4,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "PhyManager.h"
-#include "GameEngine.h"
+#include "../includes/GameEngine/PhyManager.h"
+#include "../includes/GameEngine/GameEngine.h"
 
 int main()
 {

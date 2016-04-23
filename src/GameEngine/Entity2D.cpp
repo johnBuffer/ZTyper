@@ -1,4 +1,4 @@
-#include "Entity2D.h"
+#include "../../includes/GameEngine/Entity2D.h"
 #include <cmath>
 
 Entity2D::Entity2D(double x, double y, double r) :

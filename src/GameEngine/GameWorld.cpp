@@ -1,10 +1,10 @@
-#include "GameWorld.h"
+#include "../../includes/GameEngine/GameWorld.h"
 
 #include <iostream>
 
 GameWorld::GameWorld()
 {
-    _font.loadFromFile("font.ttf");
+    _font.loadFromFile("resources/fonts/font.ttf");
     _zombieText.setFont(_font);
 
     _scoreText = _zombieText;
@@ -13,18 +13,18 @@ GameWorld::GameWorld()
 
     _zombieText.setCharacterSize(20);
     _zombieText.setColor(sf::Color::Black);
-    _blood.loadFromFile("blood.png");
+    _blood.loadFromFile("resources/textures/blood.png");
     _ground.create(750, 700);
     _ground.clear(sf::Color::Black);
 
     _soundBuffers.resize(10);
 
-    _soundBuffers[0].loadFromFile("fire1.ogg");
-    _soundBuffers[1].loadFromFile("fire2.ogg");
-    _soundBuffers[2].loadFromFile("fire3.ogg");
-    _soundBuffers[3].loadFromFile("click.wav");
-    _soundBuffers[4].loadFromFile("plaf.wav");
-    _soundBuffers[5].loadFromFile("plaf2.wav");
+    _soundBuffers[0].loadFromFile("resources/sounds/fire1.ogg");
+    _soundBuffers[1].loadFromFile("resources/sounds/fire2.ogg");
+    _soundBuffers[2].loadFromFile("resources/sounds/fire3.ogg");
+    _soundBuffers[3].loadFromFile("resources/sounds/click.wav");
+    _soundBuffers[4].loadFromFile("resources/sounds/plaf.wav");
+    _soundBuffers[5].loadFromFile("resources/sounds/plaf2.wav");
 }
 
 void GameWorld::update()

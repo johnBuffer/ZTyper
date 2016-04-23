@@ -1,4 +1,4 @@
-#include "Resource.h"
+#include "../../includes/ResourceManager/Resource.h"
 
 #include <iostream>
 
@@ -15,7 +15,7 @@ Resource::~Resource()
 	std::cout << "Delete Resource." << std::endl;
 }
 
-bool Resource::loadAll(){ 
+bool Resource::loadAll(){
 	std::cout << "Resource::loadAll()." << std::endl;
-	return true; 
+	return true;
 };
