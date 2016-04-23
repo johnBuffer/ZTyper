@@ -12,10 +12,23 @@ Player::Player(double x, double y) :
 
 bool Player::shoot(char c)
 {
+    bool hit = false;
     if (!_target)
-        return false;
+        return hit;
 
-    return _target->shootNextLetter(c);
+    hit = _target->shootNextLetter(c);
+
+    if (hit)
+    {
+        _combo++;
+        _score++;
+    }
+    else
+    {
+        _combo = 0;
+    }
+
+    return hit;
 }
 
 void Player::update()
@@ -26,7 +39,6 @@ void Player::update()
     if (!_target->getLife())
     {
         _target = NULL;
-        std::cout << "target down" << std::endl;
         return;
     }
 
@@ -38,5 +50,5 @@ void Player::update()
     double a = acos(vx/targetDist);
     if (vy < 0) a *= -1;
 
-    _angle += (a - _angle)/10.0;
+    _angle += (a - _angle)/5.0;
 }

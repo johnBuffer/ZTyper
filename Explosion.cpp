@@ -17,8 +17,8 @@ Explosion::Explosion(double x, double y, double r) :
         _yp[i] = _y;
 
         double v_particule = (rand()%2000)/2000.0;
-        _vx[i] = 5*cos(a_p)*(v_particule+1);
-        _vy[i] = 5*sin(a_p)*(v_particule+1);
+        _vx[i] = 10*cos(a_p)*(v_particule+1);
+        _vy[i] = 10*sin(a_p)*(v_particule+1);
     }
 
     for (int i(20); i<40; i++)
@@ -30,15 +30,15 @@ Explosion::Explosion(double x, double y, double r) :
         _yp[i] = _y;
 
         double v_particule = (rand()%2000)/2000.0;
-        _vx[i] = 20*cos(a_p)*(v_particule+1);
-        _vy[i] = 20*sin(a_p)*(v_particule+1);
+        _vx[i] = 80*cos(a_p)*(v_particule+1);
+        _vy[i] = 80*sin(a_p)*(v_particule+1);
     }
 }
 
 void Explosion::update()
 {
     double dt = 0.016;
-    _r -= 50*dt;
+    _r -= 70*dt;
 
     for (int i(0); i<40; i++)
     {

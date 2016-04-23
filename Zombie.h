@@ -24,7 +24,7 @@ public:
 
 private:
     Entity2D* _target;
-    double _targetDist;
+    double _targetDist, _speed;
     std::string _word;
 
 };

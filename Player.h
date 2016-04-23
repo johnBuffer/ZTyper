@@ -18,7 +18,7 @@ public:
 
 private:
     Zombie* _target;
-
+    double _score, _combo;
     double _angle;
 
 };
