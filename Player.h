@@ -11,6 +11,7 @@ public:
     void setTarget(Zombie* z) {_target = z;};
 
     double getAngle() const {return _angle;}
+    double getTargetDist() const {return _targetDist;}
     Zombie* getTarget() const {return _target;}
 
     bool shoot(char c);
@@ -18,8 +19,8 @@ public:
 
 private:
     Zombie* _target;
-
-    double _angle;
+    double _score, _combo;
+    double _angle, _targetDist;
 
 };
 

@@ -27,11 +27,21 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Bullet.cpp" />
+		<Unit filename="Bullet.h" />
 		<Unit filename="Entity2D.cpp" />
 		<Unit filename="Entity2D.h" />
+		<Unit filename="Explosion.cpp" />
+		<Unit filename="Explosion.h" />
+		<Unit filename="GameEngine.cpp" />
 		<Unit filename="GameEngine.h" />
+		<Unit filename="GameWorld.h" />
 		<Unit filename="PhyManager.cpp" />
 		<Unit filename="PhyManager.h" />
+		<Unit filename="Player.cpp" />
+		<Unit filename="Player.h" />
+		<Unit filename="Zombie.cpp" />
+		<Unit filename="Zombie.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="phyUtils.cpp" />
 		<Unit filename="phyUtils.h" />

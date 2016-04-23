@@ -37,10 +37,12 @@ private:
     std::vector<Player*> _players;
     std::map<char, std::list<Zombie*> > _wordZombiesMap;
 
+    std::vector<std::string> _dico;
+
     sf::Font _font;
     sf::Text _zombieText;
-
-    std::vector<std::string> _dico;
+    sf::RenderTexture _ground;
+    sf::Texture _blood;
 };
 
 #endif // GAMEENGINE_H_INCLUDED

@@ -5,7 +5,7 @@ Zombie::Zombie(std::string word, double x, double y, double r) :
     _target(NULL),
     _word(word)
 {
-
+    _speed = 2/double(word.size());
 }
 
 Zombie::~Zombie()
@@ -34,8 +34,8 @@ void Zombie::update()
 
     _targetDist = sqrt(vx*vx+vy*vy);
 
-    _x += 0.3*vx/_targetDist+0.0000001;
-    _y += 0.3*vy/_targetDist+0.0000001;
+    _x += _speed*vx/_targetDist+0.0000001;
+    _y += _speed*vy/_targetDist+0.0000001;
 
     _lastX = _x;
     _lastY = _y;

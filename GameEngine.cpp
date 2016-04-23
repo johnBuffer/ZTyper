@@ -13,6 +13,10 @@ GameEngine::GameEngine()
     _zombieText.setColor(sf::Color::Black);
 
     loadDico("dico.txt");
+
+    _blood.loadFromFile("blood.png");
+    _ground.create(750, 700);
+    _ground.clear(sf::Color::Black);
 }
 
 void GameEngine::loadDico(std::string filename)
@@ -41,17 +45,29 @@ void GameEngine::update()
         bullet->update();
         if (bullet->isTargetReached())
         {
-            _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), 20));
+            _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), 10));
         }
     }
 
-    for (Explosion &expl : _explosions) { expl.update(); }
+    for (Explosion &expl : _explosions)
+    {
+        expl.update();
+        //_ground.draw(explosionsShape);
+    }
 
     for (Zombie* &zomb : _zombies)
     {
         bool dead = !zomb->getLife();
         if (dead)
         {
+            sf::Sprite blood(_blood);
+            double w = blood.getGlobalBounds().width;
+            blood.setOrigin(16, 47);
+            blood.scale(2*zomb->getR()/w, 2*zomb->getR()/w);
+            blood.setRotation(rand()%360);
+            blood.setPosition(zomb->getX(), zomb->getY());
+            _ground.draw(blood);
+
             this->_phyManager.remove(zomb);
         }
         else
@@ -112,7 +128,6 @@ void GameEngine::findTarget(char c)
         std::list<Zombie*>& l = _wordZombiesMap[c];
         double minDist = -1;
 
-
         for (Zombie* &zomb : l)
         {
             double dist = _players[0]->getDistWith(*zomb);
@@ -122,10 +137,10 @@ void GameEngine::findTarget(char c)
                 closestZombie = zomb;
             }
         }
-    }
 
-    _players[0]->setTarget(closestZombie);
-    shoot(c);
+        _players[0]->setTarget(closestZombie);
+        shoot(c);
+    }
 }
 
 bool GameEngine::validChar(char c)
@@ -138,6 +153,14 @@ bool GameEngine::validChar(char c)
 
 void GameEngine::draw(sf::RenderTarget* renderer)
 {
+    sf::RectangleShape drying(sf::Vector2f(750, 700));
+    drying.setFillColor(sf::Color(0, 0, 0, 2));
+    //_ground.draw(drying);
+    _ground.display();
+
+    sf::Sprite ground(_ground.getTexture());
+    renderer->draw(ground);
+
     for (Bullet* &bullet : _bullets)
     {
         sf::Vector2f pos(bullet->getX(), bullet->getY());
@@ -146,6 +169,46 @@ void GameEngine::draw(sf::RenderTarget* renderer)
         bulletShape.setPosition(pos);
 
         renderer->draw(bulletShape);
+    }
+
+    for (Player* player : _players)
+    {
+        sf::Vector2f pos(player->getX(), player->getY());
+
+        sf::RectangleShape playerShape(sf::Vector2f(player->getR()*2, player->getR()*2));
+        playerShape.setOrigin(player->getR(), player->getR());
+        playerShape.setPosition(pos);
+
+        sf::RectangleShape weaponShape(sf::Vector2f(10, player->getR()*1.5));
+        weaponShape.setOrigin(5, player->getR()*1.5);
+        weaponShape.setPosition(pos);
+        weaponShape.setRotation(player->getAngle()*57.2958+90);
+        weaponShape.setFillColor(sf::Color(100, 100, 100));
+
+        if (player->getTarget())
+        {
+            double rTarget = player->getTarget()->getR()*1.1;
+            sf::Vector2f posTarget(player->getTarget()->getX(), player->getTarget()->getY());
+            sf::CircleShape targetShape(rTarget);
+            targetShape.setOrigin(rTarget, rTarget);
+            targetShape.setPosition(posTarget);
+            targetShape.setFillColor(sf::Color::Green);
+            renderer->draw(targetShape);
+
+            sf::VertexArray laser(sf::Lines, 2);
+            laser[0].position = pos;
+            laser[0].color = sf::Color::Green;
+
+            double targetDist = player->getTargetDist();
+            double angle = player->getAngle();
+            laser[1].position = sf::Vector2f(pos.x+targetDist*cos(angle), pos.y+targetDist*sin(angle));
+            laser[1].color= sf::Color(0, 255, 0, 0);
+
+            renderer->draw(laser);
+        }
+
+        renderer->draw(playerShape);
+        renderer->draw(weaponShape);
     }
 
     for (Zombie* &zomb : _zombies)
@@ -161,22 +224,6 @@ void GameEngine::draw(sf::RenderTarget* renderer)
 
         renderer->draw(zombieShape);
         renderer->draw(_zombieText);
-    }
-
-    for (Player* player : _players)
-    {
-        sf::RectangleShape playerShape(sf::Vector2f(player->getR()*2, player->getR()*2));
-        playerShape.setOrigin(player->getR(), player->getR());
-        playerShape.setPosition(player->getX(), player->getY());
-
-        sf::RectangleShape weaponShape(sf::Vector2f(10, player->getR()*1.5));
-        weaponShape.setOrigin(5, player->getR()*1.5);
-        weaponShape.setPosition(player->getX(), player->getY());
-        weaponShape.setRotation(player->getAngle()*57.2958+90);
-        weaponShape.setFillColor(sf::Color(100, 100, 100));
-
-        renderer->draw(playerShape);
-        renderer->draw(weaponShape);
     }
 
     double pi = 3.14159;
