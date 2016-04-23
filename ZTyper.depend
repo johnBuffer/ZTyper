@@ -8,7 +8,7 @@
 	<cmath>
 	<cstdlib>
 
-1461417071 source:c:\users\jean\documents\github\ztyper\main.cpp
+1461428175 source:c:\users\jean\documents\github\ztyper\main.cpp
 	<cmath>
 	<stdlib.h>
 	<ctime>
@@ -402,19 +402,13 @@
 1461410727 source:c:\users\jean\documents\github\ztyper\phyutils.cpp
 	<cmath>
 
-1461427242 source:c:\users\jean\documents\github\ztyper\gameengine.cpp
+1461429585 source:c:\users\jean\documents\github\ztyper\gameengine.cpp
 	"GameEngine.h"
 	<iostream>
 	<fstream>
 
-1461417599 c:\users\jean\documents\github\ztyper\gameengine.h
-	<SFML/Graphics.hpp>
-	<list>
-	"PhyManager.h"
-	"Zombie.h"
-	"Player.h"
-	"Bullet.h"
-	"Explosion.h"
+1461429366 c:\users\jean\documents\github\ztyper\gameengine.h
+	"GameWorld.h"
 	<map>
 
 1461410727 source:c:\users\jean\documents\github\ztyper\phymanager.cpp
@@ -449,4 +443,17 @@
 
 1461414656 c:\users\jean\documents\github\ztyper\explosion.h
 	"Entity2D.h"
+
+1461429282 c:\users\jean\documents\github\ztyper\gameworld.h
+	<SFML/Graphics.hpp>
+	<list>
+	"PhyManager.h"
+	"Zombie.h"
+	"Player.h"
+	"Bullet.h"
+	"Explosion.h"
+
+1461429672 source:c:\users\jean\documents\github\ztyper\gameworld.cpp
+	"GameWorld.h"
+	<iostream>
 

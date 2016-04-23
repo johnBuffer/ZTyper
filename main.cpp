@@ -23,7 +23,7 @@ int main()
 
     for (int i(0); i<100; i++)
     {
-        gameEngine.addZombie(0, rand()%windowWidth, -rand()%5000, rand()%10+10, player);
+        gameEngine.addZombie(0, rand()%windowWidth, -rand()%5000, player);
     }
 
     while (window.isOpen())
