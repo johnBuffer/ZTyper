@@ -9,14 +9,18 @@
 class Zombie : public Entity2D
 {
 public:
-    Zombie(double x, double y, double r);
-    void setTarget(Entity2D* target) {_target = target;}
+    Zombie(std::string word, double x, double y, double r);
 
+    ~Zombie();
+
+    void setTarget(Entity2D* target) {_target = target;}
+    bool shootNextLetter(char c);
     void update();
 
     Entity2D* getTarget() const {return _target;}
     double getTargetDist() const {return _targetDist;}
     int getLife() const {return _word.size();}
+    std::string getWord() const {return _word;}
 
 private:
     Entity2D* _target;

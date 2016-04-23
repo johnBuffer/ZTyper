@@ -1,4 +1,5 @@
 #include "Entity2D.h"
+#include <cmath>
 
 Entity2D::Entity2D(double x, double y, double r) :
     _x(x),
@@ -35,3 +36,12 @@ void Entity2D::updatePosition()
         _y = newY;
     }
 }
+
+double Entity2D::getDistWith(Entity2D& e)
+{
+    double vx = _x-e.getX();
+    double vy = _y-e.getY();
+
+    return sqrt(vx*vx+vy*vy);
+}
+

@@ -21,12 +21,10 @@ int main()
 
     Player* player = gameEngine.addPlayer(375, 600);
 
-    for (int i(0); i<1; i++)
+    for (int i(0); i<100; i++)
     {
-        gameEngine.addZombie(rand()%10, rand()%50, rand()%10+10, player);
+        gameEngine.addZombie(0, rand()%windowWidth, -rand()%5000, rand()%10+10, player);
     }
-
-    gameEngine.findTarget();
 
     while (window.isOpen())
     {
@@ -37,9 +35,25 @@ int main()
 			{
 				case sf::Event::KeyPressed:
 				{
-					if (event.key.code == sf::Keyboard::Escape) window.close();
+					if (event.key.code == sf::Keyboard::Escape)
+                        window.close();
+                    else if (event.key.code == sf::Keyboard::Tab)
+                        player->setTarget(NULL);
                     break;
 				}
+				case sf::Event::TextEntered:
+                {
+                    if (player->getTarget())
+                    {
+                        player->shoot(event.text.unicode);
+                    }
+                    else
+                    {
+                        std::cout << "New target" << std::endl;
+                        gameEngine.findTarget(event.text.unicode);
+                    }
+                    break;
+                }
 				default:
                     break;
 			}

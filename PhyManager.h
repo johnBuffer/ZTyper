@@ -12,6 +12,7 @@ public:
     void update();
 
     void addEntity(Entity2D* entity);
+    void remove(Entity2D* entity);
 
 private:
     double _dt;

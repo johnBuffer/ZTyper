@@ -1,32 +1,73 @@
 #include "GameEngine.h"
 
 #include <iostream>
+#include <fstream>
 
 GameEngine::GameEngine()
 {
     _phyManager = PhyManager();
+
+    _font.loadFromFile("font.ttf");
+    _zombieText.setFont(_font);
+    _zombieText.setCharacterSize(20);
+    _zombieText.setColor(sf::Color::Black);
+
+    std::string alphabet = "abcdefghijklmnopqrstuvwxz";
+    for (int i(0); i<26; i++)
+    {
+        std::list<Zombie*> l;
+        _wordZombiesMap[alphabet[i]] = l;
+    }
+
+    loadDico("dico.txt");
+}
+
+void GameEngine::loadDico(std::string filename)
+{
+    std::ifstream file(filename);
+    if (!file)
+    {
+        std::cout << "Cannot load dictionary" << std::endl;
+        return;
+    }
+
+    std::string str;
+    while (std::getline(file, str))
+    {
+        _dico.push_back(str);
+    }
 }
 
 void GameEngine::update()
 {
-    for (Zombie* zomb : _zombies)
+    _wordZombiesMap.clear();
+
+    for (Zombie* zomb : _zombies) { zomb->update(); }
+    for (Player* player : _players) { player->update(); }
+
+    for (Zombie* &zomb : _zombies)
     {
-        zomb->update();
+        bool dead = !zomb->getLife();
+        if (dead)
+        {
+            this->_phyManager.remove(zomb);
+        }
+        else
+        {
+            _wordZombiesMap[zomb->getWord()[0]].push_back(zomb);
+        }
     }
 
-    for (Player* player : _players)
-    {
-        player->update();
-    }
-
-    _zombies.remove_if([](Zombie* &z) { return z->getLife();});
+    _zombies.remove_if([](Zombie* &z) { bool dead = !z->getLife(); if (dead) delete z; return dead;});
 
     _phyManager.update();
 }
 
-void GameEngine::addZombie(double x, double y, double r, Entity2D* target)
+void GameEngine::addZombie(int strength, double x, double y, double r, Entity2D* target)
 {
-    Zombie* newZombie = new Zombie(x, y, r);
+    int n_words = _dico.size();
+    std::string word = _dico[rand()%n_words];
+    Zombie* newZombie = new Zombie(word, x, y, 7*word.size());
     newZombie->setTarget(target);
 
     _zombies.push_back(newZombie);
@@ -42,20 +83,41 @@ Player* GameEngine::addPlayer(double x, double y)
     return newPlayer;
 }
 
-void GameEngine::findTarget()
+void GameEngine::findTarget(char c)
 {
-    _players[0]->setTarget(_zombies.front());
+    std::list<Zombie*>& l = _wordZombiesMap[c];
+    double minDist = -1;
+    Zombie* closestZombie = NULL;
+
+    for (Zombie* &zomb : l)
+    {
+        double dist = _players[0]->getDistWith(*zomb);
+        if (dist < minDist || minDist == -1)
+        {
+            minDist = dist;
+            closestZombie = zomb;
+        }
+    }
+
+    _players[0]->setTarget(closestZombie);
+    _players[0]->shoot(c);
 }
 
-void GameEngine::draw(sf::RenderTarget* renderer) const
+void GameEngine::draw(sf::RenderTarget* renderer)
 {
-    for (Zombie* zomb : _zombies)
+    for (Zombie* &zomb : _zombies)
     {
+        sf::Vector2f pos(zomb->getX(), zomb->getY());
         sf::CircleShape zombieShape(zomb->getR());
         zombieShape.setOrigin(zomb->getR(), zomb->getR());
-        zombieShape.setPosition(zomb->getX(), zomb->getY());
+        zombieShape.setPosition(pos);
+
+        _zombieText.setString(zomb->getWord());
+        double w = _zombieText.getGlobalBounds().width;
+        _zombieText.setPosition(pos.x-w/2.0, pos.y-10);
 
         renderer->draw(zombieShape);
+        renderer->draw(_zombieText);
     }
 
     for (Player* player : _players)

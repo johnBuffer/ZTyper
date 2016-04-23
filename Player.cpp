@@ -10,10 +10,25 @@ Player::Player(double x, double y) :
 
 }
 
+void Player::shoot(char c)
+{
+    if (!_target)
+        return;
+
+    _target->shootNextLetter(c);
+}
+
 void Player::update()
 {
     if (!_target)
         return;
+
+    if (!_target->getLife())
+    {
+        _target = NULL;
+        std::cout << "target down" << std::endl;
+        return;
+    }
 
     double vx = _target->getX()-_x;
     double vy = _target->getY()-_y;

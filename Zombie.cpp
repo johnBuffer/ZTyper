@@ -2,11 +2,28 @@
 
 #include <cmath>
 
-Zombie::Zombie(double x, double y, double r) :
+Zombie::Zombie(std::string word, double x, double y, double r) :
     Entity2D(x, y, r),
-    _target(NULL)
+    _target(NULL),
+    _word(word)
 {
 
+}
+
+Zombie::~Zombie()
+{
+    std::cout << "I'm down" << std::endl;
+}
+
+bool Zombie::shootNextLetter(char c)
+{
+    if (c == _word[0])
+    {
+        _word = _word.substr(1);
+        return true;
+    }
+
+    return false;
 }
 
 void Zombie::update()
@@ -19,8 +36,8 @@ void Zombie::update()
 
     _targetDist = sqrt(vx*vx+vy*vy);
 
-    _x += vx/_targetDist+0.0000001;
-    _y += vy/_targetDist+0.0000001;
+    _x += 0.2*vx/_targetDist+0.0000001;
+    _y += 0.2*vy/_targetDist+0.0000001;
 
     _lastX = _x;
     _lastY = _y;

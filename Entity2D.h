@@ -12,6 +12,8 @@ public :
     double getY() const {return _y;}
     double getR() const {return _r;}
 
+    double getDistWith(Entity2D& e);
+
     void move(double x, double y);
     void updatePosition();
 

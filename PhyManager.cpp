@@ -59,3 +59,17 @@ void PhyManager::addEntity(Entity2D* entity)
 {
     _entities.push_back(entity);
 }
+
+void PhyManager::remove(Entity2D* entity)
+{
+    int i(0);
+    for (Entity2D* e : _entities)
+    {
+        if (e == entity)
+        {
+            _entities.erase(_entities.begin()+i);
+            break;
+        }
+        i++;
+    }
+}
