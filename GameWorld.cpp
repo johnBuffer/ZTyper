@@ -61,7 +61,7 @@ void GameWorld::update()
             sf::Sprite blood(_blood);
             double w = blood.getGlobalBounds().width;
             blood.setOrigin(16, 47);
-            blood.scale(2.5*zomb->getR()/w, 2.5*zomb->getR()/w);
+            blood.scale(3*zomb->getR()/w, 3*zomb->getR()/w);
             blood.setRotation(rand()%360);
             blood.setPosition(zomb->getX(), zomb->getY());
             _ground.draw(blood);

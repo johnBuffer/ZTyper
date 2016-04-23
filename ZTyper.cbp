@@ -17,6 +17,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="C:\lib\SFML-2.3.2\lib\libsfml-audio.a" />
 					<Add library="C:\lib\SFML-2.3.2\lib\libsfml-graphics.a" />
 					<Add library="C:\lib\SFML-2.3.2\lib\libsfml-window.a" />
 					<Add library="C:\lib\SFML-2.3.2\lib\libsfml-system.a" />
@@ -35,6 +36,7 @@
 		<Unit filename="Explosion.h" />
 		<Unit filename="GameEngine.cpp" />
 		<Unit filename="GameEngine.h" />
+		<Unit filename="GameWorld.cpp" />
 		<Unit filename="GameWorld.h" />
 		<Unit filename="PhyManager.cpp" />
 		<Unit filename="PhyManager.h" />

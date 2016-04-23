@@ -34,9 +34,14 @@ void GameEngine::update()
     if (_waveClock.getElapsedTime().asSeconds() >= _waveDelay)
     {
         _waves++;
-        int strength = 1;
-        addZombie(strength, rand()%750, -strength*2, _players[0]);
-        _waveDelay = rand()%2+1;
+        int strength = rand()%6 + 1;
+        if (!(_waves%15))
+        {
+            strength = rand()%5 + 10;
+        }
+
+        addZombie(strength, rand()%750, -strength*10, _players[0]);
+        _waveDelay = rand()%strength/2+1;
 
         _waveClock.restart();
     }
@@ -66,7 +71,7 @@ void GameEngine::addZombie(int strength, double x, double y, Entity2D* target)
 {
     int n_words = _wordLengthMap[strength].size();
     std::string word = _wordLengthMap[strength][rand()%n_words];
-    Zombie* newZombie = new Zombie(word, x, y, 7*word.size());
+    Zombie* newZombie = new Zombie(word, x, y, 10*word.size());
     newZombie->setTarget(target);
 
     _gameWorld.addZombie(newZombie);
@@ -93,6 +98,7 @@ void GameEngine::shoot(char c)
         {
             Bullet* newBullet = new Bullet(_players[0]->getX(), _players[0]->getY(), _players[0]->getTarget());
             _gameWorld.addBullet(newBullet);
+
             _players[0]->getTarget()->move(0, -5);
         }
         else
