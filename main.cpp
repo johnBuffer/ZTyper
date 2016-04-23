@@ -10,7 +10,7 @@
 int main()
 {
     int windowWidth = 750;
-    int windowHeight = 500;
+    int windowHeight = 700;
 
     sf::ContextSettings settings;
     settings.antialiasingLevel = 4;
@@ -19,8 +19,14 @@ int main()
 
     GameEngine gameEngine;
 
-    for (int i(0); i<100; i++)
-        gameEngine.addZombie(rand()%windowWidth, rand()%50, 20);
+    Player* player = gameEngine.addPlayer(375, 600);
+
+    for (int i(0); i<1; i++)
+    {
+        gameEngine.addZombie(rand()%10, rand()%50, rand()%10+10, player);
+    }
+
+    gameEngine.findTarget();
 
     while (window.isOpen())
     {

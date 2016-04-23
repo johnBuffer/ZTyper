@@ -2,8 +2,8 @@
 
 #include <cmath>
 
-Zombie::Zombie(double x, double y) :
-    Entity2D(x, y, 20),
+Zombie::Zombie(double x, double y, double r) :
+    Entity2D(x, y, r),
     _target(NULL)
 {
 
@@ -11,13 +11,16 @@ Zombie::Zombie(double x, double y) :
 
 void Zombie::update()
 {
-    double vx = 375-_x;
-    double vy = 250-_y;
+    if (!_target)
+        return;
 
-    double norm = sqrt(vx*vx+vy*vy);
+    double vx = _target->getX()-_x;
+    double vy = _target->getY()-_y;
 
-    _x += vx/norm+0.0000001;
-    _y += vy/norm+0.0000001;
+    _targetDist = sqrt(vx*vx+vy*vy);
+
+    _x += vx/_targetDist+0.0000001;
+    _y += vy/_targetDist+0.0000001;
 
     _lastX = _x;
     _lastY = _y;

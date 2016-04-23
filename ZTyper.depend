@@ -5,7 +5,7 @@
 1461366655 c:\users\jean\documents\github\ztyper\entity2d.h
 	<iostream>
 
-1461367200 source:c:\users\jean\documents\github\ztyper\main.cpp
+1461369282 source:c:\users\jean\documents\github\ztyper\main.cpp
 	<cmath>
 	<stdlib.h>
 	<ctime>
@@ -399,26 +399,36 @@
 1461362801 source:c:\users\jean\documents\github\ztyper\phyutils.cpp
 	<cmath>
 
-1461366331 source:c:\users\jean\documents\github\ztyper\gameengine.cpp
+1461370087 source:c:\users\jean\documents\github\ztyper\gameengine.cpp
 	"GameEngine.h"
 	<iostream>
 
-1461364978 c:\users\jean\documents\github\ztyper\gameengine.h
+1461369802 c:\users\jean\documents\github\ztyper\gameengine.h
 	<SFML/Graphics.hpp>
+	<list>
 	"PhyManager.h"
 	"Zombie.h"
+	"Player.h"
 
 1461367336 source:c:\users\jean\documents\github\ztyper\phymanager.cpp
 	"PhyManager.h"
 	<cmath>
 	<iostream>
 
-1461367314 source:c:\users\jean\documents\github\ztyper\zombie.cpp
+1461369436 source:c:\users\jean\documents\github\ztyper\zombie.cpp
 	"Zombie.h"
 	<cmath>
 
-1461366622 c:\users\jean\documents\github\ztyper\zombie.h
+1461370067 c:\users\jean\documents\github\ztyper\zombie.h
 	"Entity2D.h"
 	<string>
 	<iostream>
+
+1461369398 c:\users\jean\documents\github\ztyper\player.h
+	"Entity2D.h"
+	"Zombie.h"
+
+1461369698 source:c:\users\jean\documents\github\ztyper\player.cpp
+	"Player.h"
+	<cmath>
 
