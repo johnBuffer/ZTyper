@@ -45,9 +45,9 @@ void Player::update()
     double vx = _target->getX()-_x;
     double vy = _target->getY()-_y;
 
-    double targetDist = sqrt(vx*vx+vy*vy);
+    _targetDist = sqrt(vx*vx+vy*vy);
 
-    double a = acos(vx/targetDist);
+    double a = acos(vx/_targetDist);
     if (vy < 0) a *= -1;
 
     _angle += (a - _angle)/5.0;

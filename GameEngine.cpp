@@ -199,7 +199,9 @@ void GameEngine::draw(sf::RenderTarget* renderer)
             laser[0].position = pos;
             laser[0].color = sf::Color::Green;
 
-            laser[1].position = posTarget;
+            double targetDist = player->getTargetDist();
+            double angle = player->getAngle();
+            laser[1].position = sf::Vector2f(pos.x+targetDist*cos(angle), pos.y+targetDist*sin(angle));
             laser[1].color= sf::Color(0, 255, 0, 0);
 
             renderer->draw(laser);
