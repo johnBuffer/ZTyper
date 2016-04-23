@@ -8,6 +8,7 @@
 #include "Zombie.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "Explosion.h"
 
 #include <map>
 
@@ -31,6 +32,8 @@ private:
     PhyManager _phyManager;
     std::list<Zombie*> _zombies;
     std::list<Bullet*> _bullets;
+    std::list<Explosion> _explosions;
+
     std::vector<Player*> _players;
     std::map<char, std::list<Zombie*> > _wordZombiesMap;
 

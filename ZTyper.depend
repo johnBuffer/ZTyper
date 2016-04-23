@@ -3,9 +3,10 @@
 	"Entity2D.h"
 	<cmath>
 
-1461411484 c:\users\jean\documents\github\ztyper\entity2d.h
+1461413688 c:\users\jean\documents\github\ztyper\entity2d.h
 	<iostream>
 	<cmath>
+	<cstdlib>
 
 1461412009 source:c:\users\jean\documents\github\ztyper\main.cpp
 	<cmath>
@@ -401,18 +402,19 @@
 1461410727 source:c:\users\jean\documents\github\ztyper\phyutils.cpp
 	<cmath>
 
-1461412266 source:c:\users\jean\documents\github\ztyper\gameengine.cpp
+1461415729 source:c:\users\jean\documents\github\ztyper\gameengine.cpp
 	"GameEngine.h"
 	<iostream>
 	<fstream>
 
-1461412577 c:\users\jean\documents\github\ztyper\gameengine.h
+1461413818 c:\users\jean\documents\github\ztyper\gameengine.h
 	<SFML/Graphics.hpp>
 	<list>
 	"PhyManager.h"
 	"Zombie.h"
 	"Player.h"
 	"Bullet.h"
+	"Explosion.h"
 	<map>
 
 1461410727 source:c:\users\jean\documents\github\ztyper\phymanager.cpp
@@ -420,7 +422,7 @@
 	<cmath>
 	<iostream>
 
-1461412045 source:c:\users\jean\documents\github\ztyper\zombie.cpp
+1461415625 source:c:\users\jean\documents\github\ztyper\zombie.cpp
 	"Zombie.h"
 
 1461410727 c:\users\jean\documents\github\ztyper\zombie.h
@@ -436,9 +438,15 @@
 	"Player.h"
 	<cmath>
 
-1461412294 source:c:\users\jean\documents\github\ztyper\bullet.cpp
+1461415364 source:c:\users\jean\documents\github\ztyper\bullet.cpp
 	"Bullet.h"
 
 1461411693 c:\users\jean\documents\github\ztyper\bullet.h
+	"Entity2D.h"
+
+1461415416 source:c:\users\jean\documents\github\ztyper\explosion.cpp
+	"Explosion.h"
+
+1461414656 c:\users\jean\documents\github\ztyper\explosion.h
 	"Entity2D.h"
 

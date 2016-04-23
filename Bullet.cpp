@@ -10,7 +10,7 @@ Bullet::Bullet(double x, double y, Entity2D* target) :
     _vx /= _distToTarget;
     _vy /= _distToTarget;
 
-    _speed = 20;
+    _speed = 50;
     _distFromOrigin = 0;
 }
 
@@ -24,6 +24,6 @@ void Bullet::update()
 
     _distFromOrigin += _speed;
 
-    if (_distFromOrigin >= _distToTarget)
+    if (_distFromOrigin+_speed >= _distToTarget)
         _targetReached = true;
 }

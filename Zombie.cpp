@@ -34,8 +34,8 @@ void Zombie::update()
 
     _targetDist = sqrt(vx*vx+vy*vy);
 
-    _x += 0.2*vx/_targetDist+0.0000001;
-    _y += 0.2*vy/_targetDist+0.0000001;
+    _x += 0.3*vx/_targetDist+0.0000001;
+    _y += 0.3*vy/_targetDist+0.0000001;
 
     _lastX = _x;
     _lastY = _y;

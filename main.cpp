@@ -21,7 +21,7 @@ int main()
 
     Player* player = gameEngine.addPlayer(375, 600);
 
-    for (int i(0); i<100; i++)
+    for (int i(0); i<50; i++)
     {
         gameEngine.addZombie(0, rand()%windowWidth, -rand()%5000, rand()%10+10, player);
     }

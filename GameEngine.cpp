@@ -35,9 +35,17 @@ void GameEngine::update()
 {
     _wordZombiesMap.clear();
 
-    for (Zombie* &zomb : _zombies) { zomb->update(); }
     for (Player* &player : _players) { player->update(); }
-    for (Bullet* &bullet : _bullets) { bullet->update(); }
+    for (Bullet* &bullet : _bullets)
+    {
+        bullet->update();
+        if (bullet->isTargetReached())
+        {
+            _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), 20));
+        }
+    }
+
+    for (Explosion &expl : _explosions) { expl.update(); }
 
     for (Zombie* &zomb : _zombies)
     {
@@ -48,12 +56,14 @@ void GameEngine::update()
         }
         else
         {
+            zomb->update();
             _wordZombiesMap[zomb->getWord()[0]].push_back(zomb);
         }
     }
 
     _zombies.remove_if([](Zombie* &z) { bool dead = !z->getLife(); if (dead) delete z; return dead;});
     _bullets.remove_if([](Bullet* &b) { bool done = b->isTargetReached(); if (done) {delete b;} return done; });
+    _explosions.remove_if([](Explosion &e) { return !e.getStatus(); });
 
     _phyManager.update();
 }
@@ -80,13 +90,12 @@ Player* GameEngine::addPlayer(double x, double y)
 
 void GameEngine::shoot(char c)
 {
-    std::cout << int(c) << std::endl;
     if (_players[0]->getTarget())
     {
-
         if (_players[0]->shoot(c))
         {
             _bullets.push_back(new Bullet(_players[0]->getX(), _players[0]->getY(), _players[0]->getTarget()));
+            _players[0]->getTarget()->move(0, -5);
         }
     }
     else if (validChar(c))
@@ -97,17 +106,21 @@ void GameEngine::shoot(char c)
 
 void GameEngine::findTarget(char c)
 {
-    std::list<Zombie*>& l = _wordZombiesMap[c];
-    double minDist = -1;
     Zombie* closestZombie = NULL;
-
-    for (Zombie* &zomb : l)
+    if (_wordZombiesMap.find(c) != _wordZombiesMap.end())
     {
-        double dist = _players[0]->getDistWith(*zomb);
-        if (dist < minDist || minDist == -1)
+        std::list<Zombie*>& l = _wordZombiesMap[c];
+        double minDist = -1;
+
+
+        for (Zombie* &zomb : l)
         {
-            minDist = dist;
-            closestZombie = zomb;
+            double dist = _players[0]->getDistWith(*zomb);
+            if (dist < minDist || minDist == -1)
+            {
+                minDist = dist;
+                closestZombie = zomb;
+            }
         }
     }
 
@@ -164,5 +177,41 @@ void GameEngine::draw(sf::RenderTarget* renderer)
 
         renderer->draw(playerShape);
         renderer->draw(weaponShape);
+    }
+
+    double pi = 3.14159;
+    for (Explosion& expl : _explosions)
+    {
+        sf::VertexArray explosionsShape(sf::Quads, 40*4);
+
+        sf::Vector2f pos(expl.getX(), expl.getY());
+        double r = 1.25*expl.getR();
+        for (int k(0); k<20; ++k)
+        {
+            double x = expl.getXp(k);
+            double y = expl.getYp(k);
+
+            for (int a(0); a<4; ++a)
+            {
+                double angle = 2*pi/4.0*a + 0.26*k;
+                explosionsShape[4*k+a].position = sf::Vector2f(x+r*cos(angle), y+r*sin(angle));
+                explosionsShape[4*k+a].color = sf::Color(255*(100 + 2*k)/255.0, 0, 0);
+            }
+        }
+
+        for (int k(20); k<40; ++k)
+        {
+            double x = expl.getXp(k);
+            double y = expl.getYp(k);
+
+            for (int a(0); a<4; ++a)
+            {
+                double angle = 2*pi/4.0*a + 0.26*k;
+                explosionsShape[4*k+a].position = sf::Vector2f(x+r*cos(angle), y+r*sin(angle));
+                explosionsShape[4*k+a].color = sf::Color(150.0, 0, 0);
+            }
+        }
+
+        renderer->draw(explosionsShape);
     }
 }
