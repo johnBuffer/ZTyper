@@ -173,25 +173,36 @@ void GameEngine::draw(sf::RenderTarget* renderer)
 
     for (Player* player : _players)
     {
+        sf::Vector2f pos(player->getX(), player->getY());
+
         sf::RectangleShape playerShape(sf::Vector2f(player->getR()*2, player->getR()*2));
         playerShape.setOrigin(player->getR(), player->getR());
-        playerShape.setPosition(player->getX(), player->getY());
+        playerShape.setPosition(pos);
 
         sf::RectangleShape weaponShape(sf::Vector2f(10, player->getR()*1.5));
         weaponShape.setOrigin(5, player->getR()*1.5);
-        weaponShape.setPosition(player->getX(), player->getY());
+        weaponShape.setPosition(pos);
         weaponShape.setRotation(player->getAngle()*57.2958+90);
         weaponShape.setFillColor(sf::Color(100, 100, 100));
 
         if (player->getTarget())
         {
             double rTarget = player->getTarget()->getR()*1.1;
-            sf::Vector2f pos(player->getTarget()->getX(), player->getTarget()->getY());
+            sf::Vector2f posTarget(player->getTarget()->getX(), player->getTarget()->getY());
             sf::CircleShape targetShape(rTarget);
             targetShape.setOrigin(rTarget, rTarget);
-            targetShape.setPosition(pos);
+            targetShape.setPosition(posTarget);
             targetShape.setFillColor(sf::Color::Green);
             renderer->draw(targetShape);
+
+            sf::VertexArray laser(sf::Lines, 2);
+            laser[0].position = pos;
+            laser[0].color = sf::Color::Green;
+
+            laser[1].position = posTarget;
+            laser[1].color= sf::Color(0, 255, 0, 0);
+
+            renderer->draw(laser);
         }
 
         renderer->draw(playerShape);
