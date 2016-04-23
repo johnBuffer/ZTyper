@@ -20,6 +20,15 @@ void Entity2D::move(double x, double y)
     _y += y;
 }
 
+void Entity2D::setPosition(double x, double y)
+{
+    _x = x;
+    _y = y;
+
+    _lastX = x;
+    _lastY = y;
+}
+
 void Entity2D::updatePosition()
 {
     double newX;

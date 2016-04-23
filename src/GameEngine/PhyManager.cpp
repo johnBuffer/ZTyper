@@ -27,6 +27,9 @@ void PhyManager::update()
             Entity2D* entity2 = _entities[k];
             double colliderRadius = entity2->getR();
 
+            double ratio1 = currentRadius/(colliderRadius+currentRadius);
+            double ratio2 = colliderRadius/(colliderRadius+currentRadius);
+
             double minDist = currentRadius+colliderRadius;
             double vx, vy, dist2;
 
@@ -43,8 +46,8 @@ void PhyManager::update()
                 vx *= 0.5*coeff*deltaDist/(dist);
                 vy *= 0.5*coeff*deltaDist/(dist);
 
-                entity1->move(vx, vy);
-                entity2->move(-vx, -vy);
+                entity1->move(ratio2*vx, ratio2*vy);
+                entity2->move(-ratio1*vx, -ratio1*vy);
             }
         }
     }

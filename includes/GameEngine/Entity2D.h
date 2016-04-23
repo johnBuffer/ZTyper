@@ -17,6 +17,8 @@ public :
     double getDistWith(Entity2D& e);
 
     void move(double x, double y);
+    void setPosition(double x, double y);
+
     void updatePosition();
 
 protected:

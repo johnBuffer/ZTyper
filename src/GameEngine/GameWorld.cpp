@@ -14,7 +14,7 @@ GameWorld::GameWorld()
     _zombieText.setCharacterSize(20);
     _zombieText.setColor(sf::Color::Black);
     _blood.loadFromFile("resources/textures/blood.png");
-    _ground.create(750, 700);
+    _ground.create(1600, 900);
     _ground.clear(sf::Color::Black);
 
     _soundBuffers.resize(10);
@@ -112,7 +112,7 @@ void GameWorld::draw(sf::RenderTarget* renderer)
 {
     if (_drying.getElapsedTime().asSeconds() >= 5)
     {
-        sf::RectangleShape drying(sf::Vector2f(750, 700));
+        sf::RectangleShape drying(sf::Vector2f(1600, 900));
         drying.setFillColor(sf::Color(0, 0, 0, 10));
         _ground.draw(drying);
 
@@ -201,12 +201,12 @@ void GameWorld::draw(sf::RenderTarget* renderer)
         expl.draw(renderer);
     }
 
-    _scoreText.setPosition(10, 600);
+    _scoreText.setPosition(10, 800);
     _scoreText.setString(numberToString(_players[0]->getScore()));
     _scoreText.setColor(sf::Color::White);
     renderer->draw(_scoreText);
 
-    _comboText.setPosition(10, 640);
+    _comboText.setPosition(10, 840);
     _comboText.setString(numberToString(_players[0]->getAccuracy())+" %");
     _comboText.setColor(sf::Color::White);
     renderer->draw(_comboText);

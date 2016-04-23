@@ -40,7 +40,7 @@ void GameEngine::update()
             strength = rand()%5 + 10;
         }
 
-        addZombie(strength, rand()%750, -strength*10, _players[0]);
+        addZombie(strength, rand()%1600, -strength*10, _players[0]);
         _waveDelay = rand()%strength/2+1;
 
         _waveClock.restart();
