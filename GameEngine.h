@@ -25,6 +25,9 @@ private:
     PhyManager _phyManager;
     GameWorld _gameWorld;
 
+    sf::Clock _waveClock;
+    int _waves, _waveDelay;
+
     std::vector<Player*> _players;
     std::map<char, std::list<Zombie*> > _wordZombiesMap;
 

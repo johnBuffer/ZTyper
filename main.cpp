@@ -23,11 +23,6 @@ int main()
 
     Player* player = gameEngine.addPlayer(375, 600);
 
-    for (int i(0); i<100; i++)
-    {
-        gameEngine.addZombie(8, rand()%windowWidth, -rand()%5000, player);
-    }
-
     while (window.isOpen())
     {
         sf::Event event;
