@@ -12,13 +12,6 @@ GameEngine::GameEngine()
     _zombieText.setCharacterSize(20);
     _zombieText.setColor(sf::Color::Black);
 
-    std::string alphabet = "abcdefghijklmnopqrstuvwxz";
-    for (int i(0); i<26; i++)
-    {
-        std::list<Zombie*> l;
-        _wordZombiesMap[alphabet[i]] = l;
-    }
-
     loadDico("dico.txt");
 }
 
