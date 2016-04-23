@@ -15,6 +15,7 @@ class GameWorld
 public:
     GameWorld();
 
+    void addPlayer(Player* &newPlayer);
     void addZombie(Zombie* &newZombie);
     void addBullet(Bullet* &newBullet);
 

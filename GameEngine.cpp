@@ -67,6 +67,8 @@ Player* GameEngine::addPlayer(double x, double y)
     _players.push_back(newPlayer);
     _phyManager.addEntity(newPlayer);
 
+    _gameWorld.addPlayer(newPlayer);
+
     return newPlayer;
 }
 
