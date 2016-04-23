@@ -43,15 +43,7 @@ int main()
 				}
 				case sf::Event::TextEntered:
                 {
-                    if (player->getTarget())
-                    {
-                        player->shoot(event.text.unicode);
-                    }
-                    else
-                    {
-                        std::cout << "New target" << std::endl;
-                        gameEngine.findTarget(event.text.unicode);
-                    }
+                    gameEngine.shoot(event.text.unicode);
                     break;
                 }
 				default:

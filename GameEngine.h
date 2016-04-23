@@ -7,6 +7,7 @@
 #include "PhyManager.h"
 #include "Zombie.h"
 #include "Player.h"
+#include "Bullet.h"
 
 #include <map>
 
@@ -20,13 +21,16 @@ public:
     void addZombie(int strength, double x, double y, double r, Entity2D* target);
     Player* addPlayer(double x, double y);
 
+    void shoot(char c);
     void findTarget(char c);
+    bool validChar(char c);
 
     void draw(sf::RenderTarget* renderer);
 
 private:
     PhyManager _phyManager;
     std::list<Zombie*> _zombies;
+    std::list<Bullet*> _bullets;
     std::vector<Player*> _players;
     std::map<char, std::list<Zombie*> > _wordZombiesMap;
 

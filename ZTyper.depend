@@ -1,12 +1,13 @@
 # depslib dependency file v1.0
-1461409017 source:c:\users\jean\documents\github\ztyper\entity2d.cpp
+1461410727 source:c:\users\jean\documents\github\ztyper\entity2d.cpp
 	"Entity2D.h"
 	<cmath>
 
-1461408937 c:\users\jean\documents\github\ztyper\entity2d.h
+1461411484 c:\users\jean\documents\github\ztyper\entity2d.h
 	<iostream>
+	<cmath>
 
-1461410431 source:c:\users\jean\documents\github\ztyper\main.cpp
+1461412009 source:c:\users\jean\documents\github\ztyper\main.cpp
 	<cmath>
 	<stdlib.h>
 	<ctime>
@@ -393,45 +394,51 @@
 	<string>
 	<vector>
 
-1461407453 c:\users\jean\documents\github\ztyper\phymanager.h
+1461410727 c:\users\jean\documents\github\ztyper\phymanager.h
 	<vector>
 	"Entity2D.h"
 
-1461362801 source:c:\users\jean\documents\github\ztyper\phyutils.cpp
+1461410727 source:c:\users\jean\documents\github\ztyper\phyutils.cpp
 	<cmath>
 
-1461410569 source:c:\users\jean\documents\github\ztyper\gameengine.cpp
+1461412266 source:c:\users\jean\documents\github\ztyper\gameengine.cpp
 	"GameEngine.h"
 	<iostream>
 	<fstream>
 
-1461410093 c:\users\jean\documents\github\ztyper\gameengine.h
+1461412577 c:\users\jean\documents\github\ztyper\gameengine.h
 	<SFML/Graphics.hpp>
 	<list>
 	"PhyManager.h"
 	"Zombie.h"
 	"Player.h"
+	"Bullet.h"
 	<map>
 
-1461407610 source:c:\users\jean\documents\github\ztyper\phymanager.cpp
+1461410727 source:c:\users\jean\documents\github\ztyper\phymanager.cpp
 	"PhyManager.h"
 	<cmath>
 	<iostream>
 
-1461410269 source:c:\users\jean\documents\github\ztyper\zombie.cpp
+1461412045 source:c:\users\jean\documents\github\ztyper\zombie.cpp
 	"Zombie.h"
-	<cmath>
 
-1461408012 c:\users\jean\documents\github\ztyper\zombie.h
+1461410727 c:\users\jean\documents\github\ztyper\zombie.h
 	"Entity2D.h"
 	<string>
 	<iostream>
 
-1461408398 c:\users\jean\documents\github\ztyper\player.h
+1461412078 c:\users\jean\documents\github\ztyper\player.h
 	"Entity2D.h"
 	"Zombie.h"
 
-1461410302 source:c:\users\jean\documents\github\ztyper\player.cpp
+1461412103 source:c:\users\jean\documents\github\ztyper\player.cpp
 	"Player.h"
 	<cmath>
+
+1461412294 source:c:\users\jean\documents\github\ztyper\bullet.cpp
+	"Bullet.h"
+
+1461411693 c:\users\jean\documents\github\ztyper\bullet.h
+	"Entity2D.h"
 

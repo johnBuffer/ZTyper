@@ -13,7 +13,7 @@ public:
     double getAngle() const {return _angle;}
     Zombie* getTarget() const {return _target;}
 
-    void shoot(char c);
+    bool shoot(char c);
     void update();
 
 private:

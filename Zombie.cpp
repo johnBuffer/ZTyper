@@ -1,7 +1,5 @@
 #include "Zombie.h"
 
-#include <cmath>
-
 Zombie::Zombie(std::string word, double x, double y, double r) :
     Entity2D(x, y, r),
     _target(NULL),
@@ -12,7 +10,7 @@ Zombie::Zombie(std::string word, double x, double y, double r) :
 
 Zombie::~Zombie()
 {
-    std::cout << "I'm down" << std::endl;
+    //std::cout << "I'm down" << std::endl;
 }
 
 bool Zombie::shootNextLetter(char c)

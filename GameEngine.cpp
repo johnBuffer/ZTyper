@@ -42,8 +42,9 @@ void GameEngine::update()
 {
     _wordZombiesMap.clear();
 
-    for (Zombie* zomb : _zombies) { zomb->update(); }
-    for (Player* player : _players) { player->update(); }
+    for (Zombie* &zomb : _zombies) { zomb->update(); }
+    for (Player* &player : _players) { player->update(); }
+    for (Bullet* &bullet : _bullets) { bullet->update(); }
 
     for (Zombie* &zomb : _zombies)
     {
@@ -59,6 +60,7 @@ void GameEngine::update()
     }
 
     _zombies.remove_if([](Zombie* &z) { bool dead = !z->getLife(); if (dead) delete z; return dead;});
+    _bullets.remove_if([](Bullet* &b) { bool done = b->isTargetReached(); if (done) {delete b;} return done; });
 
     _phyManager.update();
 }
@@ -83,6 +85,23 @@ Player* GameEngine::addPlayer(double x, double y)
     return newPlayer;
 }
 
+void GameEngine::shoot(char c)
+{
+    std::cout << int(c) << std::endl;
+    if (_players[0]->getTarget())
+    {
+
+        if (_players[0]->shoot(c))
+        {
+            _bullets.push_back(new Bullet(_players[0]->getX(), _players[0]->getY(), _players[0]->getTarget()));
+        }
+    }
+    else if (validChar(c))
+    {
+        findTarget(c);
+    }
+}
+
 void GameEngine::findTarget(char c)
 {
     std::list<Zombie*>& l = _wordZombiesMap[c];
@@ -100,11 +119,29 @@ void GameEngine::findTarget(char c)
     }
 
     _players[0]->setTarget(closestZombie);
-    _players[0]->shoot(c);
+    shoot(c);
+}
+
+bool GameEngine::validChar(char c)
+{
+    bool az = c >= 97 && c < 128;
+    bool accents = c < 0;
+
+    return az || accents;
 }
 
 void GameEngine::draw(sf::RenderTarget* renderer)
 {
+    for (Bullet* &bullet : _bullets)
+    {
+        sf::Vector2f pos(bullet->getX(), bullet->getY());
+        sf::CircleShape bulletShape(bullet->getR());
+        bulletShape.setOrigin(bullet->getR(), bullet->getR());
+        bulletShape.setPosition(pos);
+
+        renderer->draw(bulletShape);
+    }
+
     for (Zombie* &zomb : _zombies)
     {
         sf::Vector2f pos(zomb->getX(), zomb->getY());

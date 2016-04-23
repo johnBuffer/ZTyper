@@ -2,6 +2,7 @@
 #define ENTITY2D_H_INCLUDED
 
 #include <iostream>
+#include <cmath>
 
 class Entity2D
 {

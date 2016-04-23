@@ -5,17 +5,17 @@
 Player::Player(double x, double y) :
     Entity2D(x, y, 30),
     _target(NULL),
-    _angle(0)
+    _angle(-3.14159/2.0)
 {
 
 }
 
-void Player::shoot(char c)
+bool Player::shoot(char c)
 {
     if (!_target)
-        return;
+        return false;
 
-    _target->shootNextLetter(c);
+    return _target->shootNextLetter(c);
 }
 
 void Player::update()
