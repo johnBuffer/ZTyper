@@ -2,4 +2,5 @@
 *.layout
 *.exe
 *.dll
-*.o
+bin/
+obj/
