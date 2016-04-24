@@ -1,9 +1,10 @@
 #ifndef RESOURCEMANAGER_H_INCLUDED
 #define RESOURCEMANAGER_H_INCLUDED
 
+#include <unordered_map>
 #include <string>
 #include <iostream>
-#include <unordered_map>
+#include <vector>
 
 template < class T >
 class ResourceManager
@@ -18,6 +19,8 @@ public:
 
 private:
 	std::unordered_map< std::string, T*> _map;
+
+	bool add(T* resource);
 };
 
 
@@ -37,8 +40,28 @@ ResourceManager<T>::~ResourceManager()
 template < class T >
 bool ResourceManager<T>::loadAll()
 {
-	return T::loadAll();
+	std::vector<T*> resources;
+	
+	T::loadAll(&resources);
+
+	for(T* resource: resources)
+		add(resource);
+
+	return true;
 }
 
+template < class T >
+T* ResourceManager<T>::get(const std::string& name)
+{
+	auto search = _map.find(name);
+
+	return (search != _map.end()) ? search->second : nullptr;
+}
+
+template < class T >
+bool ResourceManager<T>::add(T* resource)
+{
+	return _map.insert({resource->name(), resource}).second;
+}
 
 #endif

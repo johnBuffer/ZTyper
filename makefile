@@ -31,8 +31,8 @@ Zombie.o: ./src/GameEngine/Zombie.cpp
 GameWorld.o: ./src/GameEngine/GameWorld.cpp
 	g++ -Wall -O2 -std=c++11 -c ./src/GameEngine/GameWorld.cpp -o ./obj/GameWorld.o
 
-res: mainres.o ResourceManager.o Resource.o Sprite.o 
-	g++ ./obj/mainres.o ./obj/ResourceManager.o ./obj/Resource.o ./obj/Sprite.o -o ./bin/mainres -lsfml-graphics -lsfml-window -lsfml-system
+res: mainres.o ResourceManager.o Sprite.o json.o
+	g++ ./obj/mainres.o ./obj/ResourceManager.o ./obj/Sprite.o ./obj/json.o -o ./bin/mainres -lsfml-graphics -lsfml-window -lsfml-system
 
 mainres.o: ./src/ResourceManager/mainres.cpp
 	g++ -Wall -O2 -std=c++11 -c ./src/ResourceManager/mainres.cpp -o ./obj/mainres.o
@@ -42,9 +42,6 @@ ResourceManager.o: ./src/ResourceManager/ResourceManager.cpp
 
 json.o: ./src/jsoncpp.cpp
 	g++ -Wall -O2 -std=c++11 -c ./src/jsoncpp.cpp -o ./obj/json.o
-
-Resource.o: ./src/ResourceManager/Resource.cpp
-	g++ -Wall -O2 -std=c++11 -c ./src/ResourceManager/Resource.cpp -o ./obj/Resource.o
 
 Sprite.o: ./src/ResourceManager/Sprite.cpp
 	g++ -Wall -O2 -std=c++11 -c ./src/ResourceManager/Sprite.cpp -o ./obj/Sprite.o
