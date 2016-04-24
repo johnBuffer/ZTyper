@@ -48,6 +48,9 @@ void PhyManager::update()
 
                 entity1->move(ratio2*vx, ratio2*vy);
                 entity2->move(-ratio1*vx, -ratio1*vy);
+
+                entity1->onContact(entity2);
+                entity2->onContact(entity1);
             }
         }
     }

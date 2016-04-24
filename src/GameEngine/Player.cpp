@@ -42,6 +42,12 @@ bool Player::shoot(char c)
     return hit;
 }
 
+void Player::onContact(Entity2D* e)
+{
+    _lifes--;
+    static_cast<Zombie*>(e)->kill();
+}
+
 void Player::update()
 {
     _recoil += -_recoil/2.0;

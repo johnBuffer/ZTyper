@@ -17,34 +17,34 @@ class GameWorld
 public:
     GameWorld(int width, int height);
 
-    void addPlayer(Player* &newPlayer);
-    void addZombie(Zombie* &newZombie);
-    void addBullet(Bullet* &newBullet);
-
-    void update();
+    void                addPlayer(Player* &newPlayer);
+    void                addZombie(Zombie* &newZombie);
+    void                addBullet(Bullet* &newBullet);
+    void                update();
+    void                shotMissed();
+    void                draw(sf::RenderTarget* renderer);
     std::list<Zombie*>& getZombies() {return _zombies;}
-    void shotMissed();
-
-    void draw(sf::RenderTarget* renderer);
 
 private:
-    int _worldWidth, _worldHeight;
-    std::list<Zombie*> _zombies;
-    std::list<Bullet*> _bullets;
-    std::list<Explosion> _explosions;
-
-    std::vector<Player*> _players;
+    int _worldWidth,                    _worldHeight;
+    std::list<Zombie*>                  _zombies;
+    std::list<Bullet*>                  _bullets;
+    std::list<Explosion>                _explosions;
+    std::vector<Player*>                _players;
     std::map<char, std::list<Zombie*> > _wordZombiesMap;
 
-    sf::Font _font;
-    sf::Text _zombieText, _scoreText, _accuracyText, _comboText;
+    sf::Font          _font;
+    sf::Text          _zombieText;
+    sf::Text          _scoreText;
+    sf::Text          _accuracyText;
+    sf::Text          _comboText;
     sf::RenderTexture _ground;
-    sf::Texture _blood, _heart;
-
-    sf::Clock _drying;
+    sf::Texture       _blood;
+    sf::Texture       _heart;
+    sf::Clock         _drying;
 
     std::vector<sf::SoundBuffer> _soundBuffers;
-    std::list<sf::Sound> _sounds;
+    std::list<sf::Sound>         _sounds;
 };
 
 #endif // GAMEWORLD_H_INCLUDED

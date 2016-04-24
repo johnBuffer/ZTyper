@@ -15,7 +15,7 @@ public:
     void remove(Entity2D* entity);
 
 private:
-    double _dt;
+    double                 _dt;
     std::vector<Entity2D*> _entities;
 };
 

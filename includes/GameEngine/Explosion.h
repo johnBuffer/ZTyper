@@ -11,18 +11,17 @@ public:
     Explosion();
     Explosion(double x, double y, double r);
 
-    void update();
-
     double getXp(int i) const {return _xp[i];}
     double getYp(int i) const {return _yp[i];}
+    bool   getStatus() const {return _status;}
 
-    void draw(sf::RenderTarget* renderer);
-
-    bool getStatus() const {return _status;}
+    void   draw(sf::RenderTarget* renderer);
+    void   onContact(Entity2D*) {}
+    void   update();
 
 private:
     double _angle;
-    int _dispersion;
+    int    _dispersion;
 
     double _vx[100];
     double _vy[100];
