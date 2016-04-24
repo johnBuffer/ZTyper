@@ -3,6 +3,7 @@
 	<FileVersion major="1" minor="6" />
 	<Project>
 		<Option title="ZTyper" />
+		<Option makefile="makefile" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -28,25 +29,37 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="Bullet.cpp" />
-		<Unit filename="Bullet.h" />
-		<Unit filename="Entity2D.cpp" />
-		<Unit filename="Entity2D.h" />
-		<Unit filename="Explosion.cpp" />
-		<Unit filename="Explosion.h" />
-		<Unit filename="GameEngine.cpp" />
-		<Unit filename="GameEngine.h" />
-		<Unit filename="GameWorld.cpp" />
-		<Unit filename="GameWorld.h" />
-		<Unit filename="PhyManager.cpp" />
-		<Unit filename="PhyManager.h" />
-		<Unit filename="Player.cpp" />
-		<Unit filename="Player.h" />
-		<Unit filename="Zombie.cpp" />
-		<Unit filename="Zombie.h" />
-		<Unit filename="main.cpp" />
-		<Unit filename="phyUtils.cpp" />
-		<Unit filename="phyUtils.h" />
+		<Unit filename="includes/GameEngine/Bullet.h" />
+		<Unit filename="includes/GameEngine/Entity2D.h" />
+		<Unit filename="includes/GameEngine/Explosion.h" />
+		<Unit filename="includes/GameEngine/GameEngine.h" />
+		<Unit filename="includes/GameEngine/GameWorld.h" />
+		<Unit filename="includes/GameEngine/PhyManager.h" />
+		<Unit filename="includes/GameEngine/Player.h" />
+		<Unit filename="includes/GameEngine/Zombie.h" />
+		<Unit filename="includes/GameEngine/phyUtils.h" />
+		<Unit filename="includes/ResourceManager/Resource.h" />
+		<Unit filename="includes/ResourceManager/ResourceManager.h" />
+		<Unit filename="includes/ResourceManager/Sprite.h" />
+		<Unit filename="json/json-forwards.h" />
+		<Unit filename="json/json.h" />
+		<Unit filename="src/GameEngine/Bullet.cpp" />
+		<Unit filename="src/GameEngine/Entity2D.cpp" />
+		<Unit filename="src/GameEngine/Explosion.cpp" />
+		<Unit filename="src/GameEngine/GameEngine.cpp" />
+		<Unit filename="src/GameEngine/GameWorld.cpp" />
+		<Unit filename="src/GameEngine/PhyManager.cpp" />
+		<Unit filename="src/GameEngine/Player.cpp" />
+		<Unit filename="src/GameEngine/Zombie.cpp" />
+		<Unit filename="src/GameEngine/phyUtils.cpp" />
+		<Unit filename="src/ResourceManager/Resource.cpp" />
+		<Unit filename="src/ResourceManager/ResourceManager.cpp" />
+		<Unit filename="src/ResourceManager/Sprite.cpp" />
+		<Unit filename="src/ResourceManager/mainres.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="src/jsoncpp.cpp" />
+		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

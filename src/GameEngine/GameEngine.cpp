@@ -3,11 +3,15 @@
 #include <iostream>
 #include <fstream>
 
-GameEngine::GameEngine()
+GameEngine::GameEngine(int width, int height):
+    _worldWidth(width),
+    _worldHeight(height),
+    _gameWorld(width, height)
 {
     _phyManager = PhyManager();
     _waves = 0;
     _waveDelay = rand()%2;
+    _paused = false;
 
     loadDico("resources/texts/dico.txt");
 }
@@ -20,7 +24,6 @@ void GameEngine::loadDico(std::string filename)
         std::cout << "Cannot load dictionary" << std::endl;
         return;
     }
-
     std::string str;
     while (std::getline(file, str))
     {
@@ -29,8 +32,17 @@ void GameEngine::loadDico(std::string filename)
     }
 }
 
+void GameEngine::pause()
+{
+    _paused = !_paused;
+    _gameWorld.pause();
+}
+
 void GameEngine::update()
 {
+    if (_paused)
+        return;
+
     if (_waveClock.getElapsedTime().asSeconds() >= _waveDelay)
     {
         _waves++;
@@ -40,7 +52,7 @@ void GameEngine::update()
             strength = rand()%5 + 10;
         }
 
-        addZombie(strength, rand()%750, -strength*10, _players[0]);
+        addZombie(strength, rand()%_worldWidth, -strength*10, _players[0]);
         _waveDelay = rand()%strength/2+1;
 
         _waveClock.restart();
@@ -63,7 +75,6 @@ void GameEngine::update()
     }
 
     _gameWorld.update();
-
     _phyManager.update();
 }
 
@@ -92,6 +103,9 @@ Player* GameEngine::addPlayer(double x, double y)
 
 void GameEngine::shoot(char c)
 {
+    if (_paused)
+        return;
+
     if (_players[0]->getTarget())
     {
         if (_players[0]->shoot(c))
@@ -99,12 +113,9 @@ void GameEngine::shoot(char c)
             Bullet* newBullet = new Bullet(_players[0]->getX(), _players[0]->getY(), _players[0]->getTarget());
             _gameWorld.addBullet(newBullet);
 
-            _players[0]->getTarget()->move(0, -5);
+            _players[0]->getTarget()->move(0, -10);
         }
-        else
-        {
-            _gameWorld.shotMissed();
-        }
+        else {_gameWorld.shotMissed();}
     }
     else if (validChar(c))
     {

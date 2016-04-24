@@ -8,32 +8,35 @@
 class GameEngine
 {
 public:
-    GameEngine();
-    void loadDico(std::string filename);
+    GameEngine(int width, int height);
 
-    void update();
-    void addZombie(int strength, double x, double y, Entity2D* target);
-    Player* addPlayer(double x, double y);
+    Player*   addPlayer(double x, double y);
+    bool      getGameStatus() const {return _players[0]->getLifes() > 0;}
 
-    void shoot(char c);
-    void findTarget(char c);
-    bool validChar(char c);
-
-    void draw(sf::RenderTarget* renderer);
+    void      pause();
+    void      shoot(char c);
+    void      findTarget(char c);
+    void      loadDico(std::string filename);
+    void      update();
+    void      addZombie(int strength, double x, double y, Entity2D* target);
+    void      draw(sf::RenderTarget* renderer);
 
 private:
+    bool       validChar(char c);
+
+    bool       _paused;
+    int        _worldWidth;
+    int        _worldHeight;
     PhyManager _phyManager;
-    GameWorld _gameWorld;
+    GameWorld  _gameWorld;
+    int        _waves;
+    int        _waveDelay;
+    sf::Clock  _waveClock;
 
-    sf::Clock _waveClock;
-    int _waves, _waveDelay;
-
-    std::vector<Player*> _players;
-    std::map<char, std::list<Zombie*> > _wordZombiesMap;
-
+    std::vector<Player*>                     _players;
+    std::map<char, std::list<Zombie*> >      _wordZombiesMap;
     std::map<int, std::vector<std::string> > _wordLengthMap;
-
-    std::vector<std::string> _dico;
+    std::vector<std::string>                 _dico;
 };
 
 #endif // GAMEENGINE_H_INCLUDED

@@ -2,24 +2,28 @@
 
 #include <iostream>
 
-GameWorld::GameWorld()
+GameWorld::GameWorld(int width, int height):
+    _worldWidth(width),
+    _worldHeight(height)
 {
     _font.loadFromFile("resources/fonts/font.ttf");
     _zombieText.setFont(_font);
-
     _scoreText = _zombieText;
     _accuracyText = _zombieText;
     _comboText = _zombieText;
-
     _zombieText.setCharacterSize(20);
     _zombieText.setColor(sf::Color::Black);
+    _paused = false;
+
     _blood.loadFromFile("resources/textures/blood.png");
-    _ground.create(750, 700);
+    _heart.loadFromFile("resources/textures/heart.png");
+
+    _ground.create(_worldWidth, _worldHeight);
     _ground.clear(sf::Color::Black);
 
     _soundBuffers.resize(10);
 
-    _soundBuffers[0].loadFromFile("resources/sounds/fire1.ogg");
+    _soundBuffers[0].loadFromFile("resources/sounds/fire1.wav");
     _soundBuffers[1].loadFromFile("resources/sounds/fire2.ogg");
     _soundBuffers[2].loadFromFile("resources/sounds/fire3.ogg");
     _soundBuffers[3].loadFromFile("resources/sounds/click.wav");
@@ -35,22 +39,16 @@ void GameWorld::update()
         bullet->update();
         if (bullet->isTargetReached())
         {
-            _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), 10));
-            sf::Sound s(_soundBuffers[5]);
-            s.setVolume(20);
-            _sounds.push_back(s);
-            _sounds.back().play();
+            double radius = std::min(bullet->getTargetRadius()/1.0+1, 50.0);
+            _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), radius));
+            _soundManager.addSound(_soundBuffers[5], 0.2f);
         }
     }
 
     for (Explosion &expl : _explosions)
     {
         expl.update();
-
-        if (!expl.getStatus())
-        {
-            expl.draw(&_ground);
-        }
+        if (!expl.getStatus()) {expl.draw(&_ground, &_blood);}
     }
 
     for (Zombie* &zomb : _zombies)
@@ -61,24 +59,20 @@ void GameWorld::update()
             sf::Sprite blood(_blood);
             double w = blood.getGlobalBounds().width;
             blood.setOrigin(16, 47);
-            blood.scale(3*zomb->getR()/w, 3*zomb->getR()/w);
+            blood.scale(2*zomb->getR()/w, 2*zomb->getR()/w);
             blood.setRotation(rand()%360);
             blood.setPosition(zomb->getX(), zomb->getY());
             _ground.draw(blood);
 
-            _sounds.push_back(sf::Sound(_soundBuffers[4]));
-            _sounds.back().play();
+            _soundManager.addSound(_soundBuffers[4]);
         }
-        else
-        {
-            zomb->update();
-        }
+        else { zomb->update(); }
     }
 
-    _zombies.remove_if([](Zombie* &z) { bool dead = !z->getLife(); if (dead) delete z; return dead;});
-    _bullets.remove_if([](Bullet* &b) { bool done = b->isTargetReached(); if (done) {delete b;} return done; });
+    _soundManager.update();
+    _zombies.remove_if([](Zombie* &z)      { bool dead = !z->getLife(); if (dead) delete z; return dead;});
+    _bullets.remove_if([](Bullet* &b)      { bool done = b->isTargetReached(); if (done) {delete b;} return done; });
     _explosions.remove_if([](Explosion &e) { return !e.getStatus(); });
-    _sounds.remove_if([](sf::Sound &s) { return !s.getStatus(); });
 }
 
 void GameWorld::addPlayer(Player* &newPlayer)
@@ -95,30 +89,23 @@ void GameWorld::addBullet(Bullet* &newBullet)
 {
     _bullets.push_back(newBullet);
 
-    sf::Sound s(_soundBuffers[rand()%3]);
-    s.setVolume(50);
-    _sounds.push_back(s);
-    _sounds.back().play();
+    _soundManager.addSound(_soundBuffers[rand()%1], 0.5f);
 }
 
 void GameWorld::shotMissed()
 {
-    sf::Sound s(_soundBuffers[3]);
-    _sounds.push_back(s);
-    _sounds.back().play();
+    _soundManager.addSound(_soundBuffers[3]);
 }
 
 void GameWorld::draw(sf::RenderTarget* renderer)
 {
-    if (_drying.getElapsedTime().asSeconds() >= 5)
+    if (_drying.getElapsedTime().asSeconds() >= 2)
     {
-        sf::RectangleShape drying(sf::Vector2f(750, 700));
-        drying.setFillColor(sf::Color(0, 0, 0, 10));
+        sf::RectangleShape drying(sf::Vector2f(_worldWidth, _worldHeight));
+        drying.setFillColor(sf::Color(0, 0, 0, 2));
         _ground.draw(drying);
-
         _drying.restart();
     }
-
     _ground.display();
 
     sf::Sprite ground(_ground.getTexture());
@@ -130,10 +117,8 @@ void GameWorld::draw(sf::RenderTarget* renderer)
     for (Bullet* &bullet : _bullets)
     {
         sf::Vector2f pos(bullet->getX(), bullet->getY());
-
         bulletsShape[2*i  ].position = pos;
         bulletsShape[2*i  ].color = sf::Color(255, 255, 0);
-
         bulletsShape[2*i+1].position = sf::Vector2f(pos.x-20*bullet->getVx(), pos.y-20*bullet->getVy());
         bulletsShape[2*i+1].color = sf::Color(255, 0, 0);
         i++;
@@ -157,7 +142,7 @@ void GameWorld::draw(sf::RenderTarget* renderer)
 
         if (player->getTarget())
         {
-            double rTarget = player->getTarget()->getR()*1.1;
+            double rTarget = player->getTarget()->getR()+10;
             sf::Vector2f posTarget(player->getTarget()->getX(), player->getTarget()->getY());
             sf::CircleShape targetShape(rTarget);
             targetShape.setOrigin(rTarget, rTarget);
@@ -196,18 +181,33 @@ void GameWorld::draw(sf::RenderTarget* renderer)
         renderer->draw(_zombieText);
     }
 
-    for (Explosion& expl : _explosions)
+    for (Explosion& expl : _explosions) { expl.draw(renderer, &_blood); }
+
+    sf::Sprite heart(_heart); heart.setOrigin(25, 22);
+    for (int life(0); life<_players[0]->getLifes(); ++life)
     {
-        expl.draw(renderer);
+        heart.setPosition(_worldWidth-29, _worldHeight-29*(life+1));
+        renderer->draw(heart);
     }
 
-    _scoreText.setPosition(10, 600);
+    _scoreText.setPosition(10, _worldHeight-100);
     _scoreText.setString(numberToString(_players[0]->getScore()));
     _scoreText.setColor(sf::Color::White);
     renderer->draw(_scoreText);
 
-    _comboText.setPosition(10, 640);
+    _comboText.setPosition(10, _worldHeight-40);
     _comboText.setString(numberToString(_players[0]->getAccuracy())+" %");
     _comboText.setColor(sf::Color::White);
     renderer->draw(_comboText);
+
+    if (_paused)
+    {
+        sf::RectangleShape hide(sf::Vector2f(_worldWidth, _worldHeight));
+        hide.setFillColor(sf::Color(0, 0, 0, 200));
+
+        renderer->draw(hide);
+        _scoreText.setString("PAUSE");
+        _scoreText.setPosition(_worldWidth/2-_scoreText.getGlobalBounds().width/2, 200);
+        renderer->draw(_scoreText);
+    }
 }

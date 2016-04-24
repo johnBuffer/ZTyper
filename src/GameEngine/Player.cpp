@@ -4,6 +4,7 @@
 
 Player::Player(double x, double y) :
     Entity2D(x, y, 30),
+    _lifes(3),
     _target(NULL),
     _angle(-3.14159/2.0)
 {
@@ -13,6 +14,7 @@ Player::Player(double x, double y) :
     _hit = 0;
     _total = 0;
     _recoil = 0;
+    _static = true;
 }
 
 bool Player::shoot(char c)
@@ -41,9 +43,15 @@ bool Player::shoot(char c)
     return hit;
 }
 
+void Player::onContact(Entity2D* e)
+{
+    _lifes--;
+    static_cast<Zombie*>(e)->kill();
+}
+
 void Player::update()
 {
-    _recoil += -_recoil/10.0;
+    _recoil += -_recoil/2.0;
 
     if (!_target)
         return;

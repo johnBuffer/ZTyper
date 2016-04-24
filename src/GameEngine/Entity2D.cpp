@@ -14,10 +14,24 @@ Entity2D::Entity2D(double x, double y, double r) :
 
 }
 
+Entity2D::~Entity2D()
+{
+
+}
+
 void Entity2D::move(double x, double y)
 {
     _x += x;
     _y += y;
+}
+
+void Entity2D::setPosition(double x, double y)
+{
+    _x = x;
+    _y = y;
+
+    _lastX = x;
+    _lastY = y;
 }
 
 void Entity2D::updatePosition()

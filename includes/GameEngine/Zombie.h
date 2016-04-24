@@ -13,18 +13,20 @@ public:
 
     ~Zombie();
 
-    void setTarget(Entity2D* target) {_target = target;}
-    bool shootNextLetter(char c);
-    void update();
-
-    Entity2D* getTarget() const {return _target;}
-    double getTargetDist() const {return _targetDist;}
-    int getLife() const {return _word.size();}
+    bool        shootNextLetter(char c);
+    Entity2D*   getTarget() const {return _target;}
+    double      getTargetDist() const {return _targetDist;}
+    int         getLife() const {return _word.size();}
     std::string getWord() const {return _word;}
 
+    void        setTarget(Entity2D* target) {_target = target;}
+    void        kill() {_word = "";}
+    void        onContact(Entity2D*) {};
+    void        update();
+
 private:
-    Entity2D* _target;
-    double _targetDist, _speed;
+    Entity2D*   _target;
+    double      _targetDist, _speed;
     std::string _word;
 
 };

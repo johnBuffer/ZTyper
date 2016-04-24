@@ -13,6 +13,7 @@ Bullet::Bullet(double x, double y, Entity2D* target) :
 
     _speed = 25;
     _distFromOrigin = 0;
+    _targetRadius = target->getR();
 }
 
 void Bullet::update()

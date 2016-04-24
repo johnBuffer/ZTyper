@@ -11,39 +11,41 @@
 #include "Bullet.h"
 #include "Explosion.h"
 #include "phyUtils.h"
+#include "SoundManager.h"
 
 class GameWorld
 {
 public:
-    GameWorld();
+    GameWorld(int width, int height);
 
-    void addPlayer(Player* &newPlayer);
-    void addZombie(Zombie* &newZombie);
-    void addBullet(Bullet* &newBullet);
-
-    void update();
+    void                addPlayer(Player* &newPlayer);
+    void                addZombie(Zombie* &newZombie);
+    void                addBullet(Bullet* &newBullet);
+    void                update();
+    void                shotMissed();
+    void                draw(sf::RenderTarget* renderer);
+    void                pause() {_paused = !_paused;}
     std::list<Zombie*>& getZombies() {return _zombies;}
-    void shotMissed();
-
-    void draw(sf::RenderTarget* renderer);
 
 private:
-    std::list<Zombie*> _zombies;
-    std::list<Bullet*> _bullets;
-    std::list<Explosion> _explosions;
-
-    std::vector<Player*> _players;
+    int _worldWidth,                    _worldHeight;
+    bool                                _paused;
+    std::list<Zombie*>                  _zombies;
+    std::list<Bullet*>                  _bullets;
+    std::list<Explosion>                _explosions;
+    std::vector<Player*>                _players;
     std::map<char, std::list<Zombie*> > _wordZombiesMap;
-
-    sf::Font _font;
-    sf::Text _zombieText, _scoreText, _accuracyText, _comboText;
+    std::vector<sf::SoundBuffer>        _soundBuffers;
+    SoundManager      _soundManager;
+    sf::Font          _font;
+    sf::Text          _zombieText;
+    sf::Text          _scoreText;
+    sf::Text          _accuracyText;
+    sf::Text          _comboText;
     sf::RenderTexture _ground;
-    sf::Texture _blood;
-
-    sf::Clock _drying;
-
-    std::vector<sf::SoundBuffer> _soundBuffers;
-    std::list<sf::Sound> _sounds;
+    sf::Texture       _blood;
+    sf::Texture       _heart;
+    sf::Clock         _drying;
 };
 
 #endif // GAMEWORLD_H_INCLUDED
