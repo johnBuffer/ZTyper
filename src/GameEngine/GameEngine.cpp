@@ -11,6 +11,7 @@ GameEngine::GameEngine(int width, int height):
     _phyManager = PhyManager();
     _waves = 0;
     _waveDelay = rand()%2;
+    _paused = false;
 
     loadDico("resources/texts/dico.txt");
 }
@@ -23,7 +24,6 @@ void GameEngine::loadDico(std::string filename)
         std::cout << "Cannot load dictionary" << std::endl;
         return;
     }
-
     std::string str;
     while (std::getline(file, str))
     {
@@ -32,8 +32,16 @@ void GameEngine::loadDico(std::string filename)
     }
 }
 
+void GameEngine::pause()
+{
+    _paused = !_paused;
+}
+
 void GameEngine::update()
 {
+    if (_paused)
+        return;
+
     if (_waveClock.getElapsedTime().asSeconds() >= _waveDelay)
     {
         _waves++;
@@ -66,7 +74,6 @@ void GameEngine::update()
     }
 
     _gameWorld.update();
-
     _phyManager.update();
 }
 
@@ -95,6 +102,9 @@ Player* GameEngine::addPlayer(double x, double y)
 
 void GameEngine::shoot(char c)
 {
+    if (_paused)
+        return;
+
     if (_players[0]->getTarget())
     {
         if (_players[0]->shoot(c))

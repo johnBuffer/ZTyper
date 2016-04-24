@@ -11,7 +11,9 @@ public:
     GameEngine(int width, int height);
 
     Player*   addPlayer(double x, double y);
+    bool      getGameStatus() const {return _players[0]->getLifes() > 0;}
 
+    void      pause();
     void      shoot(char c);
     void      findTarget(char c);
     void      loadDico(std::string filename);
@@ -22,6 +24,7 @@ public:
 private:
     bool       validChar(char c);
 
+    bool       _paused;
     int        _worldWidth;
     int        _worldHeight;
     PhyManager _phyManager;

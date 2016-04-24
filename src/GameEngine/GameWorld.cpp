@@ -38,7 +38,7 @@ void GameWorld::update()
         bullet->update();
         if (bullet->isTargetReached())
         {
-            _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), bullet->getTargetRadius()/10.0));
+            _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), bullet->getTargetRadius()/10.0+1));
             sf::Sound s(_soundBuffers[5]);
             s.setVolume(20);
             _sounds.push_back(s);
