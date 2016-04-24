@@ -2,19 +2,22 @@
 
 #include <iostream>
 
-GameWorld::GameWorld()
+GameWorld::GameWorld(int width, int height):
+    _worldWidth(width),
+    _worldHeight(height)
 {
     _font.loadFromFile("resources/fonts/font.ttf");
     _zombieText.setFont(_font);
-
     _scoreText = _zombieText;
     _accuracyText = _zombieText;
     _comboText = _zombieText;
-
     _zombieText.setCharacterSize(20);
     _zombieText.setColor(sf::Color::Black);
+
     _blood.loadFromFile("resources/textures/blood.png");
-    _ground.create(1600, 900);
+    _heart.loadFromFile("resources/textures/heart.png");
+
+    _ground.create(_worldWidth, _worldHeight);
     _ground.clear(sf::Color::Black);
 
     _soundBuffers.resize(10);
@@ -112,7 +115,7 @@ void GameWorld::draw(sf::RenderTarget* renderer)
 {
     if (_drying.getElapsedTime().asSeconds() >= 5)
     {
-        sf::RectangleShape drying(sf::Vector2f(1600, 900));
+        sf::RectangleShape drying(sf::Vector2f(_worldWidth, _worldHeight));
         drying.setFillColor(sf::Color(0, 0, 0, 10));
         _ground.draw(drying);
 
@@ -201,12 +204,20 @@ void GameWorld::draw(sf::RenderTarget* renderer)
         expl.draw(renderer);
     }
 
-    _scoreText.setPosition(10, 800);
+    sf::Sprite heart(_heart);
+    for (int life(0); life<_players[0]->getLifes(); ++life)
+    {
+        heart.setPosition(_worldWidth-54, _worldHeight-54*(life+1));
+        renderer->draw(heart);
+    }
+
+
+    _scoreText.setPosition(10, _worldHeight-100);
     _scoreText.setString(numberToString(_players[0]->getScore()));
     _scoreText.setColor(sf::Color::White);
     renderer->draw(_scoreText);
 
-    _comboText.setPosition(10, 840);
+    _comboText.setPosition(10, _worldHeight-40);
     _comboText.setString(numberToString(_players[0]->getAccuracy())+" %");
     _comboText.setColor(sf::Color::White);
     renderer->draw(_comboText);

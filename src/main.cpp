@@ -20,14 +20,14 @@ int main()
     window.setVerticalSyncEnabled(true);
     window.setMouseCursorVisible(false);
 
-    GameEngine gameEngine;
+    GameEngine gameEngine(windowWidth, windowHeight);
 
-    Player* player = gameEngine.addPlayer(375, 600);
+    Player* player = gameEngine.addPlayer(windowWidth/2, windowHeight-200);
 
     while (window.isOpen())
     {
-        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-        player->setPosition(mousePos.x, mousePos.y);
+        //sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+        //player->setPosition(mousePos.x, mousePos.y);
 
         sf::Event event;
         while (window.pollEvent(event))

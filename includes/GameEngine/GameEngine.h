@@ -8,7 +8,7 @@
 class GameEngine
 {
 public:
-    GameEngine();
+    GameEngine(int width, int height);
     void loadDico(std::string filename);
 
     void update();
@@ -22,6 +22,7 @@ public:
     void draw(sf::RenderTarget* renderer);
 
 private:
+    int _worldWidth, _worldHeight;
     PhyManager _phyManager;
     GameWorld _gameWorld;
 

@@ -15,7 +15,7 @@
 class GameWorld
 {
 public:
-    GameWorld();
+    GameWorld(int width, int height);
 
     void addPlayer(Player* &newPlayer);
     void addZombie(Zombie* &newZombie);
@@ -28,6 +28,7 @@ public:
     void draw(sf::RenderTarget* renderer);
 
 private:
+    int _worldWidth, _worldHeight;
     std::list<Zombie*> _zombies;
     std::list<Bullet*> _bullets;
     std::list<Explosion> _explosions;
@@ -38,7 +39,7 @@ private:
     sf::Font _font;
     sf::Text _zombieText, _scoreText, _accuracyText, _comboText;
     sf::RenderTexture _ground;
-    sf::Texture _blood;
+    sf::Texture _blood, _heart;
 
     sf::Clock _drying;
 

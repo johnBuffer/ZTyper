@@ -19,6 +19,8 @@ public :
     void move(double x, double y);
     void setPosition(double x, double y);
 
+    virtual void onContact()=0;
+
     void updatePosition();
 
 protected:

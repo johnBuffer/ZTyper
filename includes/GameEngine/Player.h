@@ -9,7 +9,9 @@ class Player : public Entity2D
 public:
     Player(double x, double y);
     void setTarget(Zombie* z) {_target = z;};
+    void addLife(int l) {_lifes += l;}
 
+    int getLifes() const {return _lifes;}
     double getScore() const {return _score;}
     double getCombo() const {return _combo;}
     int getAccuracy() const {return _accuracy*100;}
@@ -22,6 +24,7 @@ public:
     void update();
 
 private:
+    int _lifes;
     Zombie* _target;
     double _score, _combo, _accuracy, _hit, _total;
     double _angle, _targetDist, _recoil;
