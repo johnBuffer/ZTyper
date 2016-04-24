@@ -11,11 +11,11 @@ int main()
 {
     srand(time(NULL));
 
-    int windowWidth = 500;
-    int windowHeight = 500;
+    int windowWidth = 1000;
+    int windowHeight = 750;
 
     sf::ContextSettings settings;
-    settings.antialiasingLevel = 4;
+    settings.antialiasingLevel = 0;
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "ZTyper", sf::Style::Default, settings);
     window.setVerticalSyncEnabled(true);
     window.setMouseCursorVisible(false);

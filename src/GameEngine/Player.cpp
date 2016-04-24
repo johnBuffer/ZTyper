@@ -14,6 +14,7 @@ Player::Player(double x, double y) :
     _hit = 0;
     _total = 0;
     _recoil = 0;
+    _static = true;
 }
 
 bool Player::shoot(char c)

@@ -15,12 +15,12 @@ public:
     double getYp(int i) const {return _yp[i];}
     bool   getStatus() const {return _status;}
 
-    void   draw(sf::RenderTarget* renderer);
+    void   draw(sf::RenderTarget* renderer, sf::Texture* tex);
     void   onContact(Entity2D*) {}
     void   update();
 
 private:
-    double _angle;
+    double _angle, _originalR;
     int    _dispersion;
 
     double _vx[100];

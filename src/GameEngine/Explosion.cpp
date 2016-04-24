@@ -5,6 +5,7 @@ Explosion::Explosion(double x, double y, double r) :
 {
     _angle = 0;
     _dispersion = 6283;
+    _originalR = r;
 
     _status = true;
 
@@ -17,8 +18,8 @@ Explosion::Explosion(double x, double y, double r) :
         _yp[i] = _y;
 
         double v_particule = (rand()%2000)/2000.0;
-        _vx[i] = 50*cos(a_p)*(v_particule+1);
-        _vy[i] = 50*sin(a_p)*(v_particule+1);
+        _vx[i] = 10*cos(a_p)*(v_particule+1);
+        _vy[i] = 10*sin(a_p)*(v_particule+1);
     }
 
     for (int i(20); i<40; i++)
@@ -30,15 +31,15 @@ Explosion::Explosion(double x, double y, double r) :
         _yp[i] = _y;
 
         double v_particule = (rand()%2000)/2000.0;
-        _vx[i] = 100*cos(a_p)*(v_particule+1);
-        _vy[i] = 100*sin(a_p)*(v_particule+1);
+        _vx[i] = 20*cos(a_p)*(v_particule+1);
+        _vy[i] = 20*sin(a_p)*(v_particule+1);
     }
 }
 
 void Explosion::update()
 {
     double dt = 0.016;
-    _r -= 70*dt;
+    _r -= 200*dt;
 
     for (int i(0); i<40; i++)
     {
@@ -46,17 +47,19 @@ void Explosion::update()
         _yp[i] += 2*(_vy[i])*(_r/3.0)*dt;
     }
 
-    _status = !(_r <= rand()%3);
+    double ratio = (rand()%50)/100.0;
+
+    _status = !(_r/_originalR < ratio);
 }
 
-void Explosion::draw(sf::RenderTarget* renderer)
+void Explosion::draw(sf::RenderTarget* renderer, sf::Texture* tex)
 {
     double pi = 3.14159;
-    sf::VertexArray explosionsShape(sf::Quads, 40*4);
+    sf::VertexArray explosionsShape(sf::Quads, 10*4);
 
     sf::Vector2f pos(_x, _y);
     double r = 1.25*_r;
-    for (int k(0); k<20; ++k)
+    for (int k(0); k<10; ++k)
     {
         double x = getXp(k);
         double y = getYp(k);
@@ -64,13 +67,21 @@ void Explosion::draw(sf::RenderTarget* renderer)
         for (int a(0); a<4; ++a)
         {
             double angle = 2*pi/4.0*a + 0.26*k;
+            double c = 100+k/10.0*155;//255*(100 + 2*k)/255.0;
+
             explosionsShape[4*k+a].position = sf::Vector2f(x+r*cos(angle), y+r*sin(angle));
-            double c = 255*(100 + 2*k)/255.0;
-            explosionsShape[4*k+a].color = sf::Color(c, 0, 0);
+            explosionsShape[4*k+a].color = sf::Color(c, c, c);
         }
+
+        explosionsShape[4*k  ].texCoords = sf::Vector2f(0, 0);
+        explosionsShape[4*k+1].texCoords = sf::Vector2f(70, 0);
+        explosionsShape[4*k+2].texCoords = sf::Vector2f(70, 76);
+        explosionsShape[4*k+3].texCoords = sf::Vector2f(0, 76);
     }
 
-    for (int k(20); k<40; ++k)
+    r *= 0.05;
+    sf::VertexArray particles(sf::Quads, 40*4);
+    for (int k(0); k<30; ++k)
     {
         double x = getXp(k);
         double y = getYp(k);
@@ -78,10 +89,11 @@ void Explosion::draw(sf::RenderTarget* renderer)
         for (int a(0); a<4; ++a)
         {
             double angle = 2*pi/4.0*a + 0.26*k;
-            explosionsShape[4*k+a].position = sf::Vector2f(x+r*cos(angle), y+r*sin(angle));
-            explosionsShape[4*k+a].color = sf::Color(150.0, 0, 0);
+            particles[4*k+a].position = sf::Vector2f(x+r*cos(angle), y+r*sin(angle));
+            particles[4*k+a].color = sf::Color(150.0, 0, 0);
         }
     }
 
-    renderer->draw(explosionsShape);
+    renderer->draw(particles);
+    renderer->draw(explosionsShape, tex);
 }

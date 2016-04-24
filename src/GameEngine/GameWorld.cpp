@@ -38,7 +38,7 @@ void GameWorld::update()
         bullet->update();
         if (bullet->isTargetReached())
         {
-            _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), bullet->getTargetRadius()/10.0+1));
+            _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), bullet->getTargetRadius()/1.0+1));
             _soundManager.addSound(_soundBuffers[5], 0.2f);
         }
     }
@@ -46,7 +46,7 @@ void GameWorld::update()
     for (Explosion &expl : _explosions)
     {
         expl.update();
-        if (!expl.getStatus()) {expl.draw(&_ground);}
+        if (!expl.getStatus()) {expl.draw(&_ground, &_blood);}
     }
 
     for (Zombie* &zomb : _zombies)
@@ -179,7 +179,7 @@ void GameWorld::draw(sf::RenderTarget* renderer)
         renderer->draw(_zombieText);
     }
 
-    for (Explosion& expl : _explosions) { expl.draw(renderer); }
+    for (Explosion& expl : _explosions) { expl.draw(renderer, &_blood); }
 
     sf::Sprite heart(_heart);
     for (int life(0); life<_players[0]->getLifes(); ++life)
