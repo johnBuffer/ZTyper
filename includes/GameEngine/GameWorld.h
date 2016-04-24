@@ -24,16 +24,18 @@ public:
     void                update();
     void                shotMissed();
     void                draw(sf::RenderTarget* renderer);
+    void                pause() {_paused = !_paused;}
     std::list<Zombie*>& getZombies() {return _zombies;}
 
 private:
     int _worldWidth,                    _worldHeight;
+    bool                                _paused;
     std::list<Zombie*>                  _zombies;
     std::list<Bullet*>                  _bullets;
     std::list<Explosion>                _explosions;
     std::vector<Player*>                _players;
     std::map<char, std::list<Zombie*> > _wordZombiesMap;
-
+    std::vector<sf::SoundBuffer>        _soundBuffers;
     SoundManager      _soundManager;
     sf::Font          _font;
     sf::Text          _zombieText;
@@ -44,8 +46,6 @@ private:
     sf::Texture       _blood;
     sf::Texture       _heart;
     sf::Clock         _drying;
-
-    std::vector<sf::SoundBuffer> _soundBuffers;
 };
 
 #endif // GAMEWORLD_H_INCLUDED

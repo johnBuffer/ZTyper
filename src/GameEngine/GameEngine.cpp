@@ -35,6 +35,7 @@ void GameEngine::loadDico(std::string filename)
 void GameEngine::pause()
 {
     _paused = !_paused;
+    _gameWorld.pause();
 }
 
 void GameEngine::update()
@@ -112,12 +113,9 @@ void GameEngine::shoot(char c)
             Bullet* newBullet = new Bullet(_players[0]->getX(), _players[0]->getY(), _players[0]->getTarget());
             _gameWorld.addBullet(newBullet);
 
-            _players[0]->getTarget()->move(0, -5);
+            _players[0]->getTarget()->move(0, -10);
         }
-        else
-        {
-            _gameWorld.shotMissed();
-        }
+        else {_gameWorld.shotMissed();}
     }
     else if (validChar(c))
     {

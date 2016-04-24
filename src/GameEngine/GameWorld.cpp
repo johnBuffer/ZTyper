@@ -13,6 +13,7 @@ GameWorld::GameWorld(int width, int height):
     _comboText = _zombieText;
     _zombieText.setCharacterSize(20);
     _zombieText.setColor(sf::Color::Black);
+    _paused = false;
 
     _blood.loadFromFile("resources/textures/blood.png");
     _heart.loadFromFile("resources/textures/heart.png");
@@ -38,7 +39,8 @@ void GameWorld::update()
         bullet->update();
         if (bullet->isTargetReached())
         {
-            _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), bullet->getTargetRadius()/1.0+1));
+            double radius = std::min(bullet->getTargetRadius()/1.0+1, 50.0);
+            _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), radius));
             _soundManager.addSound(_soundBuffers[5], 0.2f);
         }
     }
@@ -197,4 +199,15 @@ void GameWorld::draw(sf::RenderTarget* renderer)
     _comboText.setString(numberToString(_players[0]->getAccuracy())+" %");
     _comboText.setColor(sf::Color::White);
     renderer->draw(_comboText);
+
+    if (_paused)
+    {
+        sf::RectangleShape hide(sf::Vector2f(_worldWidth, _worldHeight));
+        hide.setFillColor(sf::Color(0, 0, 0, 200));
+
+        renderer->draw(hide);
+        _scoreText.setString("PAUSE");
+        _scoreText.setPosition(_worldWidth/2-_scoreText.getGlobalBounds().width/2, 200);
+        renderer->draw(_scoreText);
+    }
 }
