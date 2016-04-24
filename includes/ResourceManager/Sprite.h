@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <memory>
 #include <SFML/Graphics.hpp>
 #include "../../json/json.h"
 
@@ -23,7 +24,7 @@ public:
 	int height();
 
 	bool loadTexture();
-	static bool loadAll(std::vector<Sprite*>* sprites);
+	static bool loadAll(std::vector< std::shared_ptr<Sprite> >* sprites);
 
 private:
 	std::string _name;

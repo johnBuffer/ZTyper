@@ -7,11 +7,13 @@ int main()
 {
 
 	ResourceManager<Sprite> rm;
-	
+
 	rm.loadAll();
 
 
-	Sprite* sp = rm.get("zombie");
+	auto sp = rm.get("zombie");
+
+
 
 	std::cout << sp->name() << std::endl;
 }

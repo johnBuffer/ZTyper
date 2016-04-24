@@ -24,6 +24,8 @@ Sprite::~Sprite()
 		<< std::to_string(_x) << ", " << std::to_string(_y) << ", "
 		<< std::to_string(_width) << ", " << std::to_string(_height) << ")"
 		<< std::endl;
+
+	delete _tex;
 }
 
 std::string Sprite::name() { return _name; };
@@ -48,7 +50,7 @@ bool Sprite::loadTexture()
 	);
 }
 
-bool Sprite::loadAll(std::vector<Sprite*>* sprites)
+bool Sprite::loadAll(std::vector< std::shared_ptr<Sprite> >* sprites)
 {	
 	
 	std::cout << "Sprite::loadAll()." << std::endl;
@@ -71,7 +73,7 @@ bool Sprite::loadAll(std::vector<Sprite*>* sprites)
 		int width = jSprite.get("width", 0).asInt();
 		int height = jSprite.get("height", 0).asInt();
 
-		Sprite* sprite = new Sprite(name, path, x, y ,width, height);
+		std::shared_ptr<Sprite> sprite( new Sprite(name, path, x, y ,width, height) );
 		
 		sprite->loadTexture();
 
