@@ -2,12 +2,28 @@
 	"name": "resources",
 	"sprites": [
 		{
-			"name": "zombie",
+			"name": "zombie_1",
 			"path": "textures/zombie.png",
-			"x": 0,
+			"x": 20,
 			"y": 50,
-			"width": 160,
-			"height": 160
+			"width": 128,
+			"height": 164
+		},
+		{
+			"name": "zombie_2",
+			"path": "textures/zombie.png",
+			"x": 180,
+			"y": 50,
+			"width": 128,
+			"height": 164
+		},
+		{
+			"name": "zombie_3",
+			"path": "textures/zombie.png",
+			"x": 337,
+			"y": 52,
+			"width": 128,
+			"height": 164
 		}
 	]
 }
