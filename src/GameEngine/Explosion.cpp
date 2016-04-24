@@ -46,7 +46,7 @@ void Explosion::update()
         _yp[i] += 2*(_vy[i])*(_r/3.0)*dt;
     }
 
-    _status = !(_r <= 2);
+    _status = !(_r <= rand()%3);
 }
 
 void Explosion::draw(sf::RenderTarget* renderer)

@@ -9,19 +9,19 @@ class GameEngine
 {
 public:
     GameEngine(int width, int height);
-    void      loadDico(std::string filename);
 
-    void      update();
-    void      addZombie(int strength, double x, double y, Entity2D* target);
     Player*   addPlayer(double x, double y);
 
     void      shoot(char c);
     void      findTarget(char c);
-    bool      validChar(char c);
-
+    void      loadDico(std::string filename);
+    void      update();
+    void      addZombie(int strength, double x, double y, Entity2D* target);
     void      draw(sf::RenderTarget* renderer);
 
 private:
+    bool       validChar(char c);
+
     int        _worldWidth;
     int        _worldHeight;
     PhyManager _phyManager;

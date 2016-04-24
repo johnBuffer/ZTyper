@@ -38,7 +38,7 @@ void GameWorld::update()
         bullet->update();
         if (bullet->isTargetReached())
         {
-            _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), 10));
+            _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), bullet->getTargetRadius()/10.0));
             sf::Sound s(_soundBuffers[5]);
             s.setVolume(20);
             _sounds.push_back(s);
@@ -64,7 +64,7 @@ void GameWorld::update()
             sf::Sprite blood(_blood);
             double w = blood.getGlobalBounds().width;
             blood.setOrigin(16, 47);
-            blood.scale(3*zomb->getR()/w, 3*zomb->getR()/w);
+            blood.scale(2*zomb->getR()/w, 2*zomb->getR()/w);
             blood.setRotation(rand()%360);
             blood.setPosition(zomb->getX(), zomb->getY());
             _ground.draw(blood);
@@ -78,10 +78,10 @@ void GameWorld::update()
         }
     }
 
-    _zombies.remove_if([](Zombie* &z) { bool dead = !z->getLife(); if (dead) delete z; return dead;});
-    _bullets.remove_if([](Bullet* &b) { bool done = b->isTargetReached(); if (done) {delete b;} return done; });
+    _zombies.remove_if([](Zombie* &z)      { bool dead = !z->getLife(); if (dead) delete z; return dead;});
+    _bullets.remove_if([](Bullet* &b)      { bool done = b->isTargetReached(); if (done) {delete b;} return done; });
     _explosions.remove_if([](Explosion &e) { return !e.getStatus(); });
-    _sounds.remove_if([](sf::Sound &s) { return !s.getStatus(); });
+    _sounds.remove_if([](sf::Sound &s)     { return !s.getStatus(); });
 }
 
 void GameWorld::addPlayer(Player* &newPlayer)
@@ -118,10 +118,8 @@ void GameWorld::draw(sf::RenderTarget* renderer)
         sf::RectangleShape drying(sf::Vector2f(_worldWidth, _worldHeight));
         drying.setFillColor(sf::Color(0, 0, 0, 10));
         _ground.draw(drying);
-
         _drying.restart();
     }
-
     _ground.display();
 
     sf::Sprite ground(_ground.getTexture());
@@ -133,10 +131,8 @@ void GameWorld::draw(sf::RenderTarget* renderer)
     for (Bullet* &bullet : _bullets)
     {
         sf::Vector2f pos(bullet->getX(), bullet->getY());
-
         bulletsShape[2*i  ].position = pos;
         bulletsShape[2*i  ].color = sf::Color(255, 255, 0);
-
         bulletsShape[2*i+1].position = sf::Vector2f(pos.x-20*bullet->getVx(), pos.y-20*bullet->getVy());
         bulletsShape[2*i+1].color = sf::Color(255, 0, 0);
         i++;
@@ -160,7 +156,7 @@ void GameWorld::draw(sf::RenderTarget* renderer)
 
         if (player->getTarget())
         {
-            double rTarget = player->getTarget()->getR()*1.1;
+            double rTarget = player->getTarget()->getR()+10;
             sf::Vector2f posTarget(player->getTarget()->getX(), player->getTarget()->getY());
             sf::CircleShape targetShape(rTarget);
             targetShape.setOrigin(rTarget, rTarget);
@@ -199,10 +195,7 @@ void GameWorld::draw(sf::RenderTarget* renderer)
         renderer->draw(_zombieText);
     }
 
-    for (Explosion& expl : _explosions)
-    {
-        expl.draw(renderer);
-    }
+    for (Explosion& expl : _explosions) { expl.draw(renderer); }
 
     sf::Sprite heart(_heart);
     for (int life(0); life<_players[0]->getLifes(); ++life)
