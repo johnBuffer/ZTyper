@@ -22,7 +22,7 @@ int main()
 
     GameEngine gameEngine(windowWidth, windowHeight);
 
-    Player* player = gameEngine.addPlayer(windowWidth/2, windowHeight-200);
+    Player* player = gameEngine.addPlayer(windowWidth/2, windowHeight-100);
 
     sf::Texture heart;
     heart.loadFromFile("resources/textures/heart.png");

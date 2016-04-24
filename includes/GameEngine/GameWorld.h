@@ -11,6 +11,7 @@
 #include "Bullet.h"
 #include "Explosion.h"
 #include "phyUtils.h"
+#include "SoundManager.h"
 
 class GameWorld
 {
@@ -33,6 +34,7 @@ private:
     std::vector<Player*>                _players;
     std::map<char, std::list<Zombie*> > _wordZombiesMap;
 
+    SoundManager      _soundManager;
     sf::Font          _font;
     sf::Text          _zombieText;
     sf::Text          _scoreText;
@@ -44,7 +46,6 @@ private:
     sf::Clock         _drying;
 
     std::vector<sf::SoundBuffer> _soundBuffers;
-    std::list<sf::Sound>         _sounds;
 };
 
 #endif // GAMEWORLD_H_INCLUDED

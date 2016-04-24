@@ -22,7 +22,7 @@ GameWorld::GameWorld(int width, int height):
 
     _soundBuffers.resize(10);
 
-    _soundBuffers[0].loadFromFile("resources/sounds/fire1.ogg");
+    _soundBuffers[0].loadFromFile("resources/sounds/fire1.wav");
     _soundBuffers[1].loadFromFile("resources/sounds/fire2.ogg");
     _soundBuffers[2].loadFromFile("resources/sounds/fire3.ogg");
     _soundBuffers[3].loadFromFile("resources/sounds/click.wav");
@@ -39,21 +39,14 @@ void GameWorld::update()
         if (bullet->isTargetReached())
         {
             _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), bullet->getTargetRadius()/10.0+1));
-            sf::Sound s(_soundBuffers[5]);
-            s.setVolume(20);
-            _sounds.push_back(s);
-            _sounds.back().play();
+            _soundManager.addSound(_soundBuffers[5], 0.2f);
         }
     }
 
     for (Explosion &expl : _explosions)
     {
         expl.update();
-
-        if (!expl.getStatus())
-        {
-            expl.draw(&_ground);
-        }
+        if (!expl.getStatus()) {expl.draw(&_ground);}
     }
 
     for (Zombie* &zomb : _zombies)
@@ -69,19 +62,15 @@ void GameWorld::update()
             blood.setPosition(zomb->getX(), zomb->getY());
             _ground.draw(blood);
 
-            _sounds.push_back(sf::Sound(_soundBuffers[4]));
-            _sounds.back().play();
+            _soundManager.addSound(_soundBuffers[4]);
         }
-        else
-        {
-            zomb->update();
-        }
+        else { zomb->update(); }
     }
 
+    _soundManager.update();
     _zombies.remove_if([](Zombie* &z)      { bool dead = !z->getLife(); if (dead) delete z; return dead;});
     _bullets.remove_if([](Bullet* &b)      { bool done = b->isTargetReached(); if (done) {delete b;} return done; });
     _explosions.remove_if([](Explosion &e) { return !e.getStatus(); });
-    _sounds.remove_if([](sf::Sound &s)     { return !s.getStatus(); });
 }
 
 void GameWorld::addPlayer(Player* &newPlayer)
@@ -98,17 +87,12 @@ void GameWorld::addBullet(Bullet* &newBullet)
 {
     _bullets.push_back(newBullet);
 
-    sf::Sound s(_soundBuffers[rand()%3]);
-    s.setVolume(50);
-    _sounds.push_back(s);
-    _sounds.back().play();
+    _soundManager.addSound(_soundBuffers[rand()%1], 0.5f);
 }
 
 void GameWorld::shotMissed()
 {
-    sf::Sound s(_soundBuffers[3]);
-    _sounds.push_back(s);
-    _sounds.back().play();
+    _soundManager.addSound(_soundBuffers[3]);
 }
 
 void GameWorld::draw(sf::RenderTarget* renderer)
@@ -203,7 +187,6 @@ void GameWorld::draw(sf::RenderTarget* renderer)
         heart.setPosition(_worldWidth-54, _worldHeight-54*(life+1));
         renderer->draw(heart);
     }
-
 
     _scoreText.setPosition(10, _worldHeight-100);
     _scoreText.setString(numberToString(_players[0]->getScore()));
