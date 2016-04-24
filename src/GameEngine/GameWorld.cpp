@@ -97,10 +97,10 @@ void GameWorld::shotMissed()
 
 void GameWorld::draw(sf::RenderTarget* renderer)
 {
-    if (_drying.getElapsedTime().asSeconds() >= 5)
+    if (_drying.getElapsedTime().asSeconds() >= 2)
     {
         sf::RectangleShape drying(sf::Vector2f(_worldWidth, _worldHeight));
-        drying.setFillColor(sf::Color(0, 0, 0, 10));
+        drying.setFillColor(sf::Color(0, 0, 0, 2));
         _ground.draw(drying);
         _drying.restart();
     }
@@ -181,10 +181,10 @@ void GameWorld::draw(sf::RenderTarget* renderer)
 
     for (Explosion& expl : _explosions) { expl.draw(renderer, &_blood); }
 
-    sf::Sprite heart(_heart);
+    sf::Sprite heart(_heart); heart.setOrigin(25, 22);
     for (int life(0); life<_players[0]->getLifes(); ++life)
     {
-        heart.setPosition(_worldWidth-54, _worldHeight-54*(life+1));
+        heart.setPosition(_worldWidth-29, _worldHeight-29*(life+1));
         renderer->draw(heart);
     }
 

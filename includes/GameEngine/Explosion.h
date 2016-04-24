@@ -29,6 +29,8 @@ private:
     double _xp[100];
     double _yp[100];
 
+    double _ap[100];
+
     bool _status;
 };
 

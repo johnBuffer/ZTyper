@@ -1,7 +1,7 @@
 #include "../../includes/GameEngine/SoundManager.h"
 
 SoundManager::SoundManager():
-    _masterVolume(100.f)
+    _masterVolume(50.f)
 {
 
 }
