@@ -67,6 +67,7 @@ void GameWorld::update()
             blood.setRotation(rand()%360);
             blood.setPosition(zomb->getX(), zomb->getY());
             _ground.draw(blood);
+            _explosions.push_front(Explosion(zomb->getX(), zomb->getY(), 40+rand()%10));
 
             _soundManager.addSound(_soundBuffers[4]);
         }
@@ -131,6 +132,7 @@ void GameWorld::draw(sf::RenderTarget* renderer)
 
     const auto& texTurret = ResourceManager<Sprite>::instance().get("turret")->tex();
     const auto& texBase = ResourceManager<Sprite>::instance().get("base")->tex();
+    const auto& texFire = ResourceManager<Sprite>::instance().get("explosion")->tex();
     for (Player* player : _players)
     {
         sf::Vector2f pos(player->getX(), player->getY());
@@ -156,6 +158,15 @@ void GameWorld::draw(sf::RenderTarget* renderer)
         turret.setScale(0.35, 0.35);
         turret.setPosition(pos.x-player->getRecoil()*cos(playerAngle), pos.y-player->getRecoil()*sin(playerAngle));
         turret.setRotation(playerAngle*57.2958+90);
+
+        int explosionRank = player->getExplosionRank();
+        sf::Sprite fire(*texFire);
+        fire.setTextureRect(sf::IntRect(50*explosionRank, 0, 50, 128));
+        fire.setOrigin(25, 125);
+        fire.setPosition(pos.x+70*cos(playerAngle), pos.y+70*sin(playerAngle));
+        fire.setRotation(playerAngle*57.2958+90);
+        fire.setScale(0.75, 0.75);
+        renderer->draw(fire);
 
         if (player->getTarget())
         {

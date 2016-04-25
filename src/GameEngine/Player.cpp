@@ -16,6 +16,7 @@ Player::Player(double x, double y) :
     _recoil = 0;
     _static = true;
     _targetLocked = true;
+    _explosionRank = 19;
 }
 
 bool Player::shoot(char c)
@@ -32,6 +33,7 @@ bool Player::shoot(char c)
         _score++;
         _hit++;
         _recoil = 20;
+        _explosionRank = -1;
     }
     else
     {
@@ -52,6 +54,9 @@ void Player::onContact(Entity2D* e)
 
 void Player::update()
 {
+    if (_explosionRank < 19)
+        _explosionRank++;
+
     _recoil += -_recoil/2.0;
     _targetLocked = true;
 

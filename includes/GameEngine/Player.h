@@ -11,6 +11,7 @@ public:
 
     int     getLifes() const {return _lifes;}
     int     getAccuracy() const {return _accuracy*100;}
+    int     getExplosionRank() const {return _explosionRank;}
     double  getScore() const {return _score;}
     double  getCombo() const {return _combo;}
     double  getAngle() const {return _angle;}
@@ -26,7 +27,7 @@ public:
     void    update();
 
 private:
-    int     _lifes;
+    int     _lifes, _explosionRank;
     Zombie* _target;
     double  _score, _combo, _accuracy, _hit, _total;
     double  _angle, _targetDist, _recoil;

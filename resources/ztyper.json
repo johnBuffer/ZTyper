@@ -56,6 +56,14 @@
 			"y": 0,
 			"width": 50,
 			"height": 44
+		},
+		{
+			"name": "explosion",
+			"path": "textures/explosion.png",
+			"x": 0,
+			"y": 0,
+			"width": 1024,
+			"height": 128
 		}
 	]
 }

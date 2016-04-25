@@ -60,7 +60,7 @@ void GameEngine::update()
         }
         addZombie(strength, rand()%_worldWidth, -strength*10, _player);
 
-        _waveDelay = 1500;
+        _waveDelay = 2000;
         _waveClock.restart();
     }
 
