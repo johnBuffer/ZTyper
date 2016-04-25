@@ -24,6 +24,22 @@
 			"y": 52,
 			"width": 128,
 			"height": 164
+		},
+		{
+			"name": "blood",
+			"path": "textures/blood.png",
+			"x": 0,
+			"y": 0,
+			"width": 70,
+			"height": 76
+		},
+		{
+			"name": "turret",
+			"path": "textures/turret.png",
+			"x": 0,
+			"y": 0,
+			"width": 161,
+			"height": 371
 		}
 	]
 }

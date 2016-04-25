@@ -1,4 +1,5 @@
 #include "../../includes/GameEngine/Explosion.h"
+#include "../../includes/ResourceManager/ResourceManager.h"
 
 Explosion::Explosion(double x, double y, double r) :
     Entity2D(x, y, r)
@@ -55,6 +56,7 @@ void Explosion::draw(sf::RenderTarget* renderer, sf::Texture* tex)
     sf::VertexArray explosionsShape(sf::Quads, 10*4);
 
     //sf::Vector2f pos(_x, _y);
+    //const auto&
     double r = 1.25*_r;
     for (int k(0); k<10; ++k)
     {
