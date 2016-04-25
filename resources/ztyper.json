@@ -26,7 +26,6 @@
 			"height": 164
 		},
 		{
-<<<<<<< HEAD
 			"name": "blood",
 			"path": "textures/blood.png",
 			"x": 0,
@@ -41,22 +40,14 @@
 			"y": 0,
 			"width": 161,
 			"height": 371
-=======
+		},
+		{
 			"name": "heart",
 			"path": "textures/heart.png",
 			"x": 0,
 			"y": 0,
 			"width": 50,
 			"height": 44
-		},
-		{
-			"name": "blood",
-			"path": "textures/blood.png",
-			"x": 0,
-			"y": 0,
-			"width": 70,
-			"height": 76
->>>>>>> 43c5878df63ca976841f4d802b88e9fcaabdf597
 		}
 	]
 }

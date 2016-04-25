@@ -1,5 +1,6 @@
 #include "../../includes/GameEngine/GUI.h"
 #include "../../includes/GameEngine/phyUtils.h"
+#include "../../includes/ResourceManager/ResourceManager.h"
 
 GUI::GUI():
     _player(NULL),
@@ -27,7 +28,8 @@ GUI::GUI(Player* player, int width, int height):
 
 void GUI::draw(sf::RenderTarget* renderer)
 {
-    sf::Sprite heart(_heart); heart.setOrigin(25, 22);
+    sf::Texture* heartTex = ResourceManager<Sprite>::instance().get("heart")->tex();
+    sf::Sprite heart(*heartTex); heart.setOrigin(25, 22);
     for (int life(0); life<_player->getLifes(); ++life)
     {
         heart.setPosition(_width-29, _height-29*(life+1));

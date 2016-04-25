@@ -13,8 +13,6 @@ GameWorld::GameWorld(int width, int height):
     _zombieText.setColor(sf::Color::Black);
     _paused = false;
 
-    _blood.loadFromFile("resources/textures/blood.png");
-
     _ground.create(_worldWidth, _worldHeight);
     _ground.clear(sf::Color::Black);
 
@@ -48,12 +46,13 @@ void GameWorld::update()
         if (!expl.getStatus()) {expl.draw(&_ground);}
     }
 
+    const auto& tex = ResourceManager<Sprite>::instance().get("blood")->tex();
     for (Zombie* &zomb : _zombies)
     {
         bool dead = !zomb->getLife();
         if (dead)
         {
-            sf::Sprite blood(_blood);
+            sf::Sprite blood(*tex);
             double w = blood.getGlobalBounds().width;
             blood.setOrigin(16, 47);
             blood.scale(2*zomb->getR()/w, 2*zomb->getR()/w);
