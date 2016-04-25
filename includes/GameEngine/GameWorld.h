@@ -40,7 +40,6 @@ private:
     sf::Font          _font;
     sf::Text          _zombieText;
     sf::RenderTexture _ground;
-    sf::Texture       _blood;
     sf::Clock         _drying;
 };
 

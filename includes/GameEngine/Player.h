@@ -17,6 +17,7 @@ public:
     double  getTargetDist() const {return _targetDist;}
     double  getRecoil() const {return _recoil;}
     bool    shoot(char c);
+    bool    isTargetLocked() const {return _targetLocked;}
     Zombie* getTarget() const {return _target;}
 
     void    setTarget(Zombie* z) {_target = z;};
@@ -29,7 +30,7 @@ private:
     Zombie* _target;
     double  _score, _combo, _accuracy, _hit, _total;
     double  _angle, _targetDist, _recoil;
-
+    bool    _targetLocked;
 };
 
 #endif // PLAYER_H_INCLUDED

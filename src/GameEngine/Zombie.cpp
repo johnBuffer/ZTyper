@@ -5,7 +5,7 @@ Zombie::Zombie(std::string word, double x, double y, double r) :
     _target(NULL),
     _word(word)
 {
-    _speed = 2.5/double(word.size());
+    _speed = 3.0/double(word.size());
 }
 
 Zombie::~Zombie()

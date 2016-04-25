@@ -15,6 +15,7 @@ Player::Player(double x, double y) :
     _total = 0;
     _recoil = 0;
     _static = true;
+    _targetLocked = true;
 }
 
 bool Player::shoot(char c)
@@ -52,6 +53,7 @@ void Player::onContact(Entity2D* e)
 void Player::update()
 {
     _recoil += -_recoil/2.0;
+    _targetLocked = true;
 
     if (!_target)
         return;
@@ -70,5 +72,6 @@ void Player::update()
     double a = acos(vx/_targetDist);
     if (vy < 0) a *= -1;
 
-    _angle += (a - _angle)/5.0;
+    _angle += (a - _angle)/4.0;
+    _targetLocked = std::abs(_angle-a) < 0.05;
 }

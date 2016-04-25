@@ -9143,7 +9143,8 @@ retrouverions
 retrouveriez
 retrouveraient
 retrouvant
-retrouve retrouvee
+retrouve
+retrouvee
 retrouves
 retrouvees
 reunion

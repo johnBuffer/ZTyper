@@ -12,7 +12,7 @@ class Sprite
 {
 public:
 	Sprite(const std::string& name, const std::string& path);
-	Sprite(const std::string& name, const std::string& path, 
+	Sprite(const std::string& name, const std::string& path,
 		int x, int y, int width, int height);
 	virtual ~Sprite();
 
@@ -25,6 +25,7 @@ public:
 	sf::Vector2f topLeft();
 	sf::Vector2f botLeft();
 	sf::Vector2f botRight();
+	sf::Texture* tex() const;
 
 	static bool loadAll(std::vector< std::shared_ptr<Sprite> >* sprites);
 
