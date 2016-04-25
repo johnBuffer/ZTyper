@@ -14,8 +14,3 @@ Resource::~Resource()
 {
 	std::cout << "Delete Resource." << std::endl;
 }
-
-bool Resource::loadAll(){
-	std::cout << "Resource::loadAll()." << std::endl;
-	return true;
-};
