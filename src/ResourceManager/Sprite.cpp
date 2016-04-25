@@ -39,6 +39,11 @@ int Sprite::width(){ return _width; };
 int Sprite::height() { return _height; };
 
 
+sf::Vector2f Sprite::topLeft() { return sf::Vector2f(_x, _y); };
+sf::Vector2f Sprite::topRight() { return sf::Vector2f(_x + _width, _y; };
+sf::Vector2f Sprite::botLeft() { return sf::Vector2f(_x, _y + _height) };
+sf::Vector2f Sprite::botRight() {return sf::Vector2f(_x + _width, _y + _height); };
+
 bool Sprite::loadTexture()
 {
 	std::cout << "Sprite.loadTexture() : " <<  "./resources/" + _path << std::endl;
