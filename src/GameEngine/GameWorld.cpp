@@ -20,7 +20,7 @@ GameWorld::GameWorld(int width, int height):
 
     _soundBuffers[0].loadFromFile("resources/sounds/fire1.wav");
     _soundBuffers[1].loadFromFile("resources/sounds/fire2.ogg");
-    _soundBuffers[2].loadFromFile("resources/sounds/fire3.ogg");
+    _soundBuffers[2].loadFromFile("resources/sounds/turret_rotate.wav");
     _soundBuffers[3].loadFromFile("resources/sounds/click.wav");
     _soundBuffers[4].loadFromFile("resources/sounds/plaf.wav");
     _soundBuffers[5].loadFromFile("resources/sounds/plaf2.wav");
@@ -28,7 +28,15 @@ GameWorld::GameWorld(int width, int height):
 
 void GameWorld::update()
 {
-    for (Player* &player : _players) { player->update(); }
+    for (Player* &player : _players)
+    {
+        player->update();
+        if (!player->isTargetLocked())
+        {
+            _soundManager.addSound(_soundBuffers[2], 1.f);
+        }
+    }
+
     for (Bullet* &bullet : _bullets)
     {
         bullet->update();
