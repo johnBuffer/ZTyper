@@ -1,4 +1,5 @@
 #include "../../includes/GameEngine/Explosion.h"
+#include "../../includes/ResourceManager/ResourceManager.h"
 
 Explosion::Explosion(double x, double y, double r) :
     Entity2D(x, y, r)
@@ -49,10 +50,12 @@ void Explosion::update()
     _status = !(_r/_originalR < ratio);
 }
 
-void Explosion::draw(sf::RenderTarget* renderer, sf::Texture* tex)
+void Explosion::draw(sf::RenderTarget* renderer)
 {
     double pi = 3.14159;
     sf::VertexArray explosionsShape(sf::Quads, 10*4);
+
+    const auto& tex = ResourceManager<Sprite>::instance().get("blood");
 
     //sf::Vector2f pos(_x, _y);
     double r = 1.25*_r;
@@ -69,10 +72,10 @@ void Explosion::draw(sf::RenderTarget* renderer, sf::Texture* tex)
             explosionsShape[4*k+a].color = sf::Color(c, c, c);
         }
 
-        explosionsShape[4*k  ].texCoords = sf::Vector2f(0, 0);
-        explosionsShape[4*k+1].texCoords = sf::Vector2f(70, 0);
-        explosionsShape[4*k+2].texCoords = sf::Vector2f(70, 76);
-        explosionsShape[4*k+3].texCoords = sf::Vector2f(0, 76);
+        explosionsShape[4*k  ].texCoords = tex->topLeft();
+        explosionsShape[4*k+1].texCoords = tex->topRight();
+        explosionsShape[4*k+2].texCoords = tex->botRight();
+        explosionsShape[4*k+3].texCoords = tex->botLeft();
     }
 
     r *= 0.05;
@@ -91,5 +94,5 @@ void Explosion::draw(sf::RenderTarget* renderer, sf::Texture* tex)
     }
 
     renderer->draw(particles);
-    renderer->draw(explosionsShape, tex);
+    renderer->draw(explosionsShape, tex->tex());
 }

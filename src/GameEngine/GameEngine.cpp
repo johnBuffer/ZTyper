@@ -1,4 +1,5 @@
 #include "../../includes/GameEngine/GameEngine.h"
+#include "../../includes/ResourceManager/ResourceManager.h"
 
 #include <iostream>
 #include <fstream>
@@ -16,6 +17,8 @@ GameEngine::GameEngine(int width, int height):
     _paused = false;
     _gameWorld.addPlayer(_player);
     _phyManager.addEntity(_player);
+
+    ResourceManager<Sprite>::instance().loadAll();
 
     loadDico("resources/texts/dico.txt");
 }

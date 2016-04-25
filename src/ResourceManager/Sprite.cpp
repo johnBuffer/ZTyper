@@ -55,6 +55,12 @@ bool Sprite::loadTexture()
 	);
 }
 
+sf::Texture* Sprite::tex() const
+{
+    return _tex;
+}
+
+
 bool Sprite::loadAll(std::vector< std::shared_ptr<Sprite> >* sprites)
 {
 
