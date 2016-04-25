@@ -18,10 +18,10 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="C:\lib\SFML-2.3.2\lib\libsfml-audio.a" />
-					<Add library="C:\lib\SFML-2.3.2\lib\libsfml-graphics.a" />
-					<Add library="C:\lib\SFML-2.3.2\lib\libsfml-window.a" />
-					<Add library="C:\lib\SFML-2.3.2\lib\libsfml-system.a" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-audio" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
 					<Add directory="C:/lib/SFML-2.3.2/lib" />
 				</Linker>
 			</Target>
@@ -32,10 +32,12 @@
 		<Unit filename="includes/GameEngine/Bullet.h" />
 		<Unit filename="includes/GameEngine/Entity2D.h" />
 		<Unit filename="includes/GameEngine/Explosion.h" />
+		<Unit filename="includes/GameEngine/GUI.h" />
 		<Unit filename="includes/GameEngine/GameEngine.h" />
 		<Unit filename="includes/GameEngine/GameWorld.h" />
 		<Unit filename="includes/GameEngine/PhyManager.h" />
 		<Unit filename="includes/GameEngine/Player.h" />
+		<Unit filename="includes/GameEngine/SoundManager.h" />
 		<Unit filename="includes/GameEngine/Zombie.h" />
 		<Unit filename="includes/GameEngine/phyUtils.h" />
 		<Unit filename="includes/ResourceManager/Resource.h" />
@@ -46,13 +48,17 @@
 		<Unit filename="src/GameEngine/Bullet.cpp" />
 		<Unit filename="src/GameEngine/Entity2D.cpp" />
 		<Unit filename="src/GameEngine/Explosion.cpp" />
+		<Unit filename="src/GameEngine/GUI.cpp" />
 		<Unit filename="src/GameEngine/GameEngine.cpp" />
 		<Unit filename="src/GameEngine/GameWorld.cpp" />
 		<Unit filename="src/GameEngine/PhyManager.cpp" />
 		<Unit filename="src/GameEngine/Player.cpp" />
+		<Unit filename="src/GameEngine/SoundManager.cpp" />
 		<Unit filename="src/GameEngine/Zombie.cpp" />
 		<Unit filename="src/GameEngine/phyUtils.cpp" />
-		<Unit filename="src/ResourceManager/Resource.cpp" />
+		<Unit filename="src/ResourceManager/Resource.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="src/ResourceManager/ResourceManager.cpp" />
 		<Unit filename="src/ResourceManager/Sprite.cpp" />
 		<Unit filename="src/ResourceManager/mainres.cpp">

@@ -12,7 +12,7 @@ int main()
     srand(time(NULL));
 
     int windowWidth = 1000;
-    int windowHeight = 750;
+    int windowHeight = 700;
 
     sf::ContextSettings settings;
     settings.antialiasingLevel = 0;
