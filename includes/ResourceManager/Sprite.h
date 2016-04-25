@@ -1,5 +1,4 @@
-#ifndef SPRITE_H_INCLUDED
-#define SPRITE_H_INCLUDED
+#pragma once
 
 #include <vector>
 #include <fstream>
@@ -23,7 +22,6 @@ public:
 	int width();
 	int height();
 
-	bool loadTexture();
 	static bool loadAll(std::vector< std::shared_ptr<Sprite> >* sprites);
 
 private:
@@ -34,6 +32,6 @@ private:
 	int _y;
 	int _width;
 	int _height;
-};
 
-#endif
+	bool loadTexture();
+};
