@@ -56,7 +56,7 @@ void GameEngine::update()
         int strength = rand()%5+2;
         if (!(_waves%15))
         {
-            strength = rand()%10+10;
+            strength = rand()%10+5;
         }
         addZombie(strength, rand()%_worldWidth, -strength*10, _player);
 

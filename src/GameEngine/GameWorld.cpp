@@ -46,13 +46,13 @@ void GameWorld::update()
         if (!expl.getStatus()) {expl.draw(&_ground);}
     }
 
-    const auto& tex = ResourceManager<Sprite>::instance().get("blood")->tex();
+    const auto& texBlood = ResourceManager<Sprite>::instance().get("blood")->tex();
     for (Zombie* &zomb : _zombies)
     {
         bool dead = !zomb->getLife();
         if (dead)
         {
-            sf::Sprite blood(*tex);
+            sf::Sprite blood(*texBlood);
             double w = blood.getGlobalBounds().width;
             blood.setOrigin(16, 47);
             blood.scale(2*zomb->getR()/w, 2*zomb->getR()/w);
@@ -121,12 +121,14 @@ void GameWorld::draw(sf::RenderTarget* renderer)
     }
     renderer->draw(bulletsShape);
 
+    const auto& texTurret = ResourceManager<Sprite>::instance().get("turret")->tex();
+    const auto& texBase = ResourceManager<Sprite>::instance().get("base")->tex();
     for (Player* player : _players)
     {
         sf::Vector2f pos(player->getX(), player->getY());
         double playerAngle = player->getAngle();
 
-        sf::RectangleShape playerShape(sf::Vector2f(player->getR()*2, player->getR()*2));
+        /*sf::RectangleShape playerShape(sf::Vector2f(player->getR()*2, player->getR()*2));
         playerShape.setOrigin(player->getR(), player->getR());
         playerShape.setPosition(pos);
 
@@ -134,7 +136,18 @@ void GameWorld::draw(sf::RenderTarget* renderer)
         weaponShape.setOrigin(5, player->getR()*1.5);
         weaponShape.setPosition(pos.x-player->getRecoil()*cos(playerAngle), pos.y-player->getRecoil()*sin(playerAngle));
         weaponShape.setRotation(playerAngle*57.2958+90);
-        weaponShape.setFillColor(sf::Color(100, 100, 100));
+        weaponShape.setFillColor(sf::Color(100, 100, 100));*/
+
+        sf::Sprite base(*texBase);
+        base.setOrigin(65, 72);
+        base.setScale(0.5, 0.5);
+        base.setPosition(pos.x, pos.y);
+
+        sf::Sprite turret(*texTurret);
+        turret.setOrigin(78, 245);
+        turret.setScale(0.35, 0.35);
+        turret.setPosition(pos.x-player->getRecoil()*cos(playerAngle), pos.y-player->getRecoil()*sin(playerAngle));
+        turret.setRotation(playerAngle*57.2958+90);
 
         if (player->getTarget())
         {
@@ -150,7 +163,7 @@ void GameWorld::draw(sf::RenderTarget* renderer)
             laser[0].position = pos;
             laser[0].color = sf::Color::Green;
 
-            double targetDist = player->getTargetDist()*0.5;
+            double targetDist = player->getTargetDist()*0.75;
             double angle = player->getAngle();
             laser[1].position = sf::Vector2f(pos.x+targetDist*cos(angle), pos.y+targetDist*sin(angle));
             laser[1].color= sf::Color(0, 255, 0, 0);
@@ -158,8 +171,8 @@ void GameWorld::draw(sf::RenderTarget* renderer)
             renderer->draw(laser);
         }
 
-        renderer->draw(playerShape);
-        renderer->draw(weaponShape);
+        renderer->draw(base);
+        renderer->draw(turret);
     }
 
     for (Zombie* &zomb : _zombies)

@@ -42,6 +42,14 @@
 			"height": 371
 		},
 		{
+			"name": "base",
+			"path": "textures/base.png",
+			"x": 0,
+			"y": 0,
+			"width": 151,
+			"height": 143
+		},
+		{
 			"name": "heart",
 			"path": "textures/heart.png",
 			"x": 0,
