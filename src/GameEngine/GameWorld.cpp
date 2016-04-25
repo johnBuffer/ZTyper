@@ -1,4 +1,5 @@
 #include "../../includes/GameEngine/GameWorld.h"
+#include "../../includes/ResourceManager/ResourceManager.h"
 
 #include <iostream>
 
@@ -44,7 +45,7 @@ void GameWorld::update()
     for (Explosion &expl : _explosions)
     {
         expl.update();
-        if (!expl.getStatus()) {expl.draw(&_ground, &_blood);}
+        if (!expl.getStatus()) {expl.draw(&_ground);}
     }
 
     for (Zombie* &zomb : _zombies)
@@ -177,5 +178,5 @@ void GameWorld::draw(sf::RenderTarget* renderer)
         renderer->draw(_zombieText);
     }
 
-    for (Explosion& expl : _explosions) { expl.draw(renderer, &_blood); }
+    for (Explosion& expl : _explosions) { expl.draw(renderer); }
 }

@@ -1,4 +1,5 @@
 #include "../../includes/GameEngine/GameEngine.h"
+#include "../../includes/ResourceManager/ResourceManager.h"
 
 #include <iostream>
 #include <fstream>
@@ -16,6 +17,8 @@ GameEngine::GameEngine(int width, int height):
     _paused = false;
     _gameWorld.addPlayer(_player);
     _phyManager.addEntity(_player);
+
+    ResourceManager<Sprite>::instance().loadAll();
 
     loadDico("resources/texts/dico.txt");
 }
@@ -47,16 +50,17 @@ void GameEngine::update()
     if (_paused)
         return;
 
-    if (_waveClock.getElapsedTime().asSeconds() >= _waveDelay)
+    if (_waveClock.getElapsedTime().asMilliseconds() >= _waveDelay)
     {
         _waves++;
-        int strength = rand()%6 + 1;
+        int strength = rand()%5+2;
         if (!(_waves%15))
         {
-            strength = rand()%5 + 10;
+            strength = rand()%10+10;
         }
         addZombie(strength, rand()%_worldWidth, -strength*10, _player);
-        _waveDelay = rand()%strength/2+1;
+
+        _waveDelay = 1000;
         _waveClock.restart();
     }
 
