@@ -22,7 +22,7 @@ int main()
 
     GameEngine gameEngine(windowWidth, windowHeight);
 
-    Player* player = gameEngine.addPlayer(windowWidth/2, windowHeight-100);
+    //Player* player = gameEngine.addPlayer(windowWidth/2, windowHeight-100);
 
     sf::Texture heart;
     heart.loadFromFile("resources/textures/heart.png");
@@ -57,7 +57,9 @@ int main()
                     gameEngine.pause();
                 }
                 else if (event.key.code == sf::Keyboard::Tab)
-                    player->setTarget(NULL);
+                {
+                    gameEngine.resetTarget();
+                }
                 break;
             }
             case sf::Event::TextEntered:

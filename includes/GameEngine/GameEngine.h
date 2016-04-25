@@ -2,6 +2,7 @@
 #define GAMEENGINE_H_INCLUDED
 
 #include "GameWorld.h"
+#include "GUI.h"
 
 #include <map>
 
@@ -11,10 +12,11 @@ public:
     GameEngine(int width, int height);
 
     Player*   addPlayer(double x, double y);
-    bool      getGameStatus() const {return _players[0]->getLifes() > 0;}
+    bool      getGameStatus() const {return _player->getLifes() > 0;}
 
     void      pause();
     void      shoot(char c);
+    void      resetTarget() {_player->setTarget(NULL);}
     void      findTarget(char c);
     void      loadDico(std::string filename);
     void      update();
@@ -22,8 +24,6 @@ public:
     void      draw(sf::RenderTarget* renderer);
 
 private:
-    bool       validChar(char c);
-
     bool       _paused;
     int        _worldWidth;
     int        _worldHeight;
@@ -33,10 +33,13 @@ private:
     int        _waveDelay;
     sf::Clock  _waveClock;
 
-    std::vector<Player*>                     _players;
+    Player*                                  _player;
+    std::vector<Player*>                     _allies;
     std::map<char, std::list<Zombie*> >      _wordZombiesMap;
     std::map<int, std::vector<std::string> > _wordLengthMap;
     std::vector<std::string>                 _dico;
+
+    GUI _gui;
 };
 
 #endif // GAMEENGINE_H_INCLUDED

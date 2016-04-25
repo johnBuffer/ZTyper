@@ -6,12 +6,16 @@
 GameEngine::GameEngine(int width, int height):
     _worldWidth(width),
     _worldHeight(height),
-    _gameWorld(width, height)
+    _gameWorld(width, height),
+    _player(new Player(width/2, height-100)),
+    _gui(_player, width, height)
 {
     _phyManager = PhyManager();
     _waves = 0;
     _waveDelay = rand()%2;
     _paused = false;
+    _gameWorld.addPlayer(_player);
+    _phyManager.addEntity(_player);
 
     loadDico("resources/texts/dico.txt");
 }
@@ -35,7 +39,7 @@ void GameEngine::loadDico(std::string filename)
 void GameEngine::pause()
 {
     _paused = !_paused;
-    _gameWorld.pause();
+    _gui.pause();
 }
 
 void GameEngine::update()
@@ -51,10 +55,8 @@ void GameEngine::update()
         {
             strength = rand()%5 + 10;
         }
-
-        addZombie(strength, rand()%_worldWidth, -strength*10, _players[0]);
+        addZombie(strength, rand()%_worldWidth, -strength*10, _player);
         _waveDelay = rand()%strength/2+1;
-
         _waveClock.restart();
     }
 
@@ -65,13 +67,9 @@ void GameEngine::update()
     {
         bool dead = !zomb->getLife();
         if (dead)
-        {
-            this->_phyManager.remove(zomb);
-        }
+        { this->_phyManager.remove(zomb); }
         else
-        {
-            _wordZombiesMap[zomb->getWord()[0]].push_back(zomb);
-        }
+        { _wordZombiesMap[zomb->getWord()[0]].push_back(zomb); }
     }
 
     _gameWorld.update();
@@ -93,7 +91,7 @@ void GameEngine::addZombie(int strength, double x, double y, Entity2D* target)
 Player* GameEngine::addPlayer(double x, double y)
 {
     Player* newPlayer = new Player(x, y);
-    _players.push_back(newPlayer);
+    _allies.push_back(newPlayer);
     _phyManager.addEntity(newPlayer);
 
     _gameWorld.addPlayer(newPlayer);
@@ -106,18 +104,18 @@ void GameEngine::shoot(char c)
     if (_paused)
         return;
 
-    if (_players[0]->getTarget())
+    if (_player->getTarget())
     {
-        if (_players[0]->shoot(c))
+        if (_player->shoot(c))
         {
-            Bullet* newBullet = new Bullet(_players[0]->getX(), _players[0]->getY(), _players[0]->getTarget());
+            Bullet* newBullet = new Bullet(_player->getX(), _player->getY(), _player->getTarget());
             _gameWorld.addBullet(newBullet);
 
-            _players[0]->getTarget()->move(0, -10);
+            _player->getTarget()->move(0, -10);
         }
         else {_gameWorld.shotMissed();}
     }
-    else if (validChar(c))
+    else
     {
         findTarget(c);
     }
@@ -133,7 +131,7 @@ void GameEngine::findTarget(char c)
 
         for (Zombie* &zomb : l)
         {
-            double dist = _players[0]->getDistWith(*zomb);
+            double dist = _player->getDistWith(*zomb);
             if (dist < minDist || minDist == -1)
             {
                 minDist = dist;
@@ -141,20 +139,13 @@ void GameEngine::findTarget(char c)
             }
         }
 
-        _players[0]->setTarget(closestZombie);
+        _player->setTarget(closestZombie);
         shoot(c);
     }
-}
-
-bool GameEngine::validChar(char c)
-{
-    bool az = c >= 97 && c < 128;
-    bool accents = c < 0;
-
-    return az || accents;
 }
 
 void GameEngine::draw(sf::RenderTarget* renderer)
 {
     _gameWorld.draw(renderer);
+    _gui.draw(renderer);
 }

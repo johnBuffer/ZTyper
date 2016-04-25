@@ -8,15 +8,11 @@ GameWorld::GameWorld(int width, int height):
 {
     _font.loadFromFile("resources/fonts/font.ttf");
     _zombieText.setFont(_font);
-    _scoreText = _zombieText;
-    _accuracyText = _zombieText;
-    _comboText = _zombieText;
     _zombieText.setCharacterSize(20);
     _zombieText.setColor(sf::Color::Black);
     _paused = false;
 
     _blood.loadFromFile("resources/textures/blood.png");
-    _heart.loadFromFile("resources/textures/heart.png");
 
     _ground.create(_worldWidth, _worldHeight);
     _ground.clear(sf::Color::Black);
@@ -182,32 +178,4 @@ void GameWorld::draw(sf::RenderTarget* renderer)
     }
 
     for (Explosion& expl : _explosions) { expl.draw(renderer, &_blood); }
-
-    sf::Sprite heart(_heart); heart.setOrigin(25, 22);
-    for (int life(0); life<_players[0]->getLifes(); ++life)
-    {
-        heart.setPosition(_worldWidth-29, _worldHeight-29*(life+1));
-        renderer->draw(heart);
-    }
-
-    _scoreText.setPosition(10, _worldHeight-100);
-    _scoreText.setString(numberToString(_players[0]->getScore()));
-    _scoreText.setColor(sf::Color::White);
-    renderer->draw(_scoreText);
-
-    _comboText.setPosition(10, _worldHeight-40);
-    _comboText.setString(numberToString(_players[0]->getAccuracy())+" %");
-    _comboText.setColor(sf::Color::White);
-    renderer->draw(_comboText);
-
-    if (_paused)
-    {
-        sf::RectangleShape hide(sf::Vector2f(_worldWidth, _worldHeight));
-        hide.setFillColor(sf::Color(0, 0, 0, 200));
-
-        renderer->draw(hide);
-        _scoreText.setString("PAUSE");
-        _scoreText.setPosition(_worldWidth/2-_scoreText.getGlobalBounds().width/2, 200);
-        renderer->draw(_scoreText);
-    }
 }

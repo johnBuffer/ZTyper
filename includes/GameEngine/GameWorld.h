@@ -39,12 +39,8 @@ private:
     SoundManager      _soundManager;
     sf::Font          _font;
     sf::Text          _zombieText;
-    sf::Text          _scoreText;
-    sf::Text          _accuracyText;
-    sf::Text          _comboText;
     sf::RenderTexture _ground;
     sf::Texture       _blood;
-    sf::Texture       _heart;
     sf::Clock         _drying;
 };
 
