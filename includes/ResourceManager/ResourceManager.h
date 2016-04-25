@@ -6,39 +6,37 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include "Sprite.h"
 
 
 template < class T >
 class ResourceManager
 {
-
 public:
-	ResourceManager();
-	virtual ~ResourceManager();
+	static ResourceManager<T>& instance();
 
 	std::shared_ptr<T> get(const std::string& name);
-	bool add(const std::string& name, const std::string& path);
 	bool loadAll();
 
 private:
+	ResourceManager() {};
+	ResourceManager(ResourceManager<T> const&);
+    void operator=(ResourceManager<T> const&);
+
 	std::unordered_map< std::string, std::shared_ptr<T> > _map;
 
 	bool add(std::shared_ptr<T> resource);
 };
 
+typedef ResourceManager<Sprite> SpriteManager;
 
 template < class T >
-ResourceManager<T>::ResourceManager()
+ResourceManager<T>& ResourceManager<T>::instance()
 {
-	std::cout << "Create ResourceManager." << std::endl;
+	std::cout << "Get instance of ResourceManager." << std::endl;
+    static ResourceManager<T> instance; // Guaranteed to be destroyed & Instantiated on first use.
+    return instance;
 }
-
-template < class T >
-ResourceManager<T>::~ResourceManager()
-{
-	std::cout << "Delete ResourceManager." << std::endl;
-}
-
 
 template < class T >
 bool ResourceManager<T>::loadAll()
