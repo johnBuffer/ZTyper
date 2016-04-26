@@ -27,10 +27,10 @@ public:
     void    update();
 
 private:
-    int     _lifes, _explosionRank;
+    int     _lifes;
     Zombie* _target;
     double  _score, _combo, _accuracy, _hit, _total;
-    double  _angle, _targetDist, _recoil;
+    double  _angle, _targetDist, _recoil, _explosionRank;
     bool    _targetLocked;
 };
 

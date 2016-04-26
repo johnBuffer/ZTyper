@@ -1,5 +1,6 @@
 #include "../../includes/GameEngine/GameWorld.h"
 #include "../../includes/ResourceManager/ResourceManager.h"
+#include "../../includes/GameEngine/shader.h"
 
 #include <iostream>
 
@@ -14,9 +15,16 @@ GameWorld::GameWorld(int width, int height):
     _paused = false;
 
     _ground.create(_worldWidth, _worldHeight);
+    _blurTexture.create(_worldWidth, _worldHeight);
+    _bloomRenderer.create(_worldWidth, _worldHeight);
     _ground.clear(sf::Color::Black);
+    _blurTexture.clear(sf::Color::Black);
+    _bloomRenderer.clear(sf::Color::Black);
 
     _soundBuffers.resize(10);
+
+    _blurH.loadFromFile("resources/shaders/blurh.frag", sf::Shader::Fragment);
+    _blurV.loadFromFile("resources/shaders/blurv.frag", sf::Shader::Fragment);
 
     _soundBuffers[0].loadFromFile("resources/sounds/fire1.wav");
     _soundBuffers[1].loadFromFile("resources/sounds/fire2.ogg");
@@ -104,6 +112,9 @@ void GameWorld::shotMissed()
 
 void GameWorld::draw(sf::RenderTarget* renderer)
 {
+    _blurTexture.clear(sf::Color::Black);
+    _bloomRenderer.clear(sf::Color::Black);
+
     if (_drying.getElapsedTime().asSeconds() >= 2)
     {
         sf::RectangleShape drying(sf::Vector2f(_worldWidth, _worldHeight));
@@ -124,10 +135,11 @@ void GameWorld::draw(sf::RenderTarget* renderer)
         sf::Vector2f pos(bullet->getX(), bullet->getY());
         bulletsShape[2*i  ].position = pos;
         bulletsShape[2*i  ].color = sf::Color(255, 255, 0);
-        bulletsShape[2*i+1].position = sf::Vector2f(pos.x-20*bullet->getVx(), pos.y-20*bullet->getVy());
+        bulletsShape[2*i+1].position = sf::Vector2f(pos.x-70*bullet->getVx(), pos.y-70*bullet->getVy());
         bulletsShape[2*i+1].color = sf::Color(255, 0, 0);
         i++;
     }
+    _blurTexture.draw(bulletsShape);
     renderer->draw(bulletsShape);
 
     const auto& texTurret = ResourceManager<Sprite>::instance().get("turret")->tex();
@@ -138,19 +150,9 @@ void GameWorld::draw(sf::RenderTarget* renderer)
         sf::Vector2f pos(player->getX(), player->getY());
         double playerAngle = player->getAngle();
 
-        /*sf::RectangleShape playerShape(sf::Vector2f(player->getR()*2, player->getR()*2));
-        playerShape.setOrigin(player->getR(), player->getR());
-        playerShape.setPosition(pos);
-
-        sf::RectangleShape weaponShape(sf::Vector2f(10, player->getR()*1.5));
-        weaponShape.setOrigin(5, player->getR()*1.5);
-        weaponShape.setPosition(pos.x-player->getRecoil()*cos(playerAngle), pos.y-player->getRecoil()*sin(playerAngle));
-        weaponShape.setRotation(playerAngle*57.2958+90);
-        weaponShape.setFillColor(sf::Color(100, 100, 100));*/
-
         sf::Sprite base(*texBase);
         base.setOrigin(65, 72);
-        base.setScale(0.5, 0.5);
+        base.setScale(0.65, 0.65);
         base.setPosition(pos.x, pos.y);
 
         sf::Sprite turret(*texTurret);
@@ -162,11 +164,13 @@ void GameWorld::draw(sf::RenderTarget* renderer)
         int explosionRank = player->getExplosionRank();
         sf::Sprite fire(*texFire);
         fire.setTextureRect(sf::IntRect(50*explosionRank, 0, 50, 128));
-        fire.setOrigin(25, 125);
-        fire.setPosition(pos.x+70*cos(playerAngle), pos.y+70*sin(playerAngle));
+        fire.setOrigin(26, 125);
+        fire.setPosition(pos.x+60*cos(playerAngle), pos.y+60*sin(playerAngle));
         fire.setRotation(playerAngle*57.2958+90);
-        fire.setScale(0.75, 0.75);
+        fire.setScale(0.9, 0.9);
         renderer->draw(fire);
+
+        if (explosionRank < 6) _blurTexture.draw(fire);
 
         if (player->getTarget())
         {
@@ -180,12 +184,12 @@ void GameWorld::draw(sf::RenderTarget* renderer)
 
             sf::VertexArray laser(sf::Lines, 2);
             laser[0].position = pos;
-            laser[0].color = sf::Color::Green;
+            laser[0].color = sf::Color::Red;
 
             double targetDist = player->getTargetDist()*0.75;
             double angle = player->getAngle();
             laser[1].position = sf::Vector2f(pos.x+targetDist*cos(angle), pos.y+targetDist*sin(angle));
-            laser[1].color= sf::Color(0, 255, 0, 0);
+            laser[1].color= sf::Color(255, 0, 0, 0);
 
             renderer->draw(laser);
         }
@@ -210,4 +214,16 @@ void GameWorld::draw(sf::RenderTarget* renderer)
     }
 
     for (Explosion& expl : _explosions) { expl.draw(renderer); }
+
+    _blurTexture.display();
+    sf::Sprite spriteBloom(_blurTexture.getTexture());
+    spriteBloom.setScale(0.5, 0.5);
+    _bloomRenderer.draw(spriteBloom);
+    sf::Sprite spriteBloomRenderer(_bloomRenderer.getTexture());
+    _bloomRenderer.draw(spriteBloomRenderer, &_blurH);
+    _bloomRenderer.draw(spriteBloomRenderer, &_blurV);
+    spriteBloomRenderer.setScale(2, 2);
+
+    _bloomRenderer.display();
+    renderer->draw(spriteBloomRenderer, sf::BlendAdd);
 }

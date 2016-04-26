@@ -36,11 +36,14 @@ private:
     std::vector<Player*>                _players;
     std::map<char, std::list<Zombie*> > _wordZombiesMap;
     std::vector<sf::SoundBuffer>        _soundBuffers;
+
     SoundManager      _soundManager;
     sf::Font          _font;
     sf::Text          _zombieText;
-    sf::RenderTexture _ground;
+    sf::RenderTexture _ground, _blurTexture, _bloomRenderer;
     sf::Clock         _drying;
+    sf::Shader        _blurH, _blurV;
+
 };
 
 #endif // GAMEWORLD_H_INCLUDED

@@ -55,7 +55,7 @@ void Player::onContact(Entity2D* e)
 void Player::update()
 {
     if (_explosionRank < 19)
-        _explosionRank++;
+        _explosionRank+=1;
 
     _recoil += -_recoil/2.0;
     _targetLocked = true;
