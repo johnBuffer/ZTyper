@@ -37,8 +37,6 @@ SoundManager.o: ./src/GameEngine/SoundManager.cpp
 GUI.o: ./src/GameEngine/GUI.cpp
 	g++ -Wall -O2 -std=c++11 -c ./src/GameEngine/GUI.cpp -o ./obj/GUI.o
 
-
-
 res: mainres.o ResourceManager.o Sprite.o json.o
 	g++ ./obj/mainres.o ./obj/ResourceManager.o ./obj/Sprite.o ./obj/json.o -o ./bin/mainres -lsfml-graphics -lsfml-window -lsfml-system
 
@@ -48,11 +46,21 @@ mainres.o: ./src/ResourceManager/mainres.cpp
 ResourceManager.o: ./src/ResourceManager/ResourceManager.cpp
 	g++ -Wall -O2 -std=c++11 -c ./src/ResourceManager/ResourceManager.cpp -o ./obj/ResourceManager.o
 
-json.o: ./src/jsoncpp.cpp
-	g++ -Wall -O2 -std=c++11 -c ./src/jsoncpp.cpp -o ./obj/json.o
+json.o: ./src/json/jsoncpp.cpp
+	g++ -Wall -O2 -std=c++11 -c ./src/json/jsoncpp.cpp -o ./obj/json.o
 
 Sprite.o: ./src/ResourceManager/Sprite.cpp
 	g++ -Wall -O2 -std=c++11 -c ./src/ResourceManager/Sprite.cpp -o ./obj/Sprite.o
+
+
+namegen: main_NameGenerator.o NameGenerator.o json.o
+	g++ ./obj/main_NameGenerator.o ./obj/NameGenerator.o ./obj/json.o -o ./bin/namegen
+
+main_NameGenerator.o: ./src/NameGenerator/main_NameGenerator.cpp
+	g++ -Wall -O2 -std=c++11 -c ./src/NameGenerator/main_NameGenerator.cpp -o ./obj/main_NameGenerator.o
+
+NameGenerator.o: ./src/NameGenerator/NameGenerator.cpp
+	g++ -Wall -O2 -std=c++11 -c ./src/NameGenerator/NameGenerator.cpp -o ./obj/NameGenerator.o
 
 clean:
 	rm ./obj/*.o

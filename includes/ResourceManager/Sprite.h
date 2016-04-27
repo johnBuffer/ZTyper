@@ -6,7 +6,7 @@
 #include <string>
 #include <memory>
 #include <SFML/Graphics.hpp>
-#include "../../json/json.h"
+#include "../json/json.h"
 
 class Sprite
 {
