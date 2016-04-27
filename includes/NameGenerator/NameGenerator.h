@@ -3,9 +3,12 @@
 class NameGenerator
 {
 private:
-	std::vector<std::string> surnames;
-	std::vector<std::string> adjectives;
+	static std::vector<std::string> surnames;
+	static std::vector<std::string> adjectives;
+	
+	static bool loadAll();
 	
 public:
 	std::string getRandomName();
+
 }
