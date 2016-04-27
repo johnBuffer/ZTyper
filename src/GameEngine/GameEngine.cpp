@@ -8,7 +8,7 @@ GameEngine::GameEngine(int width, int height):
     _worldWidth(width),
     _worldHeight(height),
     _gameWorld(width, height),
-    _player(new Player(width/2, height-100)),
+    _player(new Player(100, height/2, 0)),
     _gui(_player, width, height)
 {
     _waves = 0;
@@ -55,7 +55,7 @@ void GameEngine::update()
         _waves++;
 
         for (int i(0); i<_waves+10; ++i)
-            addZombie(3+_waves/2+rand()%2, rand()%_worldWidth, -rand()%1000, _player);
+            addZombie(3+_waves/2+rand()%2, _worldWidth+rand()%1000, rand()%_worldHeight, _player);
     }
 
     _wordZombiesMap.clear();
@@ -78,9 +78,9 @@ void GameEngine::addZombie(int strength, double x, double y, Entity2D* target)
     _gameWorld.addZombie(newZombie);
 }
 
-Player* GameEngine::addPlayer(double x, double y)
+Player* GameEngine::addPlayer(double x, double y, double baseAngle)
 {
-    Player* newPlayer = new Player(x, y);
+    Player* newPlayer = new Player(x, y, baseAngle);
     _allies.push_back(newPlayer);
     _gameWorld.addPlayer(newPlayer);
 
@@ -98,8 +98,6 @@ void GameEngine::shoot(char c)
         {
             Bullet* newBullet = new Bullet(_player->getX(), _player->getY(), _player->getTarget());
             _gameWorld.addBullet(newBullet);
-
-            _player->getTarget()->move(0, -10);
         }
         else {_gameWorld.shotMissed();}
     }

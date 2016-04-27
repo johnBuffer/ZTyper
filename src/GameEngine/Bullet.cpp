@@ -32,6 +32,7 @@ void Bullet::update()
     {
         _targetReached = true;
         _target->addLife(-1);
+        _target->move(_vx*_speed*0.5, _vy*_speed*0.5);
     }
 }
 

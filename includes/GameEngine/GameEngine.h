@@ -11,7 +11,7 @@ class GameEngine
 public:
     GameEngine(int width, int height);
 
-    Player*   addPlayer(double x, double y);
+    Player*   addPlayer(double x, double y, double baseAngle);
     bool      getGameStatus() const {return _player->getLife() > 0;}
 
     void      pause();

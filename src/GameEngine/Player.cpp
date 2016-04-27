@@ -9,10 +9,11 @@ FireExplosion::FireExplosion(sf::Sprite sprite, double speed):
 {
 }
 
-Player::Player(double x, double y) :
+Player::Player(double x, double y, double baseAngle) :
     Entity2D(x, y, 30),
     _target(NULL),
-    _angle(-3.14159/2.0)
+    _baseAngle(baseAngle),
+    _angle(baseAngle)
 {
     _life = 3;
     _score = 0;
@@ -123,6 +124,7 @@ void Player::draw(sf::RenderTarget* renderer, sf::RenderTarget* bloom)
     base.setOrigin(65, 72);
     base.setScale(0.65, 0.65);
     base.setPosition(_x, _y);
+    base.setRotation(_baseAngle*57.2958+90);
 
     sf::Sprite turret(*texTurret);
     turret.setOrigin(78, 245);

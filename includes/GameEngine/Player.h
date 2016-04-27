@@ -16,7 +16,7 @@ struct FireExplosion
 class Player : public Entity2D
 {
 public:
-    Player(double x, double y);
+    Player(double x, double y, double baseAngle);
 
     int     getAccuracy() const {return _accuracy*100;}
     int     getExplosionRank() const {return _explosionRank;}
@@ -38,7 +38,7 @@ public:
 private:
     Zombie*   _target;
     double    _score, _combo, _accuracy, _hit, _total;
-    double    _angle, _targetDist, _recoil, _explosionRank;
+    double    _baseAngle, _angle, _targetDist, _recoil, _explosionRank;
     double    _sightRadius, _sightX, _sightY, _sightAngle;
     sf::Clock _sightClock;
     bool      _targetLocked;
