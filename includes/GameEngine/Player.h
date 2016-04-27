@@ -36,10 +36,12 @@ public:
     void draw(sf::RenderTarget* renderer, sf::RenderTarget* bloom);
 
 private:
-    Zombie* _target;
-    double  _score, _combo, _accuracy, _hit, _total;
-    double  _angle, _targetDist, _recoil, _explosionRank;
-    bool    _targetLocked;
+    Zombie*   _target;
+    double    _score, _combo, _accuracy, _hit, _total;
+    double    _angle, _targetDist, _recoil, _explosionRank;
+    double    _sightRadius, _sightX, _sightY, _sightAngle;
+    sf::Clock _sightClock;
+    bool      _targetLocked;
 
     std::list<FireExplosion> _explosions;
 };

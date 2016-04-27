@@ -24,6 +24,11 @@ Player::Player(double x, double y) :
     _static = true;
     _targetLocked = true;
     _explosionRank = 19;
+
+    _sightRadius = 0;
+    _sightX = _x;
+    _sightY = _y;
+    _sightAngle = 0;
 }
 
 bool Player::shoot(char c)
@@ -90,9 +95,10 @@ void Player::update()
     if (!_target)
         return;
 
-    if (!_target->getLife())
+    if (!_target->getWord().size())
     {
         _target = NULL;
+        _sightClock.restart();
         return;
     }
 
@@ -125,14 +131,6 @@ void Player::draw(sf::RenderTarget* renderer, sf::RenderTarget* bloom)
     turret.setPosition(_x-_recoil*cos(_angle), _y-_recoil*sin(_angle));
     turret.setRotation(_angle*57.2958+90);
 
-    /*int explosionRank = _explosionRank;
-    sf::Sprite fire(*texFire);
-    fire.setTextureRect(sf::IntRect(50*explosionRank, 0, 50, 128));
-    fire.setOrigin(26, 125);
-    fire.setPosition(_x+60*cos(_angle), _y+60*sin(_angle));
-    fire.setRotation(_angle*57.2958+90);
-    fire.setScale(0.9, 0.9);*/
-
     for (auto& expl : _explosions)
     {
         expl._sprite.setTextureRect(sf::IntRect(50*expl.getRank(), 0, 50, 128));
@@ -148,12 +146,9 @@ void Player::draw(sf::RenderTarget* renderer, sf::RenderTarget* bloom)
     if (_target)
     {
         double rTarget = _target->getR()+10;
-        sf::Vector2f posTarget(_target->getX(), _target->getY());
-        sf::CircleShape targetShape(rTarget);
-        targetShape.setOrigin(rTarget, rTarget);
-        targetShape.setPosition(posTarget);
-        targetShape.setFillColor(sf::Color::Green);
-        renderer->draw(targetShape);
+        _sightRadius += (rTarget-_sightRadius)/4.0;
+        _sightX += (_target->getX()-_sightX)/4.0;
+        _sightY += (_target->getY()-_sightY)/4.0;
 
         sf::VertexArray laser(sf::Lines, 2);
         laser[0].position = sf::Vector2f(_x, _y);
@@ -163,6 +158,28 @@ void Player::draw(sf::RenderTarget* renderer, sf::RenderTarget* bloom)
 
         renderer->draw(laser);
     }
+    else
+    {
+        if (_sightClock.getElapsedTime().asSeconds() >= 1)
+        {
+            _sightRadius += -_sightRadius/4.0;
+            _sightX += (_x-_sightX)/4.0;
+            _sightY += (_y-_sightY)/4.0;
+        }
+    }
+
+    _sightAngle += 0.05;
+
+    double smooth = 10;
+    sf::VertexArray targetShape(sf::LinesStrip, smooth+1);
+    for (int i(0); i<smooth+1; ++i)
+    {
+        double a = 3.14159*2/smooth*i;
+        targetShape[i].position = sf::Vector2f(_sightX+_sightRadius*cos(a+_sightAngle), _sightY+_sightRadius*sin(a+_sightAngle));
+        targetShape[i].color = sf::Color::Green;
+    }
+    renderer->draw(targetShape);
+    bloom->draw(targetShape);
 
     renderer->draw(base);
     renderer->draw(turret);

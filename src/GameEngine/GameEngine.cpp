@@ -49,23 +49,17 @@ void GameEngine::update()
     if (_paused)
         return;
 
-    if (_waveClock.getElapsedTime().asMilliseconds() >= _waveDelay)
+    auto zombies = _gameWorld.getZombies();
+    if (zombies.size() == 0)
     {
         _waves++;
-        int strength = rand()%7+1;
-        if (!(_waves%5))
-        {
-            strength = rand()%10+5;
-        }
-        addZombie(strength, rand()%_worldWidth, -strength*10, _player);
 
-        _waveDelay = 1000;
-        _waveClock.restart();
+        for (int i(0); i<_waves+10; ++i)
+            addZombie(3+_waves/2+rand()%2, rand()%_worldWidth, -rand()%1000, _player);
     }
 
     _wordZombiesMap.clear();
 
-    auto zombies = _gameWorld.getZombies();
     for (Zombie* &zomb : zombies)
     {
          _wordZombiesMap[zomb->getWord()[0]].push_back(zomb);
