@@ -118,7 +118,6 @@ void Player::draw(sf::RenderTarget* renderer, sf::RenderTarget* bloom)
 {
     const auto& texTurret = ResourceManager<Sprite>::instance().get("turret")->tex();
     const auto& texBase = ResourceManager<Sprite>::instance().get("base")->tex();
-    const auto& texFire = ResourceManager<Sprite>::instance().get("explosion")->tex();
 
     sf::Sprite base(*texBase);
     base.setOrigin(65, 72);
