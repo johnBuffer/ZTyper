@@ -52,5 +52,15 @@ json.o: ./src/json/jsoncpp.cpp
 Sprite.o: ./src/ResourceManager/Sprite.cpp
 	g++ -Wall -O2 -std=c++11 -c ./src/ResourceManager/Sprite.cpp -o ./obj/Sprite.o
 
+
+namegen: main_NameGenerator.o NameGenerator.o json.o
+	g++ ./obj/main_NameGenerator.o ./obj/NameGenerator.o ./obj/json.o -o ./bin/namegen
+
+main_NameGenerator.o: ./src/NameGenerator/main_NameGenerator.cpp
+	g++ -Wall -O2 -std=c++11 -c ./src/NameGenerator/main_NameGenerator.cpp -o ./obj/main_NameGenerator.o
+
+NameGenerator.o: ./src/NameGenerator/NameGenerator.cpp
+	g++ -Wall -O2 -std=c++11 -c ./src/NameGenerator/NameGenerator.cpp -o ./obj/NameGenerator.o
+
 clean:
 	rm ./obj/*.o
