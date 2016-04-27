@@ -15,14 +15,12 @@ int main()
     int windowHeight = 700;
 
     sf::ContextSettings settings;
-    settings.antialiasingLevel = 0;
+    settings.antialiasingLevel = 4;
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "ZTyper", sf::Style::Default, settings);
     window.setVerticalSyncEnabled(true);
     window.setMouseCursorVisible(false);
 
     GameEngine gameEngine(windowWidth, windowHeight);
-
-    //Player* player = gameEngine.addPlayer(windowWidth/2, windowHeight-100);
 
     sf::Texture heart;
     heart.loadFromFile("resources/textures/heart.png");

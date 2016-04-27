@@ -30,7 +30,7 @@ void GUI::draw(sf::RenderTarget* renderer)
 {
     sf::Texture* heartTex = ResourceManager<Sprite>::instance().get("heart")->tex();
     sf::Sprite heart(*heartTex); heart.setOrigin(25, 22);
-    for (int life(0); life<_player->getLifes(); ++life)
+    for (int life(0); life<_player->getLife(); ++life)
     {
         heart.setPosition(_width-29, _height-29*(life+1));
         renderer->draw(heart);

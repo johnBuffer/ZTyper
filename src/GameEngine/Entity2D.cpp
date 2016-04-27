@@ -16,7 +16,6 @@ Entity2D::Entity2D(double x, double y, double r) :
 
 Entity2D::~Entity2D()
 {
-
 }
 
 void Entity2D::move(double x, double y)

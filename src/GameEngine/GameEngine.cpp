@@ -11,12 +11,11 @@ GameEngine::GameEngine(int width, int height):
     _player(new Player(width/2, height-100)),
     _gui(_player, width, height)
 {
-    _phyManager = PhyManager();
     _waves = 0;
     _waveDelay = rand()%2;
     _paused = false;
     _gameWorld.addPlayer(_player);
-    _phyManager.addEntity(_player);
+//    _phyManager.addEntity(_player);
 
     ResourceManager<Sprite>::instance().loadAll();
 
@@ -53,14 +52,14 @@ void GameEngine::update()
     if (_waveClock.getElapsedTime().asMilliseconds() >= _waveDelay)
     {
         _waves++;
-        int strength = rand()%5+2;
-        if (!(_waves%15))
+        int strength = rand()%7+1;
+        if (!(_waves%5))
         {
             strength = rand()%10+5;
         }
         addZombie(strength, rand()%_worldWidth, -strength*10, _player);
 
-        _waveDelay = 2000;
+        _waveDelay = 1000;
         _waveClock.restart();
     }
 
@@ -69,15 +68,10 @@ void GameEngine::update()
     auto zombies = _gameWorld.getZombies();
     for (Zombie* &zomb : zombies)
     {
-        bool dead = !zomb->getLife();
-        if (dead)
-        { this->_phyManager.remove(zomb); }
-        else
-        { _wordZombiesMap[zomb->getWord()[0]].push_back(zomb); }
+         _wordZombiesMap[zomb->getWord()[0]].push_back(zomb);
     }
 
     _gameWorld.update();
-    _phyManager.update();
 }
 
 void GameEngine::addZombie(int strength, double x, double y, Entity2D* target)
@@ -88,16 +82,12 @@ void GameEngine::addZombie(int strength, double x, double y, Entity2D* target)
     newZombie->setTarget(target);
 
     _gameWorld.addZombie(newZombie);
-
-    _phyManager.addEntity(newZombie);
 }
 
 Player* GameEngine::addPlayer(double x, double y)
 {
     Player* newPlayer = new Player(x, y);
     _allies.push_back(newPlayer);
-    _phyManager.addEntity(newPlayer);
-
     _gameWorld.addPlayer(newPlayer);
 
     return newPlayer;

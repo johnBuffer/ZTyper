@@ -12,7 +12,7 @@ public:
     GameEngine(int width, int height);
 
     Player*   addPlayer(double x, double y);
-    bool      getGameStatus() const {return _player->getLifes() > 0;}
+    bool      getGameStatus() const {return _player->getLife() > 0;}
 
     void      pause();
     void      shoot(char c);
@@ -27,7 +27,6 @@ private:
     bool       _paused;
     int        _worldWidth;
     int        _worldHeight;
-    PhyManager _phyManager;
     GameWorld  _gameWorld;
     int        _waves;
     int        _waveDelay;

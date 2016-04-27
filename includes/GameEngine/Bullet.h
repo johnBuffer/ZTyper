@@ -18,9 +18,10 @@ public:
     void   draw(sf::RenderTarget* renderer, sf::RenderTarget* bloom);
 
 private:
-    double _vx, _vy, _speed;
-    double _distToTarget, _distFromOrigin, _targetRadius;
-    bool   _targetReached;
+    double    _vx, _vy, _speed;
+    double    _distToTarget, _distFromOrigin, _targetRadius;
+    bool      _targetReached;
+    Entity2D* _target;
 };
 
 #endif // BULLET_H_INCLUDED

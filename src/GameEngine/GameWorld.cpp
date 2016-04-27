@@ -35,14 +35,7 @@ GameWorld::GameWorld(int width, int height):
 
 void GameWorld::update()
 {
-    for (Player* &player : _players)
-    {
-        player->update();
-        if (!player->isTargetLocked())
-        {
-            _soundManager.addSound(_soundBuffers[2], 0.2f);
-        }
-    }
+    _phyManager.update();
 
     for (Bullet* &bullet : _bullets)
     {
@@ -52,6 +45,15 @@ void GameWorld::update()
             double radius = std::min(bullet->getTargetRadius()/1.0+1, 50.0);
             _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), radius));
             _soundManager.addSound(_soundBuffers[5], 0.1f);
+        }
+    }
+
+    for (Player* &player : _players)
+    {
+        player->update();
+        if (!player->isTargetLocked())
+        {
+            _soundManager.addSound(_soundBuffers[2], 0.2f);
         }
     }
 
@@ -67,6 +69,7 @@ void GameWorld::update()
         bool dead = !zomb->getLife();
         if (dead)
         {
+            _phyManager.remove(zomb);
             sf::Sprite blood(*texBlood);
             double w = blood.getGlobalBounds().width;
             blood.setOrigin(16, 47);
@@ -75,7 +78,6 @@ void GameWorld::update()
             blood.setPosition(zomb->getX(), zomb->getY());
             _ground.draw(blood);
             _explosions.push_front(Explosion(zomb->getX(), zomb->getY(), 40+rand()%10));
-
             _soundManager.addSound(_soundBuffers[4]);
         }
         else { zomb->update(); }
@@ -90,11 +92,13 @@ void GameWorld::update()
 void GameWorld::addPlayer(Player* &newPlayer)
 {
     _players.push_back(newPlayer);
+    _phyManager.addEntity(newPlayer);
 }
 
 void GameWorld::addZombie(Zombie* &newZombie)
 {
     _zombies.push_back(newZombie);
+    _phyManager.addEntity(newZombie);
 }
 
 void GameWorld::addBullet(Bullet* &newBullet)

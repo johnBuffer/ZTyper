@@ -8,6 +8,7 @@ PhyManager::PhyManager()
     _dt = 0.016;
 }
 
+
 // manage entities collisions
 void PhyManager::update()
 {

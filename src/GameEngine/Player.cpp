@@ -11,10 +11,10 @@ FireExplosion::FireExplosion(sf::Sprite sprite, double speed):
 
 Player::Player(double x, double y) :
     Entity2D(x, y, 30),
-    _lifes(3),
     _target(NULL),
     _angle(-3.14159/2.0)
 {
+    _life = 3;
     _score = 0;
     _combo = 0;
     _accuracy = 0;
@@ -73,8 +73,8 @@ bool Player::shoot(char c)
 
 void Player::onContact(Entity2D* e)
 {
-    _lifes--;
-    static_cast<Zombie*>(e)->kill();
+    _life--;
+    e->kill();
 }
 
 void Player::update()
@@ -83,9 +83,6 @@ void Player::update()
         expl._sheetRank+=expl._speed;
 
     _explosions.remove_if([](FireExplosion& e) {return e._sheetRank==20;});
-
-    /*if (_explosionRank < 19)
-        _explosionRank+=1;*/
 
     _recoil += -_recoil/2.0;
     _targetLocked = true;

@@ -14,6 +14,8 @@ Bullet::Bullet(double x, double y, Entity2D* target) :
     _speed = 25;
     _distFromOrigin = 0;
     _targetRadius = target->getR();
+
+    _target = target;
 }
 
 void Bullet::update()
@@ -27,7 +29,10 @@ void Bullet::update()
     _distFromOrigin += _speed;
 
     if (_distFromOrigin+_speed >= _distToTarget)
+    {
         _targetReached = true;
+        _target->addLife(-1);
+    }
 }
 
 void Bullet::draw(sf::RenderTarget* renderer, sf::RenderTarget* bloom)

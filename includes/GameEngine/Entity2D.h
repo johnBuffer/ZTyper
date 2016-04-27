@@ -18,6 +18,11 @@ public :
     double getY() const {return _y;}
     double getR() const {return _r;}
     double getDistWith(Entity2D& e);
+
+    int    getLife() {return _life;}
+    void   addLife(double d) {_life += d;}
+    void   kill() {_life = 0;}
+
     void   move(double x, double y);
     void   setPosition(double x, double y);
     void   updatePosition();
@@ -25,6 +30,7 @@ public :
     virtual void onContact(Entity2D*)=0;
 
 protected:
+    int _life;
     double _x, _y, _r;
     double _lastX, _lastY;
     double _ax, _ay;

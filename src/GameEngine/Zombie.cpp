@@ -5,7 +5,8 @@ Zombie::Zombie(std::string word, double x, double y, double r) :
     _target(NULL),
     _word(word)
 {
-    _speed = 1.0/double(word.size());
+    _life = word.size();
+    _speed = 4.0/double(word.size());
 }
 
 Zombie::~Zombie()
@@ -22,6 +23,7 @@ bool Zombie::shootNextLetter(char c)
     }
 
     return false;
+
 }
 
 void Zombie::update()

@@ -14,13 +14,13 @@ public:
     ~Zombie();
 
     bool        shootNextLetter(char c);
+    void        addLife(double d) {_life+=d;};
     Entity2D*   getTarget() const {return _target;}
     double      getTargetDist() const {return _targetDist;}
-    int         getLife() const {return _word.size();}
+    double      getLife() const {return _life;}
     std::string getWord() const {return _word;}
 
     void        setTarget(Entity2D* target) {_target = target;}
-    void        kill() {_word = "";}
     void        onContact(Entity2D*) {};
     void        update();
 

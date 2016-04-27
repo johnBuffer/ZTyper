@@ -37,6 +37,7 @@ private:
     std::map<char, std::list<Zombie*> > _wordZombiesMap;
     std::vector<sf::SoundBuffer>        _soundBuffers;
 
+    PhyManager        _phyManager;
     SoundManager      _soundManager;
     sf::Font          _font;
     sf::Text          _zombieText;
