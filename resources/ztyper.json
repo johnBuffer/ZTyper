@@ -64,6 +64,14 @@
 			"y": 0,
 			"width": 1024,
 			"height": 128
+		},
+		{
+			"name": "bullet",
+			"path": "textures/bullet.png",
+			"x": 0,
+			"y": 0,
+			"width": 235,
+			"height": 500
 		}
 	]
 }

@@ -5,6 +5,9 @@
 #include <cmath>
 #include <cstdlib>
 
+#include <SFML/Graphics.hpp>
+#include "../ResourceManager/ResourceManager.h"
+
 class Entity2D
 {
 public :

@@ -15,6 +15,7 @@ public:
 
     void   onContact(Entity2D*) {}
     void   update();
+    void   draw(sf::RenderTarget* renderer, sf::RenderTarget* bloom);
 
 private:
     double _vx, _vy, _speed;

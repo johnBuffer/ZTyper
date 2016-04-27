@@ -27,7 +27,6 @@ GameWorld::GameWorld(int width, int height):
     _blurV.loadFromFile("resources/shaders/blurv.frag", sf::Shader::Fragment);
 
     _soundBuffers[0].loadFromFile("resources/sounds/fire1.wav");
-    _soundBuffers[1].loadFromFile("resources/sounds/fire2.ogg");
     _soundBuffers[2].loadFromFile("resources/sounds/turret_rotate.wav");
     _soundBuffers[3].loadFromFile("resources/sounds/click.wav");
     _soundBuffers[4].loadFromFile("resources/sounds/plaf.wav");
@@ -41,7 +40,7 @@ void GameWorld::update()
         player->update();
         if (!player->isTargetLocked())
         {
-            _soundManager.addSound(_soundBuffers[2], 1.f);
+            _soundManager.addSound(_soundBuffers[2], 0.2f);
         }
     }
 
@@ -52,7 +51,7 @@ void GameWorld::update()
         {
             double radius = std::min(bullet->getTargetRadius()/1.0+1, 50.0);
             _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), radius));
-            _soundManager.addSound(_soundBuffers[5], 0.2f);
+            _soundManager.addSound(_soundBuffers[5], 0.1f);
         }
     }
 
@@ -102,7 +101,7 @@ void GameWorld::addBullet(Bullet* &newBullet)
 {
     _bullets.push_back(newBullet);
 
-    _soundManager.addSound(_soundBuffers[rand()%1], 0.5f);
+    _soundManager.addSound(_soundBuffers[rand()%1], .8f);
 }
 
 void GameWorld::shotMissed()
@@ -127,7 +126,7 @@ void GameWorld::draw(sf::RenderTarget* renderer)
     sf::Sprite ground(_ground.getTexture());
     renderer->draw(ground);
 
-    int bulletsCount = _bullets.size();
+    /*int bulletsCount = _bullets.size();
     int i(0);
     sf::VertexArray bulletsShape(sf::Lines, bulletsCount*2);
     for (Bullet* &bullet : _bullets)
@@ -140,62 +139,16 @@ void GameWorld::draw(sf::RenderTarget* renderer)
         i++;
     }
     _blurTexture.draw(bulletsShape);
-    renderer->draw(bulletsShape);
+    renderer->draw(bulletsShape);*/
 
-    const auto& texTurret = ResourceManager<Sprite>::instance().get("turret")->tex();
-    const auto& texBase = ResourceManager<Sprite>::instance().get("base")->tex();
-    const auto& texFire = ResourceManager<Sprite>::instance().get("explosion")->tex();
+    for (Bullet* &bullet : _bullets)
+    {
+        bullet->draw(renderer, &_blurTexture);
+    }
+
     for (Player* player : _players)
     {
-        sf::Vector2f pos(player->getX(), player->getY());
-        double playerAngle = player->getAngle();
-
-        sf::Sprite base(*texBase);
-        base.setOrigin(65, 72);
-        base.setScale(0.65, 0.65);
-        base.setPosition(pos.x, pos.y);
-
-        sf::Sprite turret(*texTurret);
-        turret.setOrigin(78, 245);
-        turret.setScale(0.35, 0.35);
-        turret.setPosition(pos.x-player->getRecoil()*cos(playerAngle), pos.y-player->getRecoil()*sin(playerAngle));
-        turret.setRotation(playerAngle*57.2958+90);
-
-        int explosionRank = player->getExplosionRank();
-        sf::Sprite fire(*texFire);
-        fire.setTextureRect(sf::IntRect(50*explosionRank, 0, 50, 128));
-        fire.setOrigin(26, 125);
-        fire.setPosition(pos.x+60*cos(playerAngle), pos.y+60*sin(playerAngle));
-        fire.setRotation(playerAngle*57.2958+90);
-        fire.setScale(0.9, 0.9);
-        renderer->draw(fire);
-
-        if (explosionRank < 6) _blurTexture.draw(fire);
-
-        if (player->getTarget())
-        {
-            double rTarget = player->getTarget()->getR()+10;
-            sf::Vector2f posTarget(player->getTarget()->getX(), player->getTarget()->getY());
-            sf::CircleShape targetShape(rTarget);
-            targetShape.setOrigin(rTarget, rTarget);
-            targetShape.setPosition(posTarget);
-            targetShape.setFillColor(sf::Color::Green);
-            renderer->draw(targetShape);
-
-            sf::VertexArray laser(sf::Lines, 2);
-            laser[0].position = pos;
-            laser[0].color = sf::Color::Red;
-
-            double targetDist = player->getTargetDist()*0.75;
-            double angle = player->getAngle();
-            laser[1].position = sf::Vector2f(pos.x+targetDist*cos(angle), pos.y+targetDist*sin(angle));
-            laser[1].color= sf::Color(255, 0, 0, 0);
-
-            renderer->draw(laser);
-        }
-
-        renderer->draw(base);
-        renderer->draw(turret);
+        player->draw(renderer, &_blurTexture);
     }
 
     for (Zombie* &zomb : _zombies)

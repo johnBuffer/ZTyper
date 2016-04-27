@@ -2,7 +2,16 @@
 #define PLAYER_H_INCLUDED
 
 #include "Entity2D.h"
+#include <list>
 #include "Zombie.h"
+
+struct FireExplosion
+{
+    FireExplosion(sf::Sprite sprite, double speed);
+    int getRank() const {return _sheetRank;}
+    sf::Sprite _sprite;
+    double _sheetRank, _speed;
+};
 
 class Player : public Entity2D
 {
@@ -26,12 +35,16 @@ public:
     void    onContact(Entity2D*);
     void    update();
 
+    void draw(sf::RenderTarget* renderer, sf::RenderTarget* bloom);
+
 private:
     int     _lifes;
     Zombie* _target;
     double  _score, _combo, _accuracy, _hit, _total;
     double  _angle, _targetDist, _recoil, _explosionRank;
     bool    _targetLocked;
+
+    std::list<FireExplosion> _explosions;
 };
 
 #endif // PLAYER_H_INCLUDED
