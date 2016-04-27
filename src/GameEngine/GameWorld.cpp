@@ -1,6 +1,5 @@
 #include "../../includes/GameEngine/GameWorld.h"
 #include "../../includes/ResourceManager/ResourceManager.h"
-#include "../../includes/GameEngine/shader.h"
 
 #include <iostream>
 
