@@ -120,7 +120,7 @@ void GameEngine::findTarget(char c)
         for (Zombie* &zomb : l)
         {
             double dist = _player->getDistWith(*zomb);
-            if (dist < minDist || minDist == -1)
+            if ((dist < minDist || minDist == -1) && zomb->getY() > -10)
             {
                 minDist = dist;
                 closestZombie = zomb;
@@ -128,7 +128,8 @@ void GameEngine::findTarget(char c)
         }
 
         _player->setTarget(closestZombie);
-        shoot(c);
+        if (closestZombie)
+            shoot(c);
     }
 }
 

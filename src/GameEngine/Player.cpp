@@ -177,7 +177,7 @@ void Player::draw(sf::RenderTarget* renderer, sf::RenderTarget* bloom)
     for (int i(0); i<smooth+1; ++i)
     {
         double a = 3.14159*2/smooth*i;
-        targetShape[i].position = sf::Vector2f(_sightX+_sightRadius*cos(a+_sightAngle), _sightY+0.75*_sightRadius*sin(a+_sightAngle));
+        targetShape[i].position = sf::Vector2f(_sightX+_sightRadius*cos(a+_sightAngle), _sightY+0.65*_sightRadius*sin(a+_sightAngle));
         targetShape[i].color = sf::Color::Green;
     }
     renderer->draw(targetShape);

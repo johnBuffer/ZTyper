@@ -227,8 +227,8 @@ activites
 actuel
 actuel
 actuels
-actuelle 
-actuelles 
+actuelle
+actuelles
 actuellement
 actuellement
 administration
@@ -781,8 +781,8 @@ apprise
 apprises
 apres
 apres
-apres midi
-apres midi
+apresmidi
+apresmidi
 arbre
 arbre
 arbres
@@ -3839,7 +3839,7 @@ estimes
 estimees
 et
 et
-and 
+and
 etablir
 etablir
 etablis
@@ -7226,8 +7226,8 @@ peuples
 peur
 peur
 peurs
-peut etre
-peut etre
+peutetre
+peutetre
 photo
 photo
 photo
@@ -8758,8 +8758,8 @@ rencontre
 rencontree
 rencontres
 rencontrees
-rendez vous
-rendez vous
+rendezvous
+rendezvous
 rendre
 rendre
 rends
