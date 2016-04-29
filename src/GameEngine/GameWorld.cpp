@@ -42,7 +42,7 @@ void GameWorld::update()
         if (bullet->isTargetReached())
         {
             double radius = std::min(bullet->getTargetRadius()/1.0+1, 50.0);
-            _explosions.push_front(Explosion(bullet->getX(), bullet->getY(), radius));
+            _explosions.push_front(Explosion(bullet->getX(), bullet->getY()-radius, radius));
             _soundManager.addSound(_soundBuffers[5], 0.1f);
         }
     }

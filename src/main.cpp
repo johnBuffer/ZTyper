@@ -17,7 +17,7 @@ int main()
     sf::ContextSettings settings;
     settings.antialiasingLevel = 4;
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "ZTyper", sf::Style::Default, settings);
-    window.setVerticalSyncEnabled(true);
+    window.setVerticalSyncEnabled(false);
     window.setMouseCursorVisible(false);
 
     GameEngine gameEngine(windowWidth, windowHeight);
