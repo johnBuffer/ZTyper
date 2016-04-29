@@ -21,10 +21,10 @@ public:
 	int y();
 	int width();
 	int height();
-	sf::Vector2f topRight();
-	sf::Vector2f topLeft();
-	sf::Vector2f botLeft();
-	sf::Vector2f botRight();
+	sf::Vector2f topRight(int i=0);
+	sf::Vector2f topLeft(int i=0);
+	sf::Vector2f botLeft(int i=0);
+	sf::Vector2f botRight(int i=0);
 	sf::Texture* tex() const;
 
 	static bool loadAll(std::vector< std::shared_ptr<Sprite> >* sprites);

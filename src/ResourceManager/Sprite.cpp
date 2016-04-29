@@ -38,11 +38,10 @@ int Sprite::width(){ return _width; }
 
 int Sprite::height() { return _height; }
 
-
-sf::Vector2f Sprite::topLeft() { return sf::Vector2f(_x, _y); }
-sf::Vector2f Sprite::topRight() { return sf::Vector2f(_x + _width, _y); }
-sf::Vector2f Sprite::botLeft() { return sf::Vector2f(_x, _y + _height); }
-sf::Vector2f Sprite::botRight() {return sf::Vector2f(_x + _width, _y + _height); }
+sf::Vector2f Sprite::topLeft(int i)  { return sf::Vector2f(_x+_width*i    , _y); }
+sf::Vector2f Sprite::topRight(int i) { return sf::Vector2f(_x+_width*(i+1), _y); }
+sf::Vector2f Sprite::botLeft(int i)  { return sf::Vector2f(_x+_width*i    , _y + _height); }
+sf::Vector2f Sprite::botRight(int i) { return sf::Vector2f(_x+_width*(i+1), _y + _height); }
 
 bool Sprite::loadTexture()
 {
@@ -50,9 +49,7 @@ bool Sprite::loadTexture()
 
 	_tex = new sf::Texture();
 
-	return (
-		_tex->loadFromFile("./resources/" + _path, sf::IntRect(_x, _y, _width, _height))
-	);
+	return (_tex->loadFromFile("./resources/" + _path));
 }
 
 sf::Texture* Sprite::tex() const

@@ -10,7 +10,7 @@ GameWorld::GameWorld(int width, int height):
     _font.loadFromFile("resources/fonts/font.ttf");
     _zombieText.setFont(_font);
     _zombieText.setCharacterSize(20);
-    _zombieText.setColor(sf::Color::Black);
+    _zombieText.setColor(sf::Color::White);
     _paused = false;
 
     _ground.create(_worldWidth, _worldHeight);
@@ -154,19 +154,20 @@ void GameWorld::draw(sf::RenderTarget* renderer)
         player->draw(renderer, &_blurTexture);
     }
 
+
+    _zombies.sort([](const Zombie* z1, const Zombie* z2) { return z1->getY() < z2->getY(); });
     for (Zombie* &zomb : _zombies)
     {
         sf::Vector2f pos(zomb->getX(), zomb->getY());
-        sf::CircleShape zombieShape(zomb->getR());
-        zombieShape.setOrigin(zomb->getR(), zomb->getR());
-        zombieShape.setPosition(pos);
+        zomb->draw(renderer, &_blurTexture);
+
 
         _zombieText.setString(zomb->getWord());
         double w = _zombieText.getGlobalBounds().width;
-        _zombieText.setPosition(pos.x-w/2.0, pos.y-10);
+        _zombieText.setPosition(pos.x-w/2.0, pos.y+10);
 
-        renderer->draw(zombieShape);
         renderer->draw(_zombieText);
+        _blurTexture.draw(_zombieText);
     }
 
     for (Explosion& expl : _explosions) { expl.draw(renderer); }

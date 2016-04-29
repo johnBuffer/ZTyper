@@ -18,15 +18,18 @@ public:
     Entity2D*   getTarget() const {return _target;}
     double      getTargetDist() const {return _targetDist;}
     double      getLife() const {return _life;}
+    int         getSheetRank() const {return _sheetRank;}
     std::string getWord() const {return _word;}
 
     void        setTarget(Entity2D* target) {_target = target;}
     void        onContact(Entity2D*) {};
     void        update();
+    void        draw(sf::RenderTarget* renderer, sf::RenderTarget* bloom);
 
 private:
     Entity2D*   _target;
-    double      _targetDist, _speed;
+    int         _type;
+    double      _targetDist, _speed, _sheetRank;
     std::string _word;
 
 };

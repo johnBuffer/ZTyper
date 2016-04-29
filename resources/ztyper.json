@@ -2,30 +2,6 @@
 	"name": "resources",
 	"sprites": [
 		{
-			"name": "zombie_1",
-			"path": "textures/zombie.png",
-			"x": 20,
-			"y": 50,
-			"width": 128,
-			"height": 164
-		},
-		{
-			"name": "zombie_2",
-			"path": "textures/zombie.png",
-			"x": 180,
-			"y": 50,
-			"width": 128,
-			"height": 164
-		},
-		{
-			"name": "zombie_3",
-			"path": "textures/zombie.png",
-			"x": 337,
-			"y": 52,
-			"width": 128,
-			"height": 164
-		},
-		{
 			"name": "blood",
 			"path": "textures/blood.png",
 			"x": 0,
@@ -72,6 +48,38 @@
 			"y": 0,
 			"width": 235,
 			"height": 500
+		},
+		{
+			"name": "zombie1",
+			"path": "textures/zombie.png",
+			"x": 0,
+			"y": 0,
+			"width": 32,
+			"height": 32
+		},
+		{
+			"name": "zombie2",
+			"path": "textures/zombie.png",
+			"x": 0,
+			"y": 32,
+			"width": 32,
+			"height": 32
+		},
+		{
+			"name": "zombie3",
+			"path": "textures/zombie.png",
+			"x": 0,
+			"y": 64,
+			"width": 32,
+			"height": 32
+		},
+		{
+			"name": "zombie4",
+			"path": "textures/zombie.png",
+			"x": 0,
+			"y": 96,
+			"width": 32,
+			"height": 32
 		}
 	]
 }

@@ -80,6 +80,8 @@ void Player::onContact(Entity2D* e)
 {
     _life--;
     e->kill();
+    if (_target == e)
+        _target = NULL;
 }
 
 void Player::update()
@@ -121,7 +123,7 @@ void Player::draw(sf::RenderTarget* renderer, sf::RenderTarget* bloom)
 
     sf::Sprite base(*texBase);
     base.setOrigin(65, 72);
-    base.setScale(0.65, 0.65);
+    base.setScale(0.5, 0.5);
     base.setPosition(_x, _y);
 
     sf::Sprite turret(*texTurret);
@@ -156,6 +158,7 @@ void Player::draw(sf::RenderTarget* renderer, sf::RenderTarget* bloom)
         laser[1].color= sf::Color(255, 0, 0, 0);
 
         renderer->draw(laser);
+        bloom->draw(laser);
     }
     else
     {
@@ -174,7 +177,7 @@ void Player::draw(sf::RenderTarget* renderer, sf::RenderTarget* bloom)
     for (int i(0); i<smooth+1; ++i)
     {
         double a = 3.14159*2/smooth*i;
-        targetShape[i].position = sf::Vector2f(_sightX+_sightRadius*cos(a+_sightAngle), _sightY+_sightRadius*sin(a+_sightAngle));
+        targetShape[i].position = sf::Vector2f(_sightX+_sightRadius*cos(a+_sightAngle), _sightY+0.75*_sightRadius*sin(a+_sightAngle));
         targetShape[i].color = sf::Color::Green;
     }
     renderer->draw(targetShape);

@@ -55,7 +55,7 @@ void GameEngine::update()
         _waves++;
 
         for (int i(0); i<_waves+10; ++i)
-            addZombie(3+_waves/2+rand()%2, rand()%_worldWidth, -rand()%1000, _player);
+            addZombie(3+rand()%(2+_waves/2), rand()%_worldWidth*2-_worldWidth+_worldWidth/2, -rand()%500, _player);
     }
 
     _wordZombiesMap.clear();
